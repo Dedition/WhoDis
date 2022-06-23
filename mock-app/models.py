@@ -45,6 +45,7 @@ class Server(db.Model):
     created_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
 
+
 #! JOIN TABLE
 server_users = db.Table(
     "server_users",
@@ -52,3 +53,5 @@ server_users = db.Table(
     db.Column("user_id", db.ForeignKey("users.id"), primary_key=True),
     db.Column("server_id", db.ForeignKey("servers.id"), primary_key=True)
 )
+
+# ONLY MOCK DAT
