@@ -10,8 +10,9 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
-    hashed_password = db.Column(db.String, nullable=False)
+    bio = db.Column(db.String(180), nullable=True)
     profile_pic_url = db.Column(db.String, nullable=True)
+    hashed_password = db.Column(db.String, nullable=False)
     created_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
 
@@ -74,8 +75,6 @@ class Channel(db.Model):
     name = db.Column(db.String(50), nullable=False)
     server_id = db.Column(db.Integer, db.ForeignKey(
         "servers.id"), nullable=False)
-    server_owner_id = db.Column(db.Integer, db.ForeignKey(
-        "servers.owner_id"), nullable=False)
     created_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
 
@@ -92,14 +91,24 @@ class ChannelMessage(db.Model):
     updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
 
 
+class DMServer(db.Model):
+    __tablename__ = 'dm_servers'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user1_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    user2_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    created_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
+    updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
+
+
 class DirectMessage(db.Model):
     __tablename__ = "direct_messages"
 
     id = db.Column(db.Integer, primary_key=True)
     sender_id = db.Column(db.Integer, db.ForeignKey(
         "users.id"), nullable=False)
-    receiver_id = db.Column(db.Integer, db.ForeignKey(
-        "users.id"), nullable=False)
+    chat_id = db.Column(db.Integer, db.ForeignKey(
+        "dm_servers.id"), nullable=False)
     content = db.Column(db.Text, nullable=False)
     time_sent = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     time_edited = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
@@ -110,8 +119,7 @@ class Friends(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     status = db.Column(db.Boolean, default=False)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    friend_id = db.Column(
-        db.Integer, db.ForeignKey("users.id"), nullable=False)
+    user1_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    user2_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     created_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)

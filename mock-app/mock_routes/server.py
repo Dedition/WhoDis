@@ -36,6 +36,6 @@ def update_server(serverId):
 
 
 @server.route('/<int:id>', methods=["DELETE"])
-def delete_channel(id):
+def delete_server(id):
     db.session.delete(id)
     pass

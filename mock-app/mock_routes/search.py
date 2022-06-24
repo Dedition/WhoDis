@@ -20,7 +20,6 @@ def search_for_user(names):
 def search_for_servers(names):
     # TODO Search for a server by name
     servers = Server.query.filter(Server.name.ilike("%{}%").format(name)).all()
-
     return jsonify(servers)
     pass
 
