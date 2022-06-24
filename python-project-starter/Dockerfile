@@ -9,7 +9,7 @@ ENV FLASK_APP=app
 # FLASK_ENV -> Tell flask to use the production server
 ENV FLASK_ENV=production
 # SQLALCHEMY_ECHO -> Just set it to true
-ENV SQLALCHEMY_ECHO=true
+ENV SQLALCHEMY_ECHO=True
 
 # Set the directory for upcoming commands to /var/www
 WORKDIR /var/www
