@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+# from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
 
@@ -7,7 +8,7 @@ class User(db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50), nullable=False)
+    username = db.Column(db.String(50), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String, nullable=False)
     profile_pic_url = db.Column(db.String, nullable=True)
@@ -15,12 +16,21 @@ class User(db.Model):
     updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
 
     @staticmethod
-    def generate_password_hash():
+    def generate_password_hash(self, password):
         # TODO Create a method that generates a hashed password
+        return
+        pass
+
+    @staticmethod
+    def check_password_hash(self, password):
+        # TODO Create a method that cheeck a hashed password
+        return
+        pass
 
     @property
     def password(self):
         return self.hashed_password
+    pass
 
     @password.setter
     def password(self, password):
@@ -39,9 +49,11 @@ class Server(db.Model):
     name = db.Column(db.String(50), nullable=False)
     banner_url = db.Column(db.String, nullable=True)
     server_icon_url = db.Column(db.String, nullable=True)
-    dm_channel = db.Column(db.Boolean, nullable=True)
-    owner_id = db.Column(db.Integer, nullable=True)
-    public = db.Column(db.Boolean, nullable=True)
+    # ! We don't need 'nullable=False' here because we are using the default value
+    dm_channel = db.Column(db.Boolean, default=False)
+    owner_id = db.Column(db.Integer, db.ForeignKey(
+        'users.id'), nullable=True, )
+    public = db.Column(db.Boolean, nullable=False)
     created_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
 
@@ -49,9 +61,57 @@ class Server(db.Model):
 #! JOIN TABLE
 server_users = db.Table(
     "server_users",
-    db.Model.metadata,  # db.Base.metadata
+    db.Model.metadata,  # ! db.Base.metadata
     db.Column("user_id", db.ForeignKey("users.id"), primary_key=True),
     db.Column("server_id", db.ForeignKey("servers.id"), primary_key=True)
 )
 
-# ONLY MOCK DAT
+
+class Channel(db.Model):
+    __tablename__ = 'channels'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    server_id = db.Column(db.Integer, db.ForeignKey(
+        "servers.id"), nullable=False)
+    server_owner_id = db.Column(db.Integer, db.ForeignKey(
+        "servers.owner_id"), nullable=False)
+    created_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
+    updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
+
+
+class ChannelMessage(db.Model):
+    __tablename__ = 'channel_messages'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    channel_id = db.Column(db.Integer, db.ForeignKey(
+        "channel.id"), nullable=False)
+    created_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
+    updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
+
+
+class DirectMessage(db.Model):
+    __tablename__ = "direct_messages"
+
+    id = db.Column(db.Integer, primary_key=True)
+    sender_id = db.Column(db.Integer, db.ForeignKey(
+        "users.id"), nullable=False)
+    receiver_id = db.Column(db.Integer, db.ForeignKey(
+        "users.id"), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    time_sent = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
+    time_edited = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
+
+
+class Friends(db.Model):
+    __tablename__ = "friends"
+
+    id = db.Column(db.Integer, primary_key=True)
+    status = db.Column(db.Boolean, default=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    friend_id = db.Column(
+        db.Integer, db.ForeignKey("users.id"), nullable=False)
+    created_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
+    updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
