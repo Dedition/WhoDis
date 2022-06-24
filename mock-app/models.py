@@ -4,6 +4,16 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 
+#! JOIN TABLE START
+server_users = db.Table(
+    "server_users",
+    db.Model.metadata,  # ! db.Base.metadata
+    db.Column("user_id", db.ForeignKey("users.id"), primary_key=True),
+    db.Column("server_id", db.ForeignKey("servers.id"), primary_key=True)
+)
+#! JOIN TABLE END
+
+
 class User(db.Model):
     __tablename__ = 'users'
 
@@ -15,6 +25,11 @@ class User(db.Model):
     hashed_password = db.Column(db.String, nullable=False)
     created_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
+    # * Database relationship
+    servers = db.relationship(
+        'Server', secondary=server_users, back_populates="users", lazy=True, cascade="all, delete")
+    server_owners = db.relationship(
+        'Server', back_populates="user_owner", lazy=True, cascade="all, delete")
 
     @staticmethod
     def generate_password_hash(self, password):
@@ -57,15 +72,13 @@ class Server(db.Model):
     public = db.Column(db.Boolean, nullable=False)
     created_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
-
-
-#! JOIN TABLE
-server_users = db.Table(
-    "server_users",
-    db.Model.metadata,  # ! db.Base.metadata
-    db.Column("user_id", db.ForeignKey("users.id"), primary_key=True),
-    db.Column("server_id", db.ForeignKey("servers.id"), primary_key=True)
-)
+    # * Database relationship
+    users = db.relationship(
+        'User', secondary=server_users, back_populates="servers", lazy=True)
+    user_owner = db.relationship(
+        'User', back_populates="server_owners", lazy=True)
+    channels = db.relationship(
+        'Channel', back_populates="server", lazy=True, cascade="all, delete")
 
 
 class Channel(db.Model):
@@ -77,6 +90,9 @@ class Channel(db.Model):
         "servers.id"), nullable=False)
     created_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
+    # * Database relationship
+    server = db.relationship(
+        'Server', back_populates="channels", lazy=True)
 
 
 class ChannelMessage(db.Model):
