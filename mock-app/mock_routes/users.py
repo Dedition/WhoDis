@@ -3,18 +3,6 @@ from flask import Blueprint, request
 users_routes = Blueprint('users', __name__, url_prefix="/users")
 
 
-def search_for_user(name):
-    # TODO Search for a user by name
-    # users = User.query.get.all()
-    users = User.query.filter(User.name.ilike("%{}%").format(name)).all()
-
-    #! Alternative method start
-    # ? filtered_users = [user for user in users]
-    # ? return filtered_users
-    #! Alternative method end
-    pass
-
-
 @users_routes.route('/<int:id>', methods=["GET"])
 def get_users_by_id(id):
     user = User.query.get(id)
