@@ -53,3 +53,4 @@ def search_for_friends(friends):
     # TODO Check to see if the users_id matches with the session_id
     # TODO If so, check if the users.status with {}.format(friend) == True
     # TODO Return jsonify(friends)
+    pass
