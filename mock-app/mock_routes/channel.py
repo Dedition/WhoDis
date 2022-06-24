@@ -27,10 +27,10 @@ def create_channels():
     pass
 
 
-@channel_routes.route('/<int:id>', methods=['GET'])
+@channel_routes.route('/<int:id>', methods=["GET"])
 def get_channel_by_id(id):
     # * Import "Channel" migration class from .db
-    # * channel = Channel.query.get(id)
+    channel = Channel.query.get(id)
 
     #! Alternative method start
     # ? args = request.args
