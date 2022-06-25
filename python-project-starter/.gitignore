@@ -1,8 +1,0 @@
-.env
-__pycache__/
-*.py[cod]
-.env
-psql.cmd
-.venv
-.DS_Store
-.vscode/
