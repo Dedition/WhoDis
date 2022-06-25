@@ -107,3 +107,23 @@ export default function reducer(state = initialState, action) {
       return state;
   }
 }
+
+
+export const demo = (email, password) => async (dispatch) => {
+  email = "demo@aa.io";
+  password = "password";
+  const response = await fetch('/api/auth/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      email,
+      password
+    })
+  });
+  
+    const data = await response.json();
+    dispatch(setUser(data))
+    return response;
+}
