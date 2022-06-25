@@ -1,3 +1,4 @@
+from turtle import back
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -19,15 +20,36 @@ class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(40), nullable=False, unique=True)
+    username = db.Column(db.String(50), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
-    hashed_password = db.Column(db.String(255), nullable=False)
+    bio = db.Column(db.String(180), nullable=True)
+    profile_pic_url = db.Column(db.String, nullable=True)
+    hashed_password = db.Column(db.String, nullable=False)
+    created_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
+    updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
+    # * Database relationship
+    servers = db.relationship(
+        'Server', secondary=server_users, back_populates="users", cascade="all, delete")
+    server_owners = db.relationship(
+        'Server', back_populates="user_owner", cascade="all, delete")
+    channel_messages = db.relationship(
+        'ChannelMessage', back_populates='users', cascade="all, delete")
+    dm_server1 = db.relationship(
+        'DMServer', back_populates='users_1', cascade="all, delete")
+    dm_server2 = db.relationship(
+        'DMServer', back_populates='users_2', cascade="all, delete")
+    direct_messages = db.relationship(
+        'DirectMessage', back_populates='users', cascade="all, delete")
+    friend_1 = db.relationship(
+        'Friend', back_populates='user_1', cascade="all, delete")
+    friend_2 = db.relationship(
+        'Friend', back_populates='user_2', cascade="all, delete")
 
-    @property
+    @ property
     def password(self):
         return self.hashed_password
 
-    @password.setter
+    @ password.setter
     def password(self, password):
         self.hashed_password = generate_password_hash(password)
 
@@ -58,11 +80,11 @@ class Server(db.Model):
     updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     # * Database relationship
     users = db.relationship(
-        'User', secondary=server_users, back_populates="servers", lazy=True)
+        'User', secondary=server_users, back_populates="servers")
     user_owner = db.relationship(
-        'User', back_populates="server_owners", lazy=True)
+        'User', back_populates="server_owners")
     channels = db.relationship(
-        'Channel', back_populates="server", lazy=True, cascade="all, delete")
+        'Channel', back_populates="server", cascade="all, delete")
 
 
 class Channel(db.Model):
@@ -75,8 +97,9 @@ class Channel(db.Model):
     created_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     # * Database relationship
-    server = db.relationship(
-        'Server', back_populates="channels", lazy=True)
+    server = db.relationship('Server', back_populates="channels")
+    channel_messages = db.relationship(
+        'ChannelMessage', back_populates='channels', cascade="all, delete")
 
 
 class ChannelMessage(db.Model):
@@ -89,6 +112,9 @@ class ChannelMessage(db.Model):
         "channel.id"), nullable=False)
     created_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
+    # * Database relationship
+    channels = db.relationship('Channel', back_populates='channel_messages')
+    users = db.relationship('User', back_populates='channel_messages')
 
 
 class DMServer(db.Model):
@@ -99,6 +125,12 @@ class DMServer(db.Model):
     user2_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     created_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
+    # * Database relationship
+    users_1 = db.relationship('User', back_populates='dm_server1')
+    #! We may not need a second one
+    users_2 = db.relationship('User', back_populates='dm_server2')
+    direct_messages = db.relationship(
+        'DirectMessage', back_populates='dm_servers', cascade='all, delete')
 
 
 class DirectMessage(db.Model):
@@ -112,9 +144,12 @@ class DirectMessage(db.Model):
     content = db.Column(db.Text, nullable=False)
     time_sent = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     time_edited = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
+    # * Database relationship
+    dm_servers = db.relationship('DMServer', back_populates='direct_messages')
+    users = db.relationship('User', back_populates='direct_messages')
 
 
-class Friends(db.Model):
+class Friend(db.Model):
     __tablename__ = "friends"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -123,3 +158,6 @@ class Friends(db.Model):
     user2_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     created_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
+    # * Database relationship
+    user_1 = db.relationship('User', back_populates="friend_1")
+    user_2 = db.relationship('User', back_populates="friend_2")
