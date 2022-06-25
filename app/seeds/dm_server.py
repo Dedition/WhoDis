@@ -22,5 +22,5 @@ def seed_dm_server():
 
 
 def undo_seed_dm_server():
-    db.session.execute('TRUNCATE channels RESTART IDENTITY CASCADE;')
+    db.session.execute('TRUNCATE dm_servers RESTART IDENTITY CASCADE;')
     db.session.commit()

@@ -26,5 +26,5 @@ def seed_friends():
 
 
 def undo_seed_friend():
-    db.session.execute('TRUNCATE friends RESTART IDENTITY')
+    db.session.execute('TRUNCATE friends RESTART IDENTITY CASCADE;')
     db.session.commit()

@@ -5,12 +5,13 @@ from flask_login import UserMixin
 
 db = SQLAlchemy()
 
+
 #! JOIN TABLE START
 server_users = db.Table(
     "server_users",
     db.Model.metadata,  # ! db.Base.metadata
-    db.Column("user_id", db.ForeignKey("users.id"), primary_key=True),
-    db.Column("server_id", db.ForeignKey("servers.id"), primary_key=True)
+    db.Column("user_id", db.ForeignKey("users.id")),
+    db.Column("server_id", db.ForeignKey("servers.id"))
 )
 #! JOIN TABLE END
 
