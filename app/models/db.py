@@ -1,4 +1,3 @@
-from turtle import back
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -25,8 +24,8 @@ class User(db.Model, UserMixin):
     bio = db.Column(db.String(180), nullable=True)
     profile_pic_url = db.Column(db.String, nullable=True)
     hashed_password = db.Column(db.String, nullable=False)
-    created_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
-    updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
+    created_at = db.Column(db.TIMESTAMP(timezone=False))
+    updated_at = db.Column(db.TIMESTAMP(timezone=False))
     # * Database relationship
     servers = db.relationship(
         'Server', secondary=server_users, back_populates="users", cascade="all, delete")
@@ -34,16 +33,20 @@ class User(db.Model, UserMixin):
         'Server', back_populates="user_owner", cascade="all, delete")
     channel_messages = db.relationship(
         'ChannelMessage', back_populates='users', cascade="all, delete")
+    # dm_server = db.relationship(
+    #     'DMServer', back_populates='users_1', cascade="all, delete")
+    # dm_server = db.relationship(
+    #     'DMServer', back_populates='users_2', cascade="all, delete")
     dm_server1 = db.relationship(
-        'DMServer', back_populates='users_1', cascade="all, delete")
+        'DMServer', back_populates='users_1', cascade="all, delete", foreign_keys='DMServer.user1_id')
     dm_server2 = db.relationship(
-        'DMServer', back_populates='users_2', cascade="all, delete")
+        'DMServer', back_populates='users_2', cascade="all, delete", foreign_keys='DMServer.user2_id')
     direct_messages = db.relationship(
         'DirectMessage', back_populates='users', cascade="all, delete")
     friend_1 = db.relationship(
-        'Friend', back_populates='user_1', cascade="all, delete")
+        'Friend', back_populates='user_1', cascade="all, delete", foreign_keys='Friend.user1_id')
     friend_2 = db.relationship(
-        'Friend', back_populates='user_2', cascade="all, delete")
+        'Friend', back_populates='user_2', cascade="all, delete", foreign_keys='Friend.user2_id')
 
     @ property
     def password(self):
@@ -60,7 +63,11 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'bio': self.bio,
+            'profile_pic_url': self.profile_pic_url,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
         }
 
 
@@ -109,7 +116,7 @@ class ChannelMessage(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     content = db.Column(db.Text, nullable=False)
     channel_id = db.Column(db.Integer, db.ForeignKey(
-        "channel.id"), nullable=False)
+        "channels.id"), nullable=False)
     created_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     # * Database relationship
@@ -126,9 +133,11 @@ class DMServer(db.Model):
     created_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     # * Database relationship
-    users_1 = db.relationship('User', back_populates='dm_server1')
+    users_1 = db.relationship(
+        'User', back_populates='dm_server1', foreign_keys='DMServer.user1_id')
     #! We may not need a second one
-    users_2 = db.relationship('User', back_populates='dm_server2')
+    users_2 = db.relationship(
+        'User', back_populates='dm_server2', foreign_keys='DMServer.user2_id')
     direct_messages = db.relationship(
         'DirectMessage', back_populates='dm_servers', cascade='all, delete')
 
@@ -159,5 +168,7 @@ class Friend(db.Model):
     created_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     # * Database relationship
-    user_1 = db.relationship('User', back_populates="friend_1")
-    user_2 = db.relationship('User', back_populates="friend_2")
+    user_1 = db.relationship(
+        'User', back_populates="friend_1", foreign_keys='Friend.user1_id')
+    user_2 = db.relationship(
+        'User', back_populates="friend_2", foreign_keys='Friend.user2_id')
