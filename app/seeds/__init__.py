@@ -1,5 +1,9 @@
+from app.seeds.channel_messages import seed_channels_messages, undo_seed_channels_messages
 from app.seeds.channel import seed_channels, undo_seed_channels
+from app.seeds.direct_messages import seed_direct_messages, undo_seed_direct_messages
+from app.seeds.friends import seed_friends, undo_seed_friend
 from app.seeds.servers import seed_servers, undo_seed_servers
+from app.seeds.dm_server import seed_dm_server, undo_seed_dm_server
 from flask.cli import AppGroup
 from .users import seed_users, undo_users
 
@@ -15,6 +19,10 @@ def seed():
     # Add other seed functions here
     seed_servers()
     seed_channels()
+    seed_channels_messages()
+    seed_friends()
+    seed_dm_server()
+    seed_direct_messages()
 
 
 # Creates the `flask seed undo` command
@@ -24,3 +32,7 @@ def undo():
     # Add other undo functions here
     undo_seed_servers()
     undo_seed_channels()
+    undo_seed_channels_messages()
+    undo_seed_friend()
+    undo_seed_dm_server()
+    undo_seed_direct_messages()
