@@ -94,6 +94,19 @@ class Server(db.Model):
     channels = db.relationship(
         'Channel', back_populates="server", cascade="all, delete")
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'banner_url': self.banner_url,
+            'server_icon_url': self.server_icon_url,
+            'dm_channel': self.dm_channel,
+            'owner_id': self.owner_id,
+            'public': self.public,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
+        }
+
 
 class Channel(db.Model):
     __tablename__ = 'channels'
@@ -109,6 +122,15 @@ class Channel(db.Model):
     channel_messages = db.relationship(
         'ChannelMessage', back_populates='channels', cascade="all, delete")
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'server_id': self.server_id,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
+        }
+
 
 class ChannelMessage(db.Model):
     __tablename__ = 'channel_messages'
@@ -123,6 +145,16 @@ class ChannelMessage(db.Model):
     # * Database relationship
     channels = db.relationship('Channel', back_populates='channel_messages')
     users = db.relationship('User', back_populates='channel_messages')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'content': self.content,
+            'channel_id': self.channel_id,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
+        }
 
 
 class DMServer(db.Model):
@@ -142,6 +174,15 @@ class DMServer(db.Model):
     direct_messages = db.relationship(
         'DirectMessage', back_populates='dm_servers', cascade='all, delete')
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user1_id': self.user1_id,
+            'user2_id': self.user2_id,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
+        }
+
 
 class DirectMessage(db.Model):
     __tablename__ = "direct_messages"
@@ -158,6 +199,16 @@ class DirectMessage(db.Model):
     dm_servers = db.relationship('DMServer', back_populates='direct_messages')
     users = db.relationship('User', back_populates='direct_messages')
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'sender_id': self.sender_id,
+            'chat_id': self.chat_id,
+            'content': self.content,
+            'time_sent': self.time_sent,
+            'time_edited': self.time_edited
+        }
+
 
 class Friend(db.Model):
     __tablename__ = "friends"
@@ -173,3 +224,13 @@ class Friend(db.Model):
         'User', back_populates="friend_1", foreign_keys='Friend.user1_id')
     user_2 = db.relationship(
         'User', back_populates="friend_2", foreign_keys='Friend.user2_id')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'status': self.status,
+            'user1_id': self.user1_id,
+            'user2_id': self.user2_id,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
+        }
