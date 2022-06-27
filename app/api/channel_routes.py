@@ -33,7 +33,7 @@ def create_channel(userId):
 
 
 @channel_routes.route('/', methods=["GET"])
-def all_channels():
+def all_channels(channelId):
     # * This query returns a non-Pythonic list of all channels
     channels = Channel.query.all()
     # * This returns a key/val pair of channels in JSON format

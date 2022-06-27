@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from flask_login import login_required
+from flask_login import login_required, current_user
 from ..models.db import Server, db, User
 from ..forms.server_form import ServerForm
 
@@ -25,11 +25,7 @@ def error_messages(validation_errors):
 
 @server_routes.route('/', methods=["POST"])
 @login_required
-def create_server(userId):
-    user = User.query.get(userId)
-    if not user:
-        return {'errors': f"No user with id number {userId} exists"}, 404
-    else:
+def create_server():
         form = ServerForm()
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
@@ -37,7 +33,8 @@ def create_server(userId):
                             banner_url=form.data['banner_url'],
                             server_icon_url=form.data['server_icon_url'],
                             dm_channel=form.data['dm_channel'],
-                            public=form.data['public'])
+                            public=form.data['public'],
+                            owner_id=current_user.id)
 
             db.session.add(server)
             db.session.commit()
@@ -93,4 +90,4 @@ def delete_server(serverId):
     server = Server.query.get(serverId)
     db.session.delete(server)
     db.session.commit()
-    return f"Server {serverId} has been deleted!"
+    return {"id": {serverId}}
