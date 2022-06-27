@@ -6,9 +6,6 @@ from flask_login import UserMixin
 db = SQLAlchemy()
 
 
-<<<<<<< HEAD
-
-=======
 #! JOIN TABLE START
 server_users = db.Table(
     "server_users",
@@ -237,4 +234,3 @@ class Friend(db.Model):
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }
->>>>>>> main
