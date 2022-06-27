@@ -12,15 +12,14 @@ channel_routes = Blueprint('channel', __name__, url_prefix="/channels")
 
 
 @channel_routes('/', methods=["POST"])
-def create_channel(userId):
-    user = User.query.get(userId)
-    if not user:
-        return {'errors': f"No user with id number {userId} exists"}, 404
-    else:
+def create_channel():
+    # user = User.query.get(userId)
+        params = request.get_json()
+        server_id = params['server_id']
         form = ChannelForm()
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
-            channel = Channel(name=form.data['name'])
+            channel = Channel(name=form.data['name'], server_id=server_id)
             db.session.add(channel)
             db.session.commit()
             return channel.to_dict(), 201
@@ -31,11 +30,11 @@ def create_channel(userId):
 # *                                   READ
 # TODO ——————————————————————————————————————————————————————————————————————————————————
 
-
-@channel_routes.route('/', methods=["GET"])
-def all_channels(channelId):
+# The reason we include a server_id parameter, is so that we only get the channels that belong to a specific server. 
+@channel_routes.route('/<int:server_id>', methods=["GET"])
+def all_channels(server_id):
     # * This query returns a non-Pythonic list of all channels
-    channels = Channel.query.all()
+    channels = Channel.query.filter_by(server_id=server_id)
     # * This returns a key/val pair of channels in JSON format
     return {'channels': [channel.to_dict() for channel in channels]}
 
