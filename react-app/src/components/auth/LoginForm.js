@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect, useHistory, NavLink } from 'react-router-dom';
 import { login, demo } from '../../store/session';
+import "./auth.css"
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -28,54 +29,65 @@ const LoginForm = () => {
   };
 
   if (user) {
-    return <Redirect to='/users' />;
+    return <Redirect to='/' />;
   }
 
+  // Created a Demo login feature - Sona
   const demoSubmit = (e) => {
     e.preventDefault();
-   
-    history.push("/users");
+    history.push("/");
     return dispatch(demo(email, password));
   };
 
   return (
-    <div>
-      <form onSubmit={onLogin}>
-        <div>
-          {errors.map((error, ind) => (
-            <div key={ind}>{error}</div>
-          ))}
-        </div>
-        <div>
-          <label htmlFor='email'>Email</label>
-          <input
-            name='email'
-            type='text'
-            placeholder='Email'
-            value={email}
-            onChange={updateEmail}
-          />
-        </div>
-        <div>
-          <label htmlFor='password'>Password</label>
-          <input
-            name='password'
-            type='password'
-            placeholder='Password'
-            value={password}
-            onChange={updatePassword}
-          />
-          <button type='submit'>Login</button>
-          <div>
-            <p>or</p>
+    <div className='authenticate-class'>
+      <div className='auth-form-div'>
+        <h1>Welcome Back!</h1>
+        <form onSubmit={onLogin}>
+          <div className='auth-errors'>
+            {errors.map((error, ind) => (
+              <div key={ind}>{error}</div>
+            ))}
           </div>
-        </div>
-      </form>
-      <form onSubmit={demoSubmit}>
-        <div>
-          <button type="submit">Guest User</button>
-        </div>
-      </form>
+          <div className='auth-form'>
+            <div className='auth-email'>
+              <label htmlFor='email'>Email</label>
+              <input
+                name='email'
+                type='text'
+                // placeholder='Email'
+                value={email}
+                onChange={updateEmail}
+              />
+            </div>
+            <div className='auth-password'>
+              <label htmlFor='password'>Password</label>
+              <input
+                name='password'
+                type='password'
+                // placeholder='Password'
+                value={password}
+                onChange={updatePassword}
+              />
+            </div>
+            <div className='submit'>
+              <button id='auth-submit' type='submit'>Login</button>
+            </div>
+            {/* Guest user button and NavLink to /sign-up created -- Sona */}
+            <div className='before-demo'>
+            </div>
+            <div className='auth-demo'>
+              <button onClick={demoSubmit}>Guest User</button>
+            </div>
+            <div className='auth-link'>
+              <span>Need an Account? </span>
+              <NavLink id='link' to='/sign-up' exact={true} activeClassName='active'>
+                Register
+              </NavLink>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

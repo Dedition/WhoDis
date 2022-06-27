@@ -25,9 +25,6 @@ function User() {
   return (
     <ul>
       <li>
-          <LogoutButton />
-      </li>
-      <li>
         <strong>User Id</strong> {userId}
       </li>
       <li>
@@ -35,6 +32,9 @@ function User() {
       </li>
       <li>
         <strong>Email</strong> {user.email}
+      </li>
+      <li>
+          <LogoutButton />
       </li>
 
     </ul>

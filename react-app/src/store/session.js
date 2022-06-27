@@ -97,18 +97,7 @@ export const signUp = (username, email, password) => async (dispatch) => {
   }
 }
 
-export default function reducer(state = initialState, action) {
-  switch (action.type) {
-    case SET_USER:
-      return { user: action.payload }
-    case REMOVE_USER:
-      return { user: null }
-    default:
-      return state;
-  }
-}
-
-
+// Demo Thunk for Demo  Login -- Sona 
 export const demo = (email, password) => async (dispatch) => {
   email = "demo@aa.io";
   password = "password";
@@ -127,3 +116,15 @@ export const demo = (email, password) => async (dispatch) => {
     dispatch(setUser(data))
     return response;
 }
+
+export default function reducer(state = initialState, action) {
+  switch (action.type) {
+    case SET_USER:
+      return { user: action.payload }
+    case REMOVE_USER:
+      return { user: null }
+    default:
+      return state;
+  }
+}
+
