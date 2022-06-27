@@ -1,14 +1,35 @@
 from app.models import db, User
+from datetime import datetime
 
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        username='Demo', email='demo@aa.io', password='password')
+        username='Demo',
+        email='demo@aa.io',
+        bio='Hello World',
+        profile_pic_url='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.97DZXrgElDEjesXTId8mQwHaE8%26pid%3DApi&f=1',
+        password='password',
+        created_at=datetime.utcnow(),
+        updated_at=datetime.utcnow())
+
     marnie = User(
-        username='marnie', email='marnie@aa.io', password='password')
+        username='marnie',
+        email='marnie@aa.io',
+        bio='Hello World',
+        profile_pic_url='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.97DZXrgElDEjesXTId8mQwHaE8%26pid%3DApi&f=1',
+        password='password',
+        created_at=datetime.utcnow(),
+        updated_at=datetime.utcnow())
+
     bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password')
+        username='bobbie',
+        email='bobbie@aa.io',
+        bio='Hello World',
+        profile_pic_url='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.97DZXrgElDEjesXTId8mQwHaE8%26pid%3DApi&f=1',
+        password='password',
+        created_at=datetime.utcnow(),
+        updated_at=datetime.utcnow())
 
     db.session.add(demo)
     db.session.add(marnie)
