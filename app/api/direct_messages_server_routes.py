@@ -13,7 +13,7 @@
 
 # person2 = person2_username
 
-# dm_server_exists = DM_Server.query.filter_by(((user1_id == person1_id) and (user2_id == person2_username))
+# dm_server_exists = DM_Server.query.filter(((user1_id == person1_id) and (user2_id == person2_username))
 #                                              or ((user1_id == person2_username) and (user2_id == person1_id)))
 # if dm_server_exists == None:
 #     # FORM validation for new dm_server

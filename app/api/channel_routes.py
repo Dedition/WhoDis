@@ -11,7 +11,7 @@ channel_routes = Blueprint('channel', __name__, url_prefix="/channels")
 # TODO ——————————————————————————————————————————————————————————————————————————————————
 
 
-@channel_routes('/', methods=["POST"])
+@channel_routes.route('/', methods=["POST"])
 def create_channel(userId):
     user = User.query.get(userId)
     if not user:
