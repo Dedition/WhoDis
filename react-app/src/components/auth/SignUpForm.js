@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { Redirect } from 'react-router-dom';
-import { signUp } from '../../store/session';
+import { Redirect, useHistory, NavLink } from 'react-router-dom';
+import { signUp, demo } from '../../store/session';
+import "./auth.css"                                               // auth.css page created for auth components -Sona
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -10,6 +11,7 @@ const SignUpForm = () => {
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const user = useSelector(state => state.session.user);
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const onSignUp = async (e) => {
@@ -42,52 +44,81 @@ const SignUpForm = () => {
     return <Redirect to='/' />;
   }
 
+  // Created a Demo login feature - Sona
+  const demoSubmit = (e) => {
+    e.preventDefault();
+    history.push("/");
+    return dispatch(demo(email, password));
+  };
+  
+
   return (
-    <form onSubmit={onSignUp}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
-        ))}
+    <div className='authenticate-class'>
+      <div className='auth-form-div'>
+        <h1>Create Account!</h1>
+        <form onSubmit={onSignUp}>
+          <div className='auth-errors'>
+            {errors.map((error, ind) => (
+              <div key={ind}>{error}</div>
+            ))}
+          </div>
+          <div className='auth-form'>
+            <div className='auth-username'>
+              <label>User Name</label>
+              <input
+                type='text'
+                name='username'
+                onChange={updateUsername}
+                value={username}
+              ></input>
+            </div>
+            <div className='auth-email'>
+              <label>Email</label>
+              <input
+                type='text'
+                name='email'
+                onChange={updateEmail}
+                value={email}
+              ></input>
+            </div>
+            <div className='auth-password'>
+              <label>Password</label>
+              <input
+                type='password'
+                name='password'
+                onChange={updatePassword}
+                value={password}
+              ></input>
+            </div>
+            <div className='auth-confirm-password'>
+              <label>Confirm Password</label>
+              <input
+                type='password'
+                name='repeat_password'
+                onChange={updateRepeatPassword}
+                value={repeatPassword}
+                required={true}
+              ></input>
+            </div>
+            <div className='submit'>
+              <button type='submit'>Sign Up</button>
+            </div>
+            {/* Guest user button and NavLink to /login created -- Sona */}
+            <div className='before-demo'>  
+            </div>
+            <div className='auth-demo'>
+              <button onClick={demoSubmit}>Guest User</button>
+            </div>
+            <div className='auth-link'>
+              <span>Already have an Account? </span>
+              <NavLink id='link' to='/login' exact={true} activeClassName='active'>
+                  Log In
+              </NavLink>
+            </div>
+          </div>
+        </form>
       </div>
-      <div>
-        <label>User Name</label>
-        <input
-          type='text'
-          name='username'
-          onChange={updateUsername}
-          value={username}
-        ></input>
-      </div>
-      <div>
-        <label>Email</label>
-        <input
-          type='text'
-          name='email'
-          onChange={updateEmail}
-          value={email}
-        ></input>
-      </div>
-      <div>
-        <label>Password</label>
-        <input
-          type='password'
-          name='password'
-          onChange={updatePassword}
-          value={password}
-        ></input>
-      </div>
-      <div>
-        <label>Repeat Password</label>
-        <input
-          type='password'
-          name='repeat_password'
-          onChange={updateRepeatPassword}
-          value={repeatPassword}
-          required={true}
-        ></input>
-      </div>
-      <button type='submit'>Sign Up</button>
-    </form>
+    </div>
   );
 };
 

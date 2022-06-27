@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import LogoutButton from './auth/LogoutButton';
 
 function User() {
   const [user, setUser] = useState({});
@@ -20,6 +21,7 @@ function User() {
     return null;
   }
 
+
   return (
     <ul>
       <li>
@@ -31,6 +33,10 @@ function User() {
       <li>
         <strong>Email</strong> {user.email}
       </li>
+      <li>
+          <LogoutButton />
+      </li>
+
     </ul>
   );
 }

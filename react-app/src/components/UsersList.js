@@ -8,6 +8,9 @@ function UsersList() {
     async function fetchData() {
       const response = await fetch('/api/users/');
       const responseData = await response.json();
+
+
+      console.log(responseData);
       setUsers(responseData.users);
     }
     fetchData();
@@ -23,7 +26,7 @@ function UsersList() {
 
   return (
     <>
-      <h1>User List: </h1>
+      <h1>User </h1>
       <ul>{userComponents}</ul>
     </>
   );

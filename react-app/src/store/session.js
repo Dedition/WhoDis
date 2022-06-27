@@ -97,6 +97,26 @@ export const signUp = (username, email, password) => async (dispatch) => {
   }
 }
 
+// Demo Thunk for Demo  Login -- Sona 
+export const demo = (email, password) => async (dispatch) => {
+  email = "demo@aa.io";
+  password = "password";
+  const response = await fetch('/api/auth/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      email,
+      password
+    })
+  });
+  
+    const data = await response.json();
+    dispatch(setUser(data))
+    return response;
+}
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
@@ -107,3 +127,4 @@ export default function reducer(state = initialState, action) {
       return state;
   }
 }
+
