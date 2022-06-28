@@ -44,8 +44,8 @@ export const addSingleChannel = (channel, data) => async dispatch => {
 }
 
 // We want to make a request to get all channels that belong to a specific server, this thunk is not accomplishing this at the moment. 
-export const getAllChannels = () => async dispatch => {
-    const res = await fetch('/api/channels')
+export const getAllChannels = (serverId) => async dispatch => {
+    const res = await fetch(`/api/channels/${serverId}`)
 
     if (res.ok) {
         const channels = await res.json();
@@ -54,13 +54,13 @@ export const getAllChannels = () => async dispatch => {
 }
 
 
-export const editSingleChannel = (channelId) => async dispatch => {
+export const editSingleChannel = (channelId, data) => async dispatch => {
     const res = await fetch(`/api/channels${channelId}`, {
         method: 'PUT',
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(channelId) 
+        body: JSON.stringify(data) 
     });
 
     if (res.ok) {

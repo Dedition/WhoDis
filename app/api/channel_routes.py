@@ -1,6 +1,6 @@
 from flask import Blueprint, request
-from flask_login import login_required
-from ..models.db import db, User, Channel
+from flask_login import login_required, current_user
+from ..models.db import db, User, Channel, Server
 from ..forms.channel_form import ChannelForm
 from .server_routes import error_messages
 
@@ -11,7 +11,7 @@ channel_routes = Blueprint('channel', __name__, url_prefix="/channels")
 # TODO ——————————————————————————————————————————————————————————————————————————————————
 
 
-@channel_routes('/', methods=["POST"])
+@channel_routes.route('/', methods=["POST"])
 def create_channel():
     # user = User.query.get(userId)
         params = request.get_json()
@@ -45,16 +45,19 @@ def all_channels(server_id):
 
 @channel_routes.route('/<int:channel_id>', methods=['PUT'])
 @login_required
-def update_channel(channelId, userId):
+def update_channel(channelId):
+    params = request.get_json()
+    server_id = params['server_id']
+
+    server = Server.query.get(server_id)
     channel = Channel.query.get(channelId)
     if not channel:
         return {'errors': f"No channel with id number {channelId} exists"}, 404
-    else:
+    elif (server.owner_id == current_user.id) and (channel):
         form = ChannelForm()
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
             channel = Channel(name=form.data['name'])
-
             db.session.commit()
             return channel.to_dict(), 201
         else:
