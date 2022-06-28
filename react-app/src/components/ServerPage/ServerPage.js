@@ -5,18 +5,16 @@ import { Redirect, useHistory, NavLink } from 'react-router-dom';
 import * as serversActions from '../../store/servers'
 import * as channelsActions from '../../store/channels'
 
-import ServerForm from '../ServerForm/ServerForm'
-
 
 const ServerPage = () => {
 
     const dispatch = useDispatch();
-    
+
     useEffect(() => {
         dispatch(serversActions.getAllServers());
-        dispatch(channelsActions.getAllChannels(1));
+        dispatch(channelsActions.getAllChannels(1)); // need to get serverId
     }, [dispatch]);
-    
+
     const user = useSelector((state) => state.session.user);
     const allServers = useSelector((state) => state.servers);
     const servers = Object.values(allServers)
@@ -24,7 +22,7 @@ const ServerPage = () => {
     const allChannels = useSelector((state) => state.channelReducer);
     const channels = Object.values(allChannels)
 
-    
+
     return (
         <div>
             <ul>
@@ -40,6 +38,9 @@ const ServerPage = () => {
                     return <li key={channel.id}>{channel.name}</li>
                 })}
             </ul>
+            <NavLink to='/create-channel' exact={true}>
+                <p>create channel</p>
+            </NavLink>
         </div>
     )
 }

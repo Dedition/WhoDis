@@ -59,6 +59,9 @@ function App() {
         <Route path='/create-server' exact={true}>
           <ServerForm />
         </Route>
+        <Route path='/create-channel' exact={true}>
+          <ChannelForm />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
