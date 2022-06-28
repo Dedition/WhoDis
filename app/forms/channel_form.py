@@ -11,4 +11,4 @@ def name_length(form, field):
 
 
 class ChannelForm(FlaskForm):
-    name = StringField('Channel Name', validators=[DataRequired()])
+    name = StringField('name', validators=[DataRequired()])
