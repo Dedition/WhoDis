@@ -50,7 +50,10 @@ def create_server():
 @server_routes.route('/', methods=["GET"])
 def all_servers():
     # * This query returns a non-Pythonic list of all servers
-    servers = Server.query.all()
+    servers = db.session.query(Server).join(User, Server.users).all()
+    
+
+    print(servers[0].owner_id, "........................................................")
     # * This returns a key/val pair of servers in JSON format
     return {'servers': [server.to_dict() for server in servers]}
 

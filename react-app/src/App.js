@@ -7,6 +7,7 @@ import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
+import ServerPage from './components/ServerPage/ServerPage'
 import Matrix from './components/Matrix/Matrix';
 import { authenticate } from './store/session';
 import {getAllServers} from './store/servers'
@@ -39,6 +40,9 @@ function App() {
         </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
+        </Route>
+        <Route path='/servers' exact={true}>
+          <ServerPage />
         </Route>
         <ProtectedRoute path='/users' exact={true} >
           <UsersList/>

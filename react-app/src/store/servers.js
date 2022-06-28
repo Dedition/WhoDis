@@ -45,6 +45,8 @@ export const getAllServers = () => async dispatch => {
     if (res.ok) {
         const servers = await res.json();
         dispatch(getServers(servers))
+
+        return servers;
     }
 }
 
@@ -80,8 +82,10 @@ export const removeSingleServer = (serverId) => async dispatch => {
 }
 
 
-export default function serverReducer(state = {}, action) {
-    let newState = {}
+const initialState = {}
+
+export default function servers(state = initialState, action) {
+    let newState = {...state}
     let server;
     switch (action.type) {
         case (ADD_SERVER):
@@ -94,12 +98,19 @@ export default function serverReducer(state = {}, action) {
                 return newState
             }
         case (GET_SERVERS):
-            newState = { ...state }
+            const allServers = {};
             let servers = action.payload.servers
-            servers.forEach(item => {
-                newState[item.id] = item
+            servers.forEach(server => {
+                allServers[server.id] = server
             })
-            return newState
+            return {
+                ...allServers
+            }
+            // newState = { ...state }
+            // let servers = action.payload.servers
+            // servers.forEach(item => {
+            //     newState[item.id] = item
+            // })
         case (EDIT_SERVER):
             newState = { ...state, };
             server = action.payload.server
