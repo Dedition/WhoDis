@@ -12,7 +12,7 @@ from .api.server_routes import server_routes
 from .api.channel_routes import channel_routes
 from .api.channel_messages_routes import channel_messages_routes
 
-
+# RANDOM STRIING
 from .seeds import seed_commands
 
 from .config import Config
@@ -37,7 +37,8 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(server_routes, url_prefix='/api/servers')
 app.register_blueprint(channel_routes, url_prefix='/api/channels')
-app.register_blueprint(channel_messages_routes, url_prefix='/api/channel_messages')
+app.register_blueprint(channel_messages_routes,
+                       url_prefix='/api/channel_messages')
 db.init_app(app)
 Migrate(app, db)
 
