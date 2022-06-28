@@ -23,20 +23,23 @@ const removeServer = (serverId) => ({
 })
 
 
-export const addSingleServer = (server) => async dispatch => {
-    const res = await fetch(`/api/servers`, {
+export const addSingleServer = (payload) => async dispatch => {
+    const { name, banner_url, server_icon_url, dm_channel, notPrivate, owner_id} = payload
+    console.log(payload,",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,")
+    const res = await fetch('/api/servers', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(server)
+        body: JSON.stringify({
+            name, banner_url, server_icon_url, dm_channel, notPrivate, owner_id
+        })
     });
 
-    if (res.ok) {
-        const server = await res.json()
-        dispatch(addServer(server))
-        return server
-    }
+    const server = await res.json()
+    dispatch(addServer(server))
+    console.log(server, "===============================")
+    return server
 }
 
 export const getAllServers = () => async dispatch => {
@@ -89,14 +92,15 @@ export default function servers(state = initialState, action) {
     let server;
     switch (action.type) {
         case (ADD_SERVER):
-            server = action.payload.server
-            if (!state[server.id]) {
+            server = action.payload
+            console.log(action.payload, "'''''''''''''''''''''''''''''''")
+
                 const newState = {
                     ...state,
-                    [server.id]: server,
+                    [action.payload.id]: server,
                 }
+                console.log(newState, "----''")
                 return newState
-            }
         case (GET_SERVERS):
             const allServers = {};
             let servers = action.payload.servers

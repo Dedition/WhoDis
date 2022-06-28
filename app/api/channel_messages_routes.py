@@ -15,15 +15,24 @@ channel_messages_routes = Blueprint(
 
 @channel_messages_routes.route("/", methods=["POST"])
 @login_required
-def create_channel_message(userId):
-    user = User.query.get(userId)
-    if not user:
-        return {'errors': f"No user with id number {userId} exists"}, 404
+def create_channel_message():
+    params = request.get_json()
+    sender_id = params["senderId"]
+    channel_id = params["channelId"]
+    user = User.query.get(sender_id)
+    channel = Channel.query.get(channel_id)
+    if not user and channel:
+        return {'errors': f"The user or channel does not exist."}, 404
     else:
-        form = ChannelMessage()
+        form = ChannelMessages()
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
-            channel_message = ChannelMessage(content=form.data['content'], channel_id = 2)
+            #! If there's an error, double check here
+            channel_id = channel.id
+            user_id = user.id
+            #! ^
+            channel_message = ChannelMessage(
+                content=form.data['content'], channel_id=channel_id, user_id=user_id)
 
             db.session.add(channel_message)
             db.session.commit()
@@ -41,6 +50,7 @@ def create_channel_message(userId):
 #     channel_messages = ChannelMessage.query.all().join(
 #         Channel).filter(Channel.id == channelId)
 def all_channel_messages(channel_id):
+    #! Please work
     channel_messages = ChannelMessage.query.filter(
         ChannelMessage.channel_id == channel_id).all()
     # channel_msgs_in_channel = [for channel_msg in channel_messages if channel_msg.channel_id == channelId]
@@ -54,7 +64,7 @@ def all_channel_messages(channel_id):
 @channel_messages_routes.route('/update/<int:channel_message_id>', methods=['PUT'])
 def update_channel_messages(channel_message_id):
     channel_message = ChannelMessage.query.get(channel_message_id)
-    form = ChannelMessage()
+    form = ChannelMessages()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         channel_message = ChannelMessage(content=form.data['content'])

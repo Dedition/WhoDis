@@ -8,10 +8,11 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import ServerPage from './components/ServerPage/ServerPage'
+import ServerForm from './components/ServerForm/ServerForm';
 import Matrix from './components/Matrix/Matrix';
 import SplashPage from './components/SplashPage/SplashPage';
 import { authenticate } from './store/session';
-import {getAllServers} from './store/servers'
+//import {getAllServers} from './store/servers'
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -20,7 +21,7 @@ function App() {
   useEffect(() => {
     (async() => {
       await dispatch(authenticate());
-      // await dispatch(getAllServers())
+     // await dispatch(getAllServers())
       setLoaded(true);
     })();
   }, [dispatch]);
@@ -53,6 +54,9 @@ function App() {
           <Matrix />
           <NavBar />
           <SplashPage />
+        </Route>
+        <Route path='/create-server' exact={true}>
+          <ServerForm />
         </Route>
       </Switch>
     </BrowserRouter>

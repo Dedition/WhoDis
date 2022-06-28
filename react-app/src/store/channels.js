@@ -33,7 +33,7 @@ export const addSingleChannel = (channel, data) => async dispatch => {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(data) 
+        body: JSON.stringify(data)
     })
 
     if (res.ok) {
@@ -43,7 +43,7 @@ export const addSingleChannel = (channel, data) => async dispatch => {
     }
 }
 
-// We want to make a request to get all channels that belong to a specific server, this thunk is not accomplishing this at the moment. 
+// We want to make a request to get all channels that belong to a specific server, this thunk is not accomplishing this at the moment.
 export const getAllChannels = (serverId) => async dispatch => {
     const res = await fetch(`/api/channels/${serverId}`)
 
@@ -60,7 +60,7 @@ export const editSingleChannel = (channelId, data) => async dispatch => {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(data) 
+        body: JSON.stringify(data)
     });
 
     if (res.ok) {
@@ -78,7 +78,7 @@ export const removeSingleChannel = (channelId) => async dispatch => {
 
     if (res.ok) {
         const confirmation = await res.json();
-        const removedId = confirmation.id 
+        const removedId = confirmation.id
         dispatch(removeChannel(removedId))
         return removedId;
     }
@@ -87,34 +87,25 @@ export const removeSingleChannel = (channelId) => async dispatch => {
 export default function channelReducer(state = {}, action) {
     let newState = {}
     let channel;
-    switch(action.type) {
+    switch (action.type) {
         case (ADD_CHANNEL):
             channel = action.payload.channel
-            if (!state[channel.id]) {
-                const newState = {
-                    ...state, 
-                    [channel.id]: channel,
-                }
-                return newState
-            }
-        case (GET_CHANNELS): 
-            newState = { ...state } 
+            newState = { ...state, [channel.id]: channel, }
+            return newState
+        case (GET_CHANNELS):
+            newState = { ...state }
             let channels = action.payload.channels
-            channels.forEach(item => {
-                newState[item.id] = item
-            })
+            channels.forEach(item => { newState[item.id] = item })
             return newState
         case (EDIT_CHANNEL):
-            newState = {...state};
+            newState = { ...state };
             channel = action.payload.channel
             newState[channel.id] = channel;
             return newState
         case (REMOVE_CHANNEL):
-            newState = {
-                ...state,
-            };
+            newState = { ...state, };
             delete newState[action.payload.channelId]
-            return newState 
+            return newState
         default:
             return state
     }
