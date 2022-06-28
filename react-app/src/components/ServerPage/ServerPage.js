@@ -5,6 +5,8 @@ import { Redirect, useHistory, NavLink } from 'react-router-dom';
 import * as serversActions from '../../store/servers'
 import * as channelsActions from '../../store/channels'
 
+import "./ServerPage.css"
+
 
 const ServerPage = () => {
 
@@ -24,8 +26,8 @@ const ServerPage = () => {
 
 
     return (
-        <div>
-            <ul>
+        <div className='server-nav'>
+            <ul className='server-nav-a'>
                 {servers.map(server => {
                     return <NavLink to={`/servers/${server.id}`}><li key={server.id}>{server.name}</li></NavLink>
                 })}
