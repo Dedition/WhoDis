@@ -24,9 +24,40 @@ body {
   font-weight: 500;
 }
 
-.server-bubble {
-  margin-top: 60px;
-  padding: 30px;
-  /* display: flex; */
+#server-nav {
+  text-decoration: none;
+  color: white;
+}
 
+.server-bubble {
+  padding: 30px;
+}
+
+.add-server {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: grey;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-weight: 500;
+  font-size: 35px;
+}
+
+.add-server > p {
+  color: green;
+}
+
+
+.home-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: grey;
+  border-radius: 20px;
+  width: 60px;
+  height: 60px;
+  font-size: 15px;
+  font-weight: 500;
 }

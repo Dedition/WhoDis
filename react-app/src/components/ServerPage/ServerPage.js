@@ -26,24 +26,33 @@ const ServerPage = () => {
 
 
     return (
-        <div className='server-nav'>
-            <ul className='server-nav-a'>
-                {servers.map(server => {
-                    return <NavLink to={`/servers/${server.id}`}><li key={server.id}>{server.name}</li></NavLink>
-                })}
-            </ul>
-            <NavLink to='/create-server' exact={true}>
-                <p>create server</p>
-            </NavLink>
-            <ul>
-                {channels.map(channel => {
-                    return <li key={channel.id}>{channel.name}</li>
-                })}
-            </ul>
-            <NavLink to='/create-channel' exact={true}>
-                <p>create channel</p>
-            </NavLink>
-        </div>
+        <>
+            <div className='server-nav'>
+                <div>
+                    <div className='server-bubble'>
+                        <NavLink id='server-nav' className='home-button' to='/'>Home</NavLink>
+                    </div>
+                    <div className='server-bubble'>
+                        {servers.map(server => {
+                            return <NavLink id='server-nav' to={`/servers/${server.id}`}><div key={server.id} className='server-nav-a'>{server.name.charAt(0)}</div></NavLink>
+                        })}
+                    </div>
+                    <div className='server-bubble'>
+                        <NavLink id='server-nav' className='add-server' to='/create-server' exact={true}>
+                            <p>+</p>
+                        </NavLink>
+                    </div>
+                </div>
+                <ul>
+                    {channels.map(channel => {
+                        return <li key={channel.id}>{channel.name}</li>
+                    })}
+                </ul>
+                <NavLink to='/create-channel' exact={true}>
+                    <p>create channel</p>
+                </NavLink>
+            </div>
+        </>
     )
 }
 
