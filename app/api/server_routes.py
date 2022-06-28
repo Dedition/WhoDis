@@ -2,8 +2,9 @@ from flask import Blueprint, request
 from flask_login import login_required, current_user
 from ..models.db import Server, db, User
 from ..forms.server_form import ServerForm
+from datetime import datetime
 
-server_routes = Blueprint('server', __name__, url_prefix="/servers")
+server_routes = Blueprint('servers', __name__)
 
 
 # TODO ——————————————————————————————————————————————————————————————————————————————————
@@ -23,22 +24,27 @@ def error_messages(validation_errors):
 # TODO ——————————————————————————————————————————————————————————————————————————————————
 
 
-@server_routes.route('/', methods=["POST"])
+@server_routes.route('', methods=["POST"])
 @login_required
 def create_server():
         form = ServerForm()
+        print(form.data, "_______________________________________")
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
             server = Server(name=form.data['name'],
                             banner_url=form.data['banner_url'],
                             server_icon_url=form.data['server_icon_url'],
-                            dm_channel=form.data['dm_channel'],
+                            dm_channel=False,
                             public=form.data['public'],
-                            owner_id=current_user.id)
+                            owner_id=current_user.id,
+                            created_at=datetime.utcnow(),
+                            updated_at=datetime.utcnow()
+                            )
 
             db.session.add(server)
             db.session.commit()
-            return server.to_dict(), 201
+            print(server.to_dict(),"*********************************")
+            return server.to_dict()
         else:
             return {'errors': error_messages(form.errors)}, 401
 
