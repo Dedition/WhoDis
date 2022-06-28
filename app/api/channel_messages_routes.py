@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from flask_login import login_required
+from flask_login import login_required, current_user
 from ..models.db import Channel, ChannelMessage, db, User
 from ..forms.channel_messages_form import ChannelMessages
 from .server_routes import error_messages
@@ -61,12 +61,14 @@ def all_channel_messages(channel_id):
 # *                                  UPDATE
 # TODO ——————————————————————————————————————————————————————————————————————————————————
 
-@channel_messages_routes.route('/update/<int:channel_message_id>', methods=['PUT'])
+@channel_messages_routes.route('/<int:channel_message_id>', methods=['PUT'])
+@login_required
+#! Removed the /update from beginning
 def update_channel_messages(channel_message_id):
     channel_message = ChannelMessage.query.get(channel_message_id)
     form = ChannelMessages()
     form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
+    if form.validate_on_submit() and current_user.id == channel_message.user_id:
         channel_message = ChannelMessage(content=form.data['content'])
         db.session.add(channel_message)
         db.session.commit()
@@ -79,9 +81,12 @@ def update_channel_messages(channel_message_id):
 # TODO ——————————————————————————————————————————————————————————————————————————————————
 
 
-@channel_messages_routes.route('/delete/<int:channel_message_id>', methods=['DELETE'])
+@channel_messages_routes.route('/<int:channel_message_id>', methods=['DELETE'])
+@login_required
+#! Removed the /delete from beginning
 def delete_channel_message(channel_message_id):
     channel_message = ChannelMessage.query.get(channel_message_id)
-    db.session.delete(channel_message)
-    db.session.commit()
-    return f"Channel Message {channel_message_id} has been deleted!"
+    if current_user.id == channel_message.user_id:
+        db.session.delete(channel_message)
+        db.session.commit()
+        return f"Channel Message {channel_message_id} has been deleted!"

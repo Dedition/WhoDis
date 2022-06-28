@@ -14,8 +14,8 @@ const REMOVE = "CHANNEL_MESSAGES/REMOVE";
 
 const addMessage = (message) => ({ type: ADD, message });
 const loadMessages = (messages) => ({ type: LOAD, messages });
-const updateMessage = (message) => ({ type: UPDATE, message });
-const deleteMessage = (messageId) => ({ type: REMOVE, messageId });
+const updateMyMessage = (message) => ({ type: UPDATE, message });
+const deleteMyMessage = (messageId) => ({ type: REMOVE, messageId });
 
 // *    ——————————————————————————————————————————————————————————————————————————————————
 // *                                    Thunks
@@ -57,7 +57,8 @@ export const getChannelMessages = (channelId) => async (dispatch) => {
 // TODO                                 UPDATE
 // TODO ——————————————————————————————————————————————————————————————————————————————————
 
-export const updateMessagem = (channelMessageId, data) => async (dispatch) => {
+export const updateMessage = (channelMessageId, data) => async (dispatch) => {
+
     const res = await fetch(`/api/channel_messages/${channelMessageId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -65,7 +66,58 @@ export const updateMessagem = (channelMessageId, data) => async (dispatch) => {
     })
     if (res.ok) {
         const updatedMessage = await res.json();
-        dispatch(updateMessage(updatedMessage));
+        dispatch(updateMyMessage(updatedMessage));
         return updatedMessage;
+    };
+}
+
+
+// TODO ——————————————————————————————————————————————————————————————————————————————————
+// TODO                                 DELETE
+// TODO ——————————————————————————————————————————————————————————————————————————————————
+
+
+export const deleteMessage = (channelMessageId, data) => async (dispatch) => {
+    const res = await fetch(`/api/channel_messages/${channelMessageId}`, {
+        method: "DELETE"
+    })
+    if (res.ok) {
+        const channelMessageId = await res.json()
+        dispatch(deleteMyMessage(channelMessageId))
+    };
+}
+
+
+// * ——————————————————————————————————————————————————————————————————————————————————
+// *                                    Reducer
+// * ——————————————————————————————————————————————————————————————————————————————————
+
+const initialState = {}
+
+export default function channelMessageReducer(state = initialState, action) {
+    let newState;
+    switch (action.type) {
+        case ADD:
+            const newMessage = action.message;
+            newState = { ...state, [newMessage.id]: newMessage }
+            return newState;
+        case LOAD:
+            const allMessages = {}
+            const messages = action.messages;
+            messages.forEach((msgObj) => {
+                allMessages[msgObj.id] = msgObj
+            })
+            return { ...allMessages }
+        case UPDATE:
+            newState = { ...state };
+            const message = action.message;
+            newState[message.id] = message;
+            return newState;
+        case REMOVE:
+            newState = { ...state };
+            delete newState[action.message.id];
+            return newState;
+        default:
+            return state;
     }
 }
