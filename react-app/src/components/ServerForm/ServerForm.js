@@ -13,7 +13,7 @@ const ServerForm = () => {
     const [name, setName] = useState("");
     const [banner_url, setBannerUrl] = useState("");
     const [server_icon_url, setServerIconUrl] = useState("");
-    //const [dm_channel, setDMChannel] = useState(false);
+    const dm_channel = false;
     const [notPrivate, setNotPrivate] = useState(false);
 
     
@@ -32,14 +32,15 @@ const ServerForm = () => {
 
     const submitForm = (e) => {
         e.preventDefault();
-        // const payload = {
-        //     name,
-        //     banner_url,
-        //     server_icon_url,
-        //     public: notPrivate,
-        //     owner_id,
-        // };
-        const newServer = dispatch(addSingleServer());
+        const payload = {
+            name,
+            banner_url,
+            server_icon_url,
+            notPrivate,
+            dm_channel,
+            owner_id,
+        };
+        const newServer = dispatch(addSingleServer(payload));
         if (newServer) {
             history.push(`/servers`);
             reset();
@@ -50,51 +51,48 @@ const ServerForm = () => {
         <div>
             <form onSubmit={submitForm}>
                 <div>Create New Server!</div>
-                <label htmlFor='Name'>
+                <label htmlFor='name'></label>
                     <input 
-                        name = "Name"
+                        name = "name"
                         type="text"
                         placeholder="Name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         required
                     />
-                </label>
-                <label htmlFor='Banner Url'>
+                <label htmlFor='banner_url'></label>
                     <input
-                        name = "Banner Url"
+                        name = "banner_url"
                         type="text"
                         placeholder="Banner Img"
                         value={banner_url}
                         onChange={(e) => setBannerUrl(e.target.value)}
                         required
                     />
-                </label>
-                <label htmlFor="Server Icon Url">
+                <label htmlFor="server_icon_url"></label>
                 <input
-                    name = "Server Icon Url"
+                    name = "server_icon_url"
                     type="text"
                     placeholder="Server Icon Img"
                     value={server_icon_url}
                     onChange={(e) => setServerIconUrl(e.target.value)}
                     required
                 />
-                </label>
-                <label htmlFor="Public">
+                <label htmlFor="public">
                     <input
                     type="checkbox"
                     value="no"
-                    name="Public"
+                    name="public"
                     checked={notPrivate === 'no'}
                     onChange={(e) => setNotPrivate('no')}
                     />
                     Public
                 </label>
-                <label htmlFor="Public">
+                <label htmlFor="public">
                     <input
                     type="checkbox"
                     value="yes"
-                    name="Public"
+                    name="public"
                     checked={notPrivate === 'yes'}
                     onChange={(e) => setNotPrivate('yes')}
                     />

@@ -1,7 +1,8 @@
+from xmlrpc.client import DateTime
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, BooleanField, SubmitField
+from wtforms import StringField, IntegerField, BooleanField, SubmitField, DateField
 from wtforms.validators import DataRequired, ValidationError
-
+from datetime import datetime
 
 def name_length(form, field):
     name = field.data
@@ -11,11 +12,14 @@ def name_length(form, field):
 
 
 class ServerForm(FlaskForm):
-    name = StringField('Name', validators=[
+    name = StringField('name', validators=[
                        DataRequired(), name_length])
-    banner_url = StringField('Banner Url', validators=[DataRequired()])
+    banner_url = StringField('banner_url', validators=[DataRequired()])
     server_icon_url = StringField(
-        'Server Icon Url', validators=[DataRequired()])
-    dm_channel = BooleanField('DM Channel', validators=[DataRequired()])
-    public = BooleanField('Public', validators=[DataRequired()])
+        'server_icon_url', validators=[DataRequired()])
+    dm_channel = BooleanField('dm_channel')
+    public = BooleanField('public')
+    owner_id = IntegerField('owner_id')
+    created_at = DateField('created_at')
+    updated_at = DateField('updated_at')
     # submit = SubmitField('Submit')
