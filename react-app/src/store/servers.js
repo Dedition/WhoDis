@@ -23,30 +23,30 @@ const removeServer = (serverId) => ({
 })
 
 
-export const addSingleServer = (server) => async dispatch => {
+export const addSingleServer = () => async dispatch => {
     const res = await fetch(`/api/servers`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(server)
+        body: JSON.stringify({'server': 'server'})
     });
 
-    if (res.ok) {
-        const server = await res.json()
-        dispatch(addServer(server))
-        return server
-    }
+    const server = await res.json()
+    dispatch(addServer(server))
+    return server
 }
 
-export const getAllServers = () => async dispatch => {
-    const res = await fetch('/api/servers')
+// export const getAllServers = () => async dispatch => {
+//     const res = await fetch('/api/servers')
 
-    if (res.ok) {
-        const servers = await res.json();
-        dispatch(getServers(servers))
-    }
-}
+//     if (res.ok) {
+//         const servers = await res.json();
+//         dispatch(getServers(servers))
+
+//         return servers;
+//     }
+// }
 
 
 export const editSingleServer = (serverId) => async dispatch => {
@@ -80,8 +80,10 @@ export const removeSingleServer = (serverId) => async dispatch => {
 }
 
 
-export default function serverReducer(state = {}, action) {
-    let newState = {}
+const initialState = {}
+
+export default function servers(state = initialState, action) {
+    let newState = {...state}
     let server;
     switch (action.type) {
         case (ADD_SERVER):
@@ -94,12 +96,19 @@ export default function serverReducer(state = {}, action) {
                 return newState
             }
         case (GET_SERVERS):
-            newState = { ...state }
+            const allServers = {};
             let servers = action.payload.servers
-            servers.forEach(item => {
-                newState[item.id] = item
+            servers.forEach(server => {
+                allServers[server.id] = server
             })
-            return newState
+            return {
+                ...allServers
+            }
+            // newState = { ...state }
+            // let servers = action.payload.servers
+            // servers.forEach(item => {
+            //     newState[item.id] = item
+            // })
         case (EDIT_SERVER):
             newState = { ...state, };
             server = action.payload.server

@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from ..models.db import Server, db, User
 from ..forms.server_form import ServerForm
 
-server_routes = Blueprint('server', __name__, url_prefix="/servers")
+server_routes = Blueprint('server', __name__)
 
 
 # TODO ——————————————————————————————————————————————————————————————————————————————————
@@ -32,13 +32,14 @@ def create_server():
             server = Server(name=form.data['name'],
                             banner_url=form.data['banner_url'],
                             server_icon_url=form.data['server_icon_url'],
-                            dm_channel=form.data['dm_channel'],
+                            dm_channel=False,
                             public=form.data['public'],
-                            owner_id=current_user.id)
+                            owner_id=current_user.id
+                            )
 
             db.session.add(server)
             db.session.commit()
-            return server.to_dict(), 201
+            return server.to_dict()
         else:
             return {'errors': error_messages(form.errors)}, 401
 
@@ -50,7 +51,10 @@ def create_server():
 @server_routes.route('/', methods=["GET"])
 def all_servers():
     # * This query returns a non-Pythonic list of all servers
-    servers = Server.query.all()
+    servers = db.session.query(Server).join(User, Server.users).all()
+    
+
+    print(servers[0].owner_id, "........................................................")
     # * This returns a key/val pair of servers in JSON format
     return {'servers': [server.to_dict() for server in servers]}
 

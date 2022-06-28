@@ -11,7 +11,7 @@ def name_length(form, field):
 
 
 class ServerForm(FlaskForm):
-    name = StringField('Server Name', validators=[
+    name = StringField('Name', validators=[
                        DataRequired(), name_length])
     banner_url = StringField('Banner Url', validators=[DataRequired()])
     server_icon_url = StringField(
