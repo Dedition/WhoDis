@@ -9,6 +9,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import ServerPage from './components/ServerPage/ServerPage'
 import ServerForm from './components/ServerForm/ServerForm';
+import ChannelForm from './components/ChannelForm/ChannelForm';
 import Matrix from './components/Matrix/Matrix';
 import { authenticate } from './store/session';
 //import {getAllServers} from './store/servers'

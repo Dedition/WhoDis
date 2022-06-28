@@ -50,6 +50,8 @@ export const getAllChannels = (serverId) => async dispatch => {
     if (res.ok) {
         const channels = await res.json();
         dispatch(getChannels(channels))
+
+        return channels;
     }
 }
 
