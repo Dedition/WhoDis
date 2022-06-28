@@ -3,12 +3,13 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
-import NavBar from './components/NavBar';
+import NavBar from './components/NavBar/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import ServerPage from './components/ServerPage/ServerPage'
 import Matrix from './components/Matrix/Matrix';
+import SplashPage from './components/SplashPage/SplashPage';
 import { authenticate } from './store/session';
 import {getAllServers} from './store/servers'
 
@@ -19,7 +20,7 @@ function App() {
   useEffect(() => {
     (async() => {
       await dispatch(authenticate());
-      await dispatch(getAllServers())
+      // await dispatch(getAllServers())
       setLoaded(true);
     })();
   }, [dispatch]);
@@ -32,13 +33,11 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route path='/login' exact={true}>
+          <Matrix />
           <LoginForm />
         </Route>
-        {/* Matrix component added temporarily for testing matrix rainfall -- Sona */}
-        <Route path='/matrix' exact={true}>
-          <Matrix />
-        </Route>
         <Route path='/sign-up' exact={true}>
+          <Matrix />
           <SignUpForm />
         </Route>
         <Route path='/servers' exact={true}>
@@ -51,8 +50,9 @@ function App() {
           <User />
         </ProtectedRoute>
         <Route path='/' exact={true} >
+          <Matrix />
           <NavBar />
-          <h1>My Home Page</h1>
+          <SplashPage />
         </Route>
       </Switch>
     </BrowserRouter>

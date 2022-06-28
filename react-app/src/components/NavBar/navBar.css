@@ -1,0 +1,81 @@
+.SplashPage{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    background-color: transparent;
+    height: 46px;
+    z-index: 10;
+}
+
+/**************************************************************/
+
+.Nav-bar{
+    width: 1240px;
+}
+
+.Navigation-bar {
+    width: fit-content;
+    display: flex;
+}
+
+/**************************************************************/
+
+#homeBtn {
+    min-width: 70px;
+    display: flex;
+    position: relative;
+    bottom: 4px;
+    left: 5px;
+    font-family: sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+    color: whitesmoke;
+    margin: 10px;
+    padding: 10px;
+    text-decoration: none;
+}
+
+#nav-about,
+#nav-github {
+    text-decoration: none;
+    color: white;
+    min-width: 103px;
+    text-align: center;
+    position: relative;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+  
+#nav-login {
+    text-decoration: none;
+    color: whitesmoke;
+    min-width: 110px;
+    text-align: center;
+    border-right: 1px solid black;
+    position: relative;
+    left: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/**************************************************************/
+
+.spalsh-text{
+    display: flex;
+    flex-direction: column;
+}
+
+/**************************************************************/
