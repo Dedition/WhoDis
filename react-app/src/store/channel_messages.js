@@ -53,7 +53,19 @@ export const getChannelMessages = (channelId) => async (dispatch) => {
 }
 
 
-
 // TODO ——————————————————————————————————————————————————————————————————————————————————
 // TODO                                 UPDATE
 // TODO ——————————————————————————————————————————————————————————————————————————————————
+
+export const updateMessagem = (channelMessageId, data) => async (dispatch) => {
+    const res = await fetch(`/api/channel_messages/${channelMessageId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    })
+    if (res.ok) {
+        const updatedMessage = await res.json();
+        dispatch(updateMessage(updatedMessage));
+        return updatedMessage;
+    }
+}
