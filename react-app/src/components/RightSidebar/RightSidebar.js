@@ -12,8 +12,6 @@ const RightSidebar = () => {
     console.log(serverId)
     const [form, setForm] = useState(false);
 
-    const showForm = () => setForm(!form);
-
 
 
     return (
@@ -24,12 +22,12 @@ const RightSidebar = () => {
                 </div>
                 <div className='create-channel'>
                     <p className='text-chnl'>Text Channel</p>
-                    <button onClick={setForm} id='channel-create-btn'>
+                    <button onClick={() => setForm(true)} id='channel-create-btn'>
                         <i className="fa-solid fa-plus channel-add"></i>
                     </button>
                 </div>
                 {form &&
-                    <ChannelForm serverId={serverId} form={setForm} />
+                    <ChannelForm serverId={serverId} onClose={() => setForm(false)} />
                 }
                 <Channels />
             </div>
