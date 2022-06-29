@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect, useHistory, NavLink } from 'react-router-dom';
+import { Redirect, useHistory, NavLink, useParams } from 'react-router-dom';
 
 import * as serversActions from '../../store/servers'
 import * as channelsActions from '../../store/channels'
@@ -9,17 +9,20 @@ import "./ServerPage.css"
 
 
 const ServerPage = () => {
+    const serverId = useParams();
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(serversActions.getAllServers());
-        dispatch(channelsActions.getAllChannels(1)); // need to get serverId
+        dispatch(channelsActions.getAllChannels(serverId)); // need to get serverId
     }, [dispatch]);
 
     const user = useSelector((state) => state.session.user);
     const allServers = useSelector((state) => state.servers);
+    console.log(allServers)
     const servers = Object.values(allServers)
+    console.log(servers)
 
     const allChannels = useSelector((state) => state.channelReducer);
     const channels = Object.values(allChannels)
