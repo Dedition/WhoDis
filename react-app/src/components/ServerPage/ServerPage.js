@@ -51,7 +51,7 @@ const ServerPage = () => {
                         return <li key={channel.id}>{channel.name}</li>
                     })}
                 </ul> */}
-                    <LogoutButton />
+                    {/* <LogoutButton /> */}
 
 
                     {/* <NavLink to='/create-channel' exact={true}>

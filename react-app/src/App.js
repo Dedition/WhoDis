@@ -9,6 +9,7 @@ import User from './components/User';
 import ServerPage from './components/ServerPage/ServerPage'
 import ServerForm from './components/ServerForm/ServerForm';
 import ChannelForm from './components/ChannelForm/ChannelForm';
+import EditServerForm from './components/EditServerForm/EditServerForm';
 import Matrix from './components/Matrix/Matrix';
 import SplashPage from './components/SplashPage/SplashPage';
 import { authenticate } from './store/session';
@@ -66,6 +67,9 @@ function App() {
         </Route>
         <Route path='/create-server' exact={true}>
           <ServerForm />
+        </Route>
+        <Route path='/edit-server' exact={true}>
+          <EditServerForm />
         </Route>
         {/* <Route path='/create-channel' exact={true}>
           <ChannelForm />
