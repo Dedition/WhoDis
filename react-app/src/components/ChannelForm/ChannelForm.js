@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, useHistory, NavLink, useParams } from 'react-router-dom';
 
-import { addSingleChannel } from '../../store/channels'
+import { addSingleChannel, getAllChannels } from '../../store/channels'
 import "./ChannelForm.css"
 
 
-const ChannelForm = ({ setForm }) => {
+const ChannelForm = () => {
   // const { serverId } = useParams();
 
   const [errors, setErrors] = useState([]);
@@ -14,7 +14,6 @@ const ChannelForm = ({ setForm }) => {
 
   const url = window.location.href.split('/')
   const serverId = url[url.length - 1]
-  console.log(serverId)
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -24,16 +23,16 @@ const ChannelForm = ({ setForm }) => {
   }
 
 
-  const submitForm = (e) => {
+  const submitForm = async(e) => {
     e.preventDefault();
     const payload = {
       name
     };
     console.log(payload)
-    const newChannel = dispatch(addSingleChannel(payload, serverId));
+    const newChannel =await dispatch(addSingleChannel(payload, serverId));
+    await dispatch(getAllChannels(serverId))
     if (newChannel) {
       history.push(`/servers/${serverId}`);
-      setForm(true);
       reset();
     }
   }
