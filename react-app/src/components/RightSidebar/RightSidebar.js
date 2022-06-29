@@ -37,6 +37,7 @@ const RightSidebar = () => {
                 {form &&
                     <ChannelForm serverId={serverId} form={setForm} />
                 } 
+
                 <Channels />
             </div>
         </div>
