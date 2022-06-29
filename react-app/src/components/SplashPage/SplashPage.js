@@ -5,7 +5,6 @@ import { NavLink } from 'react-router-dom';
 
 import NavBar from './NavBar/NavBar';
 import './splashPage.css'
-// import SplashText from './SplashText/SplashText';
 
 /********************************************************************************************************************/
 
