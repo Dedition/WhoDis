@@ -52,7 +52,6 @@ function App() {
 
         </Route>
         <Route path='/servers/:serverId' exact={true}>
-          <ChannelForm></ChannelForm>
           <Channels></Channels>
         </Route>
         <ProtectedRoute path='/users' exact={true} >
