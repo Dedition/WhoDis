@@ -32,15 +32,14 @@ const getOneChannel = (channel) => {
     };
 };
 
-export const addSingleChannel = (channel, data) => async dispatch => {
-    const res = await fetch(`/api/channels`, {
+export const addSingleChannel = (data, serverId) => async dispatch => {
+    const res = await fetch(`/api/channels/${serverId}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
     })
-
     if (res.ok) {
         const channel = await res.json()
         dispatch(addChannel(channel))
@@ -54,7 +53,6 @@ export const getAllChannels = (serverId) => async dispatch => {
 
     if (res.ok) {
         const channels = await res.json();
-        console.log(channels)
         dispatch(getChannels(channels))
 
         return channels;
@@ -107,18 +105,12 @@ export default function channels(state = {}, action) {
     let channel;
     switch (action.type) {
         case (ADD_CHANNEL):
-            channel = action.payload.channel
-            newState = { ...state, [channel.id]: channel, }
+            channel = action.payload
+            newState = { ...state, [channel?.id]: channel, }
             return newState
         case (GET_CHANNELS):
-            // newState = {}
-            // action.payload.channels.forEach(channel => {
-            //     newState[channel.id] = channel
-            // })
-            // return {...state, newState}
             newState = {}
             let channels = action.payload.channels
-            console.log(channels)
             channels.forEach(item => { newState[item.id] = item })
             return newState
         case (EDIT_CHANNEL):

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import { getAllChannels } from '../../store/channels'
 import { getServer } from '../../store/servers'
+import './channels.css'
 
 const Channels = () => {
     const dispatch = useDispatch()
@@ -14,7 +15,6 @@ const Channels = () => {
 
     useEffect(() => {
         dispatch(getAllChannels(serverId))
-        dispatch(getServer(serverId))
         return () => {
         }
     }, [dispatch, serverId])
@@ -37,8 +37,8 @@ const Channels = () => {
             </div>
             <div className='channels-container'>
                 {channels.map((channel, i) => (
-                    <div key={i}>
-                        {channel.name}
+                    <div className='channel-each' key={i}>
+                        {channel?.name}
                         <NavLink to='/edit-channel'>
                             <i
                                 className="fas fa-edit edit__btn">

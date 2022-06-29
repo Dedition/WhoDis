@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from ..models.db import db, User, Channel, Server
 from ..forms.channel_form import ChannelForm
 from .server_routes import error_messages
-
+from datetime import datetime
 channel_routes = Blueprint('channel', __name__, url_prefix="/channels")
 
 # TODO ——————————————————————————————————————————————————————————————————————————————————
@@ -11,15 +11,13 @@ channel_routes = Blueprint('channel', __name__, url_prefix="/channels")
 # TODO ——————————————————————————————————————————————————————————————————————————————————
 
 
-@channel_routes.route('/', methods=["POST"])
-def create_channel():
+@channel_routes.route('/<int:serverId>', methods=["POST"])
+def create_channel(serverId):
     # user = User.query.get(userId)
-    params = request.get_json()
-    server_id = params['server_id']
     form = ChannelForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        channel = Channel(name=form.data['name'], server_id=server_id)
+        channel = Channel(name=form.data['name'], server_id=serverId, created_at=datetime.utcnow(), updated_at=datetime.utcnow())
         db.session.add(channel)
         db.session.commit()
         return channel.to_dict(), 201

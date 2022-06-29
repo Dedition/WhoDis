@@ -7,25 +7,25 @@ import { getAllServers } from '../../store/servers'
 import { getAllChannels } from '../../store/channels'
 import RightSidebar from '../RightSidebar/RightSidebar';
 import "./ServerPage.css"
-
+import { confirmUrlAction } from '../../store/check_home';
 
 const ServerPage = () => {
-
-
+    
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(getAllServers());
-    }, [dispatch]);
+    }, []);
 
     const user = useSelector((state) => state.session.user);
     // console.log(user.username, "THIS IS USER ----------------------")
     const allServers = useSelector((state) => state.servers);
 
     const servers = Object.values(allServers);
+
     // console.log(servers, "THIS IS SERVERS----------------------")
     // const allChannels = useSelector((state) => state.channelReducer);
     // const channels = Object.values(allChannels)
-
 
     return (
         <>
@@ -49,6 +49,9 @@ const ServerPage = () => {
                             </NavLink>
                         </div>
                     </div>
+
+                        
+
                     {/* <ul>
                     {channels.map(channel => {
                         return <li key={channel.id}>{channel.name}</li>

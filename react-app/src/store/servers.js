@@ -32,7 +32,6 @@ const getOneServer = (server) => {
 
 export const addSingleServer = (payload) => async dispatch => {
     const { name, banner_url, server_icon_url, dm_channel, notPrivate, owner_id} = payload
-    console.log(payload,",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,")
     const res = await fetch('/api/servers', {
         method: "POST",
         headers: {
@@ -45,16 +44,13 @@ export const addSingleServer = (payload) => async dispatch => {
 
     const server = await res.json()
     dispatch(addServer(server))
-    console.log(server, "===============================")
     return server
 }
 
 export const getAllServers = () => async dispatch => {
-    console.log('HIT THIS HERE')
     const res = await fetch('/api/servers')
 
     if (res.ok) {
-        console.log('HIT THIS THERE HERE THERE')
         const servers = await res.json();
         dispatch(getServers(servers))
         return servers;
@@ -111,13 +107,13 @@ export default function servers(state = initialState, action) {
     switch (action.type) {
         case (ADD_SERVER):
             server = action.payload
-            console.log(action.payload, "'''''''''''''''''''''''''''''''")
+            
 
-                const newState = {
+                 newState = {
                     ...state,
                     [action.payload.id]: server,
                 }
-                console.log(newState, "----''")
+
                 return newState
         case (GET_SERVERS):
             const allServers = {};
