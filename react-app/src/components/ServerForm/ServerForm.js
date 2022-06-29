@@ -16,13 +16,13 @@ const ServerForm = () => {
     const dm_channel = false;
     const [notPrivate, setNotPrivate] = useState(false);
 
-    
-    
+
+
     const history = useHistory();
     const dispatch = useDispatch();
     const currentUserId = useSelector((state) => state.session.user.id)
     const owner_id = currentUserId;
-    
+
     const reset = () => {
         setName('');
         setBannerUrl('');
@@ -48,60 +48,72 @@ const ServerForm = () => {
     }
 
     return (
-        <div>
-            <form onSubmit={submitForm}>
-                <div>Create New Server!</div>
-                <label htmlFor='name'></label>
-                    <input 
-                        name = "name"
+        <div className='modal'>
+            <div className='form'>
+                <form onSubmit={submitForm}>
+                    <div className='create-text'>Create New Server!</div>
+                    <div>
+                    <label htmlFor='name'>Name</label>
+                    <input
+                        name="name"
                         type="text"
                         placeholder="Name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         required
                     />
-                <label htmlFor='banner_url'></label>
+                    </div>
+                    <div>
+                        <label htmlFor='banner_url'>Banner Img</label>
                     <input
-                        name = "banner_url"
+                        name="banner_url"
                         type="text"
                         placeholder="Banner Img"
                         value={banner_url}
                         onChange={(e) => setBannerUrl(e.target.value)}
                         required
                     />
-                <label htmlFor="server_icon_url"></label>
-                <input
-                    name = "server_icon_url"
-                    type="text"
-                    placeholder="Server Icon Img"
-                    value={server_icon_url}
-                    onChange={(e) => setServerIconUrl(e.target.value)}
-                    required
-                />
-                <label htmlFor="public">
+                    </div>
+                    <div>
+                        <label htmlFor="server_icon_url">Server Icon Img</label>
                     <input
-                    type="checkbox"
-                    value="no"
-                    name="public"
-                    checked={notPrivate === 'no'}
-                    onChange={(e) => setNotPrivate('no')}
+                        name="server_icon_url"
+                        type="text"
+                        placeholder="Server Icon Img"
+                        value={server_icon_url}
+                        onChange={(e) => setServerIconUrl(e.target.value)}
+                        required
                     />
-                    Public
-                </label>
-                <label htmlFor="public">
-                    <input
-                    type="checkbox"
-                    value="yes"
-                    name="public"
-                    checked={notPrivate === 'yes'}
-                    onChange={(e) => setNotPrivate('yes')}
-                    />
-                    Private
-                </label>
-                <button  type="submit">
-                    Submit
-                </button>
-            </form>
+                    </div>
+                    <div className='public-private'>
+                    <label htmlFor="public">
+                        Public
+                        <input
+                            type="checkbox"
+                            value="no"
+                            name="public"
+                            checked={notPrivate === 'no'}
+                            onChange={(e) => setNotPrivate('no')}
+                        />
+                    </label>
+                    <label htmlFor="public">
+                        Private
+                        <input
+                            type="checkbox"
+                            value="yes"
+                            name="public"
+                            checked={notPrivate === 'yes'}
+                            onChange={(e) => setNotPrivate('yes')}
+                        />
+                    </label>
+                    </div>
+                    <div>
+                    <button type="submit">
+                        Submit
+                    </button>
+                    </div>
+                </form>
+            </div>
         </div>
     )
 
