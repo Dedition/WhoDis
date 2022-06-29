@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
-import NavBar from './components/NavBar/NavBar';
+import NavBar from './components/SplashPage/NavBar/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
@@ -53,7 +53,6 @@ function App() {
         </ProtectedRoute>
         <Route path='/' exact={true} >
           <Matrix />
-          <NavBar />
           <SplashPage />
         </Route>
         <Route path='/create-server' exact={true}>
