@@ -12,7 +12,7 @@ const RightSidebar = () => {
 
 
     return (
-        <div onClick={showForm} className='right-sidebar'>
+        <div className='right-sidebar'>
             <div className='rs-content'>
                 <div className='channel-name'>
                     <p id='channel-title'>Channel Name</p>
@@ -20,7 +20,7 @@ const RightSidebar = () => {
                 <div className='create-channel'>
                     <p className='text-chnl'>Text Channel</p>
                     <button onClick={showForm} id='channel-create-btn'>
-                        <i className="fa-solid fa-plus channel-add"></i>
+                        <div className="channel-add">+</div>
                     </button>
                 </div>
                 {form &&

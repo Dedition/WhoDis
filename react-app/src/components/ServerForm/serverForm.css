@@ -76,6 +76,18 @@
   justify-content: center;
 }
 
+.exit-server-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.exit-server-form>a {
+  font-size: 30px;
+  text-decoration: none;
+  color: black;
+    margin-top: -20px;
+  }
 
 
 body {

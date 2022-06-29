@@ -39,18 +39,18 @@ const ServerPage = () => {
                                 <div key={server.id} className='server-nav-a'>{server.name[0]}</div></NavLink>
                         ))}
                     </div>
-                    {/* <div className='server-bubble'>
+                    <div className='server-bubble'>
                         <NavLink id='server-nav' className='add-server' to='/create-server' exact={true}>
                             <p>+</p>
                         </NavLink>
-                    </div> */}
+                    </div>
                 </div>
                 {/* <ul>
                     {channels.map(channel => {
                         return <li key={channel.id}>{channel.name}</li>
                     })}
                 </ul> */}
-                {/* <LogoutButton/> */}
+                <LogoutButton/>
 
  
                 {/* <NavLink to='/create-channel' exact={true}>
