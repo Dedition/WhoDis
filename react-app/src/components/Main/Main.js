@@ -1,10 +1,10 @@
-import Sidebar from "../Sidebar/Sidebar";
+
 
 
 const Main = () => {
     return (
         <div className='main'>
-            <Sidebar/>
+            <p>hello</p>
         </div>
     )
 }

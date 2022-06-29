@@ -3,12 +3,16 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import { getAllChannels } from '../../store/channels'
-
-const Channels = () => {
+import './channels.css'
+const Channels = ({showDms}) => {
+    console.log(showDms)
     const dispatch = useDispatch()
     const { serverId } = useParams()
     useEffect(() => {
          dispatch(getAllChannels(serverId))
+         return () => {
+            
+         }
     }, [dispatch, serverId])
 
     const allChannels = useSelector(state => state.channels)
@@ -17,7 +21,7 @@ const Channels = () => {
     return (
         <div className='channels-container'>
             {channels.map((channel, i) => (
-                <div key={i}>{channel?.name}</div>
+                <div className='channel-each' key={i}>{channel?.name}</div>
             ))}
         </div>
     )

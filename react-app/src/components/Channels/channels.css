@@ -1,0 +1,13 @@
+.channels-container {
+    margin-left: 10px;
+    overflow-y: scroll;
+}
+
+.channel-each {
+    margin-bottom: 10%;
+}
+
+
+::-webkit-scrollbar {
+    background-color: transparent;
+}

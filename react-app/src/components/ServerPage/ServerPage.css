@@ -2,10 +2,7 @@ body {
   background-color: #37393e;
   
 }
-.sidebar {
-  display: flex;
-  flex-direction: column;
-}
+
 .server-nav {
   height: 100vh;
   width: 115px;
