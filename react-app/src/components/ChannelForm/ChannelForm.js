@@ -30,10 +30,11 @@ const ChannelForm = () => {
   }
 
   return (
-    <div>
+    <div className='modal'>
+      <div className='form'>
       <form onSubmit={submitForm}>
-        <div>Create New Channel!</div>
-        <label htmlFor='name'></label>
+          <div className='create-text'>Create New Channel!</div>
+        <label htmlFor='name'>Name</label>
         <input
           name="name"
           type="text"
@@ -46,6 +47,7 @@ const ChannelForm = () => {
           Submit
         </button>
       </form>
+    </div>
     </div>
   )
 
