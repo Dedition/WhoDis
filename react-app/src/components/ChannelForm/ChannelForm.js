@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, useHistory, NavLink } from 'react-router-dom';
 
 import { addSingleChannel } from '../../store/channels'
-
+import "./ChannelForm.css"
 
 
 const ChannelForm = () => {
@@ -48,6 +48,47 @@ const ChannelForm = () => {
         </button>
       </form>
     </div>
+      {/* animation */}
+      {/* <div class="left">
+        <div class="cat">
+          <div class="ears1"></div>
+          <div class="head1">
+            <div class="eyes1"></div>
+            <div class="nose1"></div>
+          </div>
+          <div class="body1">
+            <div class="left-paw1"></div>
+            <div class="right-paw1"></div>
+          </div>
+          <div class="tail1"></div>
+          <div class="PRlaptop">
+            <div class="PRscreen"></div>
+            <div class="PRkeyboard"></div>
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="dog">
+          <div class="ears2"></div>
+          <div class="head2">
+            <div class="eyes2"></div>
+            <div class="nose2"></div>
+          </div>
+          <div class="body2">
+            <div class="left-paw2"></div>
+            <div class="right-paw2"></div>
+          </div>
+          <div class="tail2"></div>
+          <div class="ORlaptop">
+            <div class="ORscreen"></div>
+            <div class="ORkeyboard"></div>
+          </div>
+        </div>
+      </div> */}
+
+
+
+      
     </div>
   )
 
