@@ -1,0 +1,64 @@
+body {
+  background-color: #37393e;
+  
+}
+
+.server-nav {
+  height: 100vh;
+  width: 115px;
+  background-color: rgb(32, 34, 37);
+  color: white;
+  position: absolute;
+  display: flex;
+}
+
+
+.server-nav-a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: grey;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 25px;
+  font-weight: 500;
+}
+
+#server-nav {
+  text-decoration: none;
+  color: white;
+}
+
+.server-bubble {
+  padding: 30px;
+}
+
+.add-server {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: grey;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-weight: 500;
+  font-size: 35px;
+}
+
+.add-server > p {
+  color: green;
+}
+
+
+.home-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: grey;
+  border-radius: 20px;
+  width: 60px;
+  height: 60px;
+  font-size: 15px;
+  font-weight: 500;
+}
