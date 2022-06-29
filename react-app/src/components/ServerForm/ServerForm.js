@@ -121,7 +121,7 @@ const ServerForm = () => {
             </div>
 
             {/* animation */}
-            <div class="left">
+            {/* <div class="left">
                 <div class="cat">
                     <div class="ears1"></div>
                     <div class="head1">
@@ -156,7 +156,7 @@ const ServerForm = () => {
                         <div class="ORkeyboard"></div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 

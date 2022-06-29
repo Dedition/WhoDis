@@ -2,8 +2,7 @@ const GET_CHANNELS = 'channels/GET_CHANNELS'
 const EDIT_CHANNEL = 'channels/EDIT_CHANNEL'
 const REMOVE_CHANNEL = 'channels/REMOVE_CHANNEL'
 const ADD_CHANNEL = 'channels/ADD_CHANNEL'
-
-
+const GET_ONE_CHANNEL = 'notebooks/GET_ONE_CHANNEL'
 
 const addChannel = (channel) => ({
     type: ADD_CHANNEL,
@@ -26,6 +25,12 @@ const removeChannel = (channelId) => ({
     payload: channelId
 })
 
+const getOneChannel = (channel) => {
+    return {
+        type: GET_ONE_CHANNEL,
+        channel,
+    };
+};
 
 export const addSingleChannel = (channel, data) => async dispatch => {
     const res = await fetch(`/api/channels`, {
@@ -87,6 +92,16 @@ export const removeSingleChannel = (channelId) => async dispatch => {
     }
 }
 
+export const getChannel = (id) => async dispatch => {
+    const response = await fetch(`/api/channels/${id}`)
+
+    if (response.ok) {
+        const channel = await response.json();
+        dispatch(getOneChannel(channel))
+        return response
+    }
+}
+
 export default function channels(state = {}, action) {
     let newState = {}
     let channel;
@@ -115,6 +130,12 @@ export default function channels(state = {}, action) {
             newState = { ...state, };
             delete newState[action.payload.channelId]
             return newState
+        case GET_ONE_CHANNEL:
+            const channel = {};
+            channel[action.channel.id] = action.channel
+            return {
+                ...channel
+            }         
         default:
             return state
     }

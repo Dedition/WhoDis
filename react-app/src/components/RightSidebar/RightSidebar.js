@@ -22,13 +22,21 @@ const RightSidebar = () => {
         <div className='right-sidebar'>
             <div className='rs-content'>
                 <div className='channel-name'>
-                    <p id='channel-title'>SERVER NAME</p>
+                    <p id='channel-title'>
+                        SERVER NAME
+                        <NavLink to='/edit-server'>
+                            <i
+                                className="fas fa-edit edit__btn">
+                            </i>
+                        </NavLink>
+                        <NavLink to='/delete-server'>
+                        <i
+                            className="fas fa-trash-alt delete__btn">
+
+                        </i>
+                            </NavLink>
+                    </p>
                 </div>
-                <NavLink to='/edit-server'>
-                    <button>
-                        EDIT SERVER
-                    </button>
-                </NavLink>
                 <div className='create-channel'>
                     <p className='text-chnl'>Text Channel</p>
                     <button onClick={showForm} id='channel-create-btn'>
@@ -39,6 +47,7 @@ const RightSidebar = () => {
                     <ChannelForm />
                 }
                 <Channels />
+
             </div>
         </div>
     )

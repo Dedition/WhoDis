@@ -1,5 +1,5 @@
 // This Component Displays ALL of the channels belonging to a specific server, as this component only displays at the route 'servers/:serverId'
-import { useParams } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import { getAllChannels } from '../../store/channels'
@@ -27,7 +27,7 @@ const Channels = () => {
 
     const servers = Object.values(allServers);
     console.log(servers, "THIS IS SERVERS!!! ----------------------")
-    const oneServer = servers.filter(server => server.id === serverId)
+    const oneServer = servers.filter(server => server.id)
     console.log(oneServer, "THIS IS SERVER NAME!!! ----------------------")
 
     return (
@@ -37,7 +37,20 @@ const Channels = () => {
             </div>
             <div className='channels-container'>
                 {channels.map((channel, i) => (
-                    <div key={i}>{channel.name}</div>
+                    <div key={i}>
+                        {channel.name}
+                        <NavLink to='/edit-channel'>
+                            <i
+                                className="fas fa-edit edit__btn">
+                                {/* EDIT CHANNEL */}
+                            </i>
+                        </NavLink>
+                        <NavLink to='/delete-channel'>
+                        <i
+                            className="fas fa-trash-alt delete__btn">
+                        </i>
+                        </NavLink>
+                    </div>
                 ))}
             </div>
         </>

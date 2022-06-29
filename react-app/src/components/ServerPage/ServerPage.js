@@ -18,10 +18,11 @@ const ServerPage = () => {
     }, [dispatch]);
 
     const user = useSelector((state) => state.session.user);
-    console.log(user.username, "THIS IS USER ----------------------")
+    // console.log(user.username, "THIS IS USER ----------------------")
     const allServers = useSelector((state) => state.servers);
 
     const servers = Object.values(allServers);
+    // console.log(servers, "THIS IS SERVERS----------------------")
     // const allChannels = useSelector((state) => state.channelReducer);
     // const channels = Object.values(allChannels)
 
@@ -32,7 +33,9 @@ const ServerPage = () => {
                 <div className='server-nav'>
                     <div>
                         <div className='server-bubble'>
-                            <NavLink id='server-nav' className='home-button' to='/servers/@me'>Home</NavLink>
+                            <NavLink id='server-nav' className='home-button' to='/servers/@me'>
+                                <i class="fa-brands fa-discord"></i>
+                                </NavLink>
                         </div>
                         <div className='server-bubble'>
                             {servers.map((server, i) => (
@@ -62,14 +65,27 @@ const ServerPage = () => {
                     </div> */}
 
                     {/* user bar */}
-                    {/* <div className='user-bar'>
-                        <div className='server-nav-a'>
-                            {user.username.charAt(0)}
+                    <div className='user-bar'>
+                        <div class='user-bar-div'>
+                            <div className='profile-pic'>
+                                {user.username.charAt(0)}
+                            </div>
+                            <div className='username-div'>
+                                {user.username}
+                            </div>
+                            <div className='microphone-div'>
+                                <i class="fa-solid fa-microphone"></i>
+                            </div>
+                            <div className='headphones-div'>
+                                <i class="fa-solid fa-headphones"></i>
+                            </div>
+                            <div className='settings-div'>
+                                <NavLink to='/user-profile'>
+                                    <i class="fa-solid fa-gear"></i>
+                                </NavLink>
+                            </div>
                         </div>
-                        <div>
-                            {user.username}
-                        </div>
-                    </div> */}
+                    </div>
                 </div>
                 <RightSidebar />
             </div>
