@@ -7,12 +7,21 @@ import {getAllServers} from '../../store/servers'
 import {getAllChannels} from '../../store/channels'
 import RightSidebar from '../RightSidebar/RightSidebar';
 import "./ServerPage.css"
-
+import { confirmUrlAction } from '../../store/check_home';
 
 const ServerPage = () => {
+    
 
 
     const dispatch = useDispatch();
+
+
+    const checkUrl = () => {
+       return dispatch(confirmUrlAction(window.location.href))
+    }
+
+    
+
     useEffect(() => {
         dispatch(getAllServers());
     }, [dispatch]);
@@ -30,7 +39,7 @@ const ServerPage = () => {
         <div className='sidebar'>
             <div className='server-nav'>
                 <div>
-                    <div className='server-bubble'>
+                    <div className='server-bubble' onClick={checkUrl}>
                         <NavLink id='server-nav' className='home-button' to='/servers/@me'>Home</NavLink>
                     </div>
                     <div className='server-bubble'>
@@ -50,7 +59,7 @@ const ServerPage = () => {
                         return <li key={channel.id}>{channel.name}</li>
                     })}
                 </ul> */}
-                {/* <LogoutButton/> */}
+                <LogoutButton/>
 
  
                 {/* <NavLink to='/create-channel' exact={true}>

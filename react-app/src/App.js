@@ -49,7 +49,7 @@ function App() {
           <SignUpForm />
         </Route>
         <Route path='/servers/@me' exact={true}>
-
+          
         </Route>
         <Route path='/servers/:serverId' exact={true}>
           <Channels></Channels>
