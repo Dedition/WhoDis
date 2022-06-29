@@ -49,6 +49,7 @@ export const getAllChannels = (serverId) => async dispatch => {
 
     if (res.ok) {
         const channels = await res.json();
+        console.log(channels)
         dispatch(getChannels(channels))
 
         return channels;
@@ -86,7 +87,7 @@ export const removeSingleChannel = (channelId) => async dispatch => {
     }
 }
 
-export default function channelReducer(state = {}, action) {
+export default function channels(state = {}, action) {
     let newState = {}
     let channel;
     switch (action.type) {
@@ -95,8 +96,14 @@ export default function channelReducer(state = {}, action) {
             newState = { ...state, [channel.id]: channel, }
             return newState
         case (GET_CHANNELS):
-            newState = { ...state }
+            // newState = {}
+            // action.payload.channels.forEach(channel => {
+            //     newState[channel.id] = channel
+            // })
+            // return {...state, newState}
+            newState = {}
             let channels = action.payload.channels
+            console.log(channels)
             channels.forEach(item => { newState[item.id] = item })
             return newState
         case (EDIT_CHANNEL):

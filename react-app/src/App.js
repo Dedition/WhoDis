@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import ProtectedRoute from './components/auth/ProtectedRoute';
@@ -13,15 +13,19 @@ import Matrix from './components/Matrix/Matrix';
 import SplashPage from './components/SplashPage/SplashPage';
 import { authenticate } from './store/session';
 //import {getAllServers} from './store/servers'
-
+import Channels from './components/Channels/Channels'
 function App() {
   const [loaded, setLoaded] = useState(false);
+  const [userloaded, setUserLoaded] = useState(false)
   const dispatch = useDispatch();
 
+
+  const user = useSelector(state => state.session.user)
+
   useEffect(() => {
-    (async() => {
+    (async () => {
       await dispatch(authenticate());
-     // await dispatch(getAllServers())
+      // await dispatch(getAllServers())
       setLoaded(true);
     })();
   }, [dispatch]);
@@ -29,9 +33,12 @@ function App() {
   if (!loaded) {
     return null;
   }
-  
+
   return (
     <BrowserRouter>
+      {user &&
+        <ServerPage />
+      }
       <Switch>
         <Route path='/login' exact={true}>
           <Matrix />
@@ -41,11 +48,15 @@ function App() {
           <Matrix />
           <SignUpForm />
         </Route>
-        <Route path='/servers' exact={true}>
-          <ServerPage />
+        <Route path='/servers/@me' exact={true}>
+
+        </Route>
+        <Route path='/servers/:serverId' exact={true}>
+          <ChannelForm></ChannelForm>
+          <Channels></Channels>
         </Route>
         <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
+          <UsersList />
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
@@ -57,9 +68,9 @@ function App() {
         <Route path='/create-server' exact={true}>
           <ServerForm />
         </Route>
-        <Route path='/create-channel' exact={true}>
+        {/* <Route path='/create-channel' exact={true}>
           <ChannelForm />
-        </Route>
+        </Route> */}
       </Switch>
     </BrowserRouter>
   );

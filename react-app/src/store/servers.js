@@ -43,12 +43,13 @@ export const addSingleServer = (payload) => async dispatch => {
 }
 
 export const getAllServers = () => async dispatch => {
+    console.log('HIT THIS HERE')
     const res = await fetch('/api/servers')
 
     if (res.ok) {
+        console.log('HIT THIS THERE HERE THERE')
         const servers = await res.json();
         dispatch(getServers(servers))
-
         return servers;
     }
 }
@@ -88,7 +89,7 @@ export const removeSingleServer = (serverId) => async dispatch => {
 const initialState = {}
 
 export default function servers(state = initialState, action) {
-    let newState = {...state}
+    let newState = { ...state }
     let server;
     switch (action.type) {
         case (ADD_SERVER):
@@ -110,11 +111,11 @@ export default function servers(state = initialState, action) {
             return {
                 ...allServers
             }
-            // newState = { ...state }
-            // let servers = action.payload.servers
-            // servers.forEach(item => {
-            //     newState[item.id] = item
-            // })
+        // newState = { ...state }
+        // let servers = action.payload.servers
+        // servers.forEach(item => {
+        //     newState[item.id] = item
+        // })
         case (EDIT_SERVER):
             newState = { ...state, };
             server = action.payload.server

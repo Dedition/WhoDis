@@ -35,7 +35,7 @@ const LoginForm = () => {
   // Created a Demo login feature - Sona
   const demoSubmit = (e) => {
     e.preventDefault();
-    history.push("/");
+    history.push("/servers/@me");
     return dispatch(demo(email, password));
   };
 
