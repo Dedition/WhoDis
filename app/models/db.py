@@ -7,13 +7,19 @@ db = SQLAlchemy()
 
 
 #! JOIN TABLE START
-server_users = db.Table(
-    "server_users",
-    db.Model.metadata,  # ! db.Base.metadata
-    db.Column("user_id", db.ForeignKey("users.id")),
-    db.Column("server_id", db.ForeignKey("servers.id"))
-)
+# server_users = db.Table(
+#     "server_users",
+#     db.Model.metadata,  # ! db.Base.metadata
+#     db.Column("user_id", db.ForeignKey("users.id")),
+#     db.Column("server_id", db.ForeignKey("servers.id"))
+# )
 #! JOIN TABLE END
+
+
+
+
+
+
 
 
 class User(db.Model, UserMixin):
@@ -28,8 +34,12 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.TIMESTAMP(timezone=False))
     updated_at = db.Column(db.TIMESTAMP(timezone=False))
     # * Database relationship
-    servers = db.relationship(
-        'Server', secondary=server_users, back_populates="users", cascade="all, delete")
+
+    # MEMBERS TABLE RELATIONSHIPS 
+    members = db.relationship('Member', back_populates='users', foreign_keys='Member.user_id')
+    # MEMBERS TABLE RELATIONSHIPS
+
+
     server_owners = db.relationship(
         'Server', back_populates="user_owner", cascade="all, delete")
     channel_messages = db.relationship(
@@ -87,8 +97,12 @@ class Server(db.Model):
     created_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     # * Database relationship
-    users = db.relationship(
-        'User', secondary=server_users, back_populates="servers")
+
+    # Members Table Relationship
+    members_servers = db.relationship(
+        'Member', back_populates="servers", foreign_keys='Member.server_id')
+    # Members Table Relationship
+
     user_owner = db.relationship(
         'User', back_populates="server_owners")
     channels = db.relationship(
@@ -106,6 +120,32 @@ class Server(db.Model):
             'created_at': self.created_at,
             'updated_at': self.updated_at,
         }
+
+
+
+
+
+
+
+class Member(db.Model): 
+    __tablename__ = 'members'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    server_id = db.Column(db.Integer, db.ForeignKey('servers.id'))
+    
+    users = db.relationship('User', back_populates='members')
+    servers = db.relationship('Server', back_populates='members_servers')
+
+    def to_dict(self):
+        return {
+        'id': self.id,
+        'user_id': self.user_id,
+        'server_id': self.server_id
+        }
+
+
+
+
 
 
 class Channel(db.Model):
