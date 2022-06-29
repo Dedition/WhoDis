@@ -7,8 +7,6 @@ import { getAllChannels } from '../../store/channels'
 const Channels = () => {
     const dispatch = useDispatch()
     const { serverId } = useParams()
-
-    console.log(serverId)
     useEffect(() => {
         dispatch(getAllChannels(serverId))
         return () => {
