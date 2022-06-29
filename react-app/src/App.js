@@ -51,9 +51,9 @@ function App() {
         <Route path='/servers/@me' exact={true}>
           
         </Route>
-        <Route path='/servers/:serverId' exact={true}>
-          <Channels></Channels>
-        </Route>
+        {/* <Route path='/servers/:serverId' exact={true}>
+          <Channels/>
+        </Route> */}
         <ProtectedRoute path='/users' exact={true} >
           <UsersList />
         </ProtectedRoute>
