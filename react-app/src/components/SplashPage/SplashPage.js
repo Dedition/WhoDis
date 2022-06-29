@@ -13,20 +13,6 @@ const SplashPage = () => {
     return (
         <div className='splash-main-page'>
             <NavBar />
-            {/* 
-
-                <div>
-                <div>
-                    <NavLink to='/sign-up' exact={true} activeClassName='active'>
-                    Sign Up
-                    </NavLink>
-                </div>
-                <div>
-                    <NavLink to='/users' exact={true} activeClassName='active'>
-                    Users
-                    </NavLink>
-                </div>
-            </div> */}
         </div>
     )
 }

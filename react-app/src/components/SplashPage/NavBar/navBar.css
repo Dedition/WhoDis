@@ -1,3 +1,7 @@
+.Nav-bar{
+    height: 800px;
+}
+
 .spalsh-nav{
     display: flex;
     flex-direction: column;
@@ -117,12 +121,19 @@
 
 /***********************************************************************/
 
-.splash-text-conatiner {
+.splash-middle-container{
     display: flex;
     flex-direction: column;
+}
+
+
+.splash-text-conatiner {
+    display: flex;
+    /* flex-direction: column; */
     width:80%;
     margin-left: 10%;
     margin-right: 10%;
+    margin-bottom: 500px;
 }
 
 
@@ -135,12 +146,11 @@
     color: white;
     background-color: black;
     border-radius: 20px;
-    margin-top: 200px;
-    width:30%;
-    margin-left: 35%;
-    margin-right: 35%;
+    margin-top: 150px;
+    width:36%;
+    margin-left: 32%;
+    margin-right: 32%;
 }
-
 
 
 #splash-txt{
@@ -160,3 +170,98 @@
 }
 
 /***********************************************************************/
+
+.splash-auth-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: -370px;
+    width:50%;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.splash-demo>button{
+    font-size: 24px;
+    font-weight: 600;
+    border-radius: 20px;
+    height: 43px;
+    margin-right: 20px;
+    width: 150px;
+    background-color: rgba(255,255,255,0.7);
+}
+
+#splash-signup{
+    font-size: 25px;
+    font-weight: 600;
+    color:black;
+    text-decoration:none;
+    background-color: rgba(255,255,255,0.7);
+    border-radius: 20px;
+    width: 140px;
+    height: 35px;
+    text-align: center;
+    padding-top: 5px;
+    margin-left: 20px;
+    margin-top:2px;
+}
+
+/***********************************************************************/
+
+.splash-border{
+    margin-top: 150px;
+    border-bottom: 1px solid grey;
+    width:80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+/***********************************************************************/
+
+.splash-footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: -460px;
+    width:100%;
+}
+
+.splash-developers{
+    display: flex;
+    flex-direction: column;
+    color:white;
+    position: relative;
+    top:450px;
+    left:-300px;
+}
+
+.splash-developers>h3{
+    border-bottom: 1px solid grey;
+    width: 90px;
+}
+
+.splash-developers>a{
+    text-decoration: none;
+    color:white;
+    font-size: 15px;
+}
+
+.splash-resources{
+    display: flex;
+    flex-direction: column;
+    color:white;
+    position: relative;
+    top:450px;
+    left:300px;
+}
+
+.splash-resources>h3{
+    border-bottom: 1px solid grey;
+    width: 82px;
+}
+
+.splash-resources>div{
+    position: relative;
+    color:white;
+    font-size: 15px;
+}
