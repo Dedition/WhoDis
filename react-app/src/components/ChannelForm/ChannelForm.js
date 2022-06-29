@@ -33,7 +33,7 @@ const ChannelForm = ({ setForm }) => {
     const newChannel = dispatch(addSingleChannel(payload, serverId));
     if (newChannel) {
       history.push(`/servers/${serverId}`);
-      setForm(true);
+      // setForm(true);
       reset();
     }
   }
