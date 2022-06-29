@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from ..models.db import Server, db, User
+from ..models.db import Server, db, User, Member
 from ..forms.server_form import ServerForm
 from datetime import datetime
 
@@ -53,13 +53,19 @@ def create_server():
 # TODO ——————————————————————————————————————————————————————————————————————————————————
 
 
-@server_routes.route('/', methods=["GET"])
+@server_routes.route('', methods=["GET"])
 def all_servers():
     # * This query returns a non-Pythonic list of all servers
-    servers = db.session.query(Server).join(User, Server.users).all()
-    
+    print("GOT TO THIS REQUEST =====================================================================")
+    # user_id = current_user.id
+    # print(user_id, '---------------------------------')
+    memberships = Member.query.all()
+    valid_memberships = [membership.server_id for membership in memberships if membership.user_id == current_user.id]
+    servers = []
+    for server_ids in valid_memberships:
+        each_server = Server.query.get(server_ids)
+        servers.append(each_server)
 
-    print(servers[0].owner_id, "........................................................")
     # * This returns a key/val pair of servers in JSON format
     return {'servers': [server.to_dict() for server in servers]}
 
@@ -71,7 +77,7 @@ def all_servers():
 
 @server_routes.route('/<int:server_id>', methods=['PUT'])
 @login_required
-def update_server(serverId, userId):
+def update_server(serverId):
     server = Server.query.get(serverId)
     if not server:
         return {'errors': f"No server with id number {serverId} exists"}, 404

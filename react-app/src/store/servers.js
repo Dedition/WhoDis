@@ -43,12 +43,13 @@ export const addSingleServer = (payload) => async dispatch => {
 }
 
 export const getAllServers = () => async dispatch => {
+    console.log('HIT THIS HERE')
     const res = await fetch('/api/servers')
 
     if (res.ok) {
+        console.log('HIT THIS THERE HERE THERE')
         const servers = await res.json();
         dispatch(getServers(servers))
-
         return servers;
     }
 }
