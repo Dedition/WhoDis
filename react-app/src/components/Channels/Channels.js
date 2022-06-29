@@ -8,9 +8,7 @@ const Channels = () => {
     const dispatch = useDispatch()
     const { serverId } = useParams()
     useEffect(() => {
-        dispatch(getAllChannels(serverId))
-        return () => {
-        }
+         dispatch(getAllChannels(serverId))
     }, [dispatch, serverId])
 
     const allChannels = useSelector(state => state.channels)

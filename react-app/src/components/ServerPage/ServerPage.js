@@ -11,20 +11,15 @@ import { confirmUrlAction } from '../../store/check_home';
 
 const ServerPage = () => {
     
+    const url = window.location.href.split("/")
+    const serverId = url[url.length - 1]
 
 
     const dispatch = useDispatch();
 
-
-    const checkUrl = () => {
-       return dispatch(confirmUrlAction(window.location.href))
-    }
-
-    
-
     useEffect(() => {
         dispatch(getAllServers());
-    }, [dispatch]);
+    }, []);
 
     const user = useSelector((state) => state.session.user);
     const allServers = useSelector((state) => state.servers);
@@ -39,7 +34,7 @@ const ServerPage = () => {
         <div className='sidebar'>
             <div className='server-nav'>
                 <div>
-                    <div className='server-bubble' onClick={checkUrl}>
+                    <div className='server-bubble'>
                         <NavLink id='server-nav' className='home-button' to='/servers/@me'>Home</NavLink>
                     </div>
                     <div className='server-bubble'>
@@ -48,24 +43,8 @@ const ServerPage = () => {
                                 <div key={server.id} className='server-nav-a'>{server.name[0]}</div></NavLink>
                         ))}
                     </div>
-                    {/* <div className='server-bubble'>
-                        <NavLink id='server-nav' className='add-server' to='/create-server' exact={true}>
-                            <p>+</p>
-                        </NavLink>
-                    </div> */}
                 </div>
-                {/* <ul>
-                    {channels.map(channel => {
-                        return <li key={channel.id}>{channel.name}</li>
-                    })}
-                </ul> */}
-                <LogoutButton/>
-
- 
-                {/* <NavLink to='/create-channel' exact={true}>
-                    <p>create channel</p>
-                </NavLink> */}
-                    
+                <LogoutButton/>   
             </div>
             <RightSidebar />
             </div>
