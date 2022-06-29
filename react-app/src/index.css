@@ -1,7 +1,12 @@
 /* TODO Add site wide styles */
 
-body {
-    height: 100%;
+.browser-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.main {
     width: 100%;
-    margin: 0 auto;
+    height: 100vh;
+    background-color: blue;
 }

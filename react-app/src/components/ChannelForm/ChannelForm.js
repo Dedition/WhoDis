@@ -29,7 +29,6 @@ const ChannelForm = () => {
       name
     };
     const newChannel =await dispatch(addSingleChannel(payload, serverId));
-    // await dispatch(getAllChannels(serverId))
     if (newChannel) {
       history.push(`/servers/${serverId}`);
       reset();

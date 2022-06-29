@@ -11,10 +11,6 @@ import { confirmUrlAction } from '../../store/check_home';
 
 const ServerPage = () => {
     
-    const url = window.location.href.split("/")
-    const serverId = url[url.length - 1]
-
-
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -25,12 +21,12 @@ const ServerPage = () => {
     const allServers = useSelector((state) => state.servers);
     
     const servers = Object.values(allServers);
-    // const allChannels = useSelector((state) => state.channelReducer);
-    // const channels = Object.values(allChannels)
+
+    const [props, setProps] = useState(false)
+
 
 
     return (
-        <>
         <div className='sidebar'>
             <div className='server-nav'>
                 <div>
@@ -38,17 +34,19 @@ const ServerPage = () => {
                         <NavLink id='server-nav' className='home-button' to='/servers/@me'>Home</NavLink>
                     </div>
                     <div className='server-bubble'>
-                        {servers.map((server, i) => (
-                             <NavLink key={i} id='server-nav' to={`/servers/${server.id}`}>
-                                <div key={server.id} className='server-nav-a'>{server.name[0]}</div></NavLink>
+                    {servers.map((server, i) => (
+                    <NavLink key={i} id='server-nav' to={`/servers/${server.id}`}>
+                        <div key={server.id} className='server-nav-a'>{server.name[0]}
+                        </div>
+                    </NavLink>
                         ))}
                     </div>
                 </div>
-                <LogoutButton/>   
+                {/* <LogoutButton/>    */}
             </div>
-            <RightSidebar />
+            <RightSidebar showDms={props}/>
             </div>
-        </>
+        
         
     )
 }

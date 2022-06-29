@@ -14,6 +14,7 @@ import SplashPage from './components/SplashPage/SplashPage';
 import { authenticate } from './store/session';
 //import {getAllServers} from './store/servers'
 import Channels from './components/Channels/Channels'
+import Main from './components/Main/Main';
 function App() {
   const [loaded, setLoaded] = useState(false);
   const [userloaded, setUserLoaded] = useState(false)
@@ -25,7 +26,6 @@ function App() {
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
-      // await dispatch(getAllServers())
       setLoaded(true);
     })();
   }, [dispatch]);
@@ -37,7 +37,10 @@ function App() {
   return (
     <BrowserRouter>
       {user &&
+      <div className='browser-container'>
         <ServerPage />
+        <Main/>
+        </div>
       }
       <Switch>
         <Route path='/login' exact={true}>
@@ -49,11 +52,7 @@ function App() {
           <SignUpForm />
         </Route>
         <Route path='/servers/@me' exact={true}>
-          
         </Route>
-        {/* <Route path='/servers/:serverId' exact={true}>
-          <Channels/>
-        </Route> */}
         <ProtectedRoute path='/users' exact={true} >
           <UsersList />
         </ProtectedRoute>
@@ -67,9 +66,6 @@ function App() {
         <Route path='/create-server' exact={true}>
           <ServerForm />
         </Route>
-        {/* <Route path='/create-channel' exact={true}>
-          <ChannelForm />
-        </Route> */}
       </Switch>
     </BrowserRouter>
   );
