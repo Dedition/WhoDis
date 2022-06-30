@@ -61,10 +61,17 @@ def all_servers():
     # print(user_id, '---------------------------------')
     memberships = Member.query.all()
     valid_memberships = [membership.server_id for membership in memberships if membership.user_id == current_user.id]
+
     servers = []
     for server_ids in valid_memberships:
         each_server = Server.query.get(server_ids)
         servers.append(each_server)
+
+    # need to check ownership of server
+    all_servers = Server.query.all()
+    for server in all_servers:
+        if server.owner_id == current_user.id:
+            servers.append(server)
 
     # * This returns a key/val pair of servers in JSON format
     return {'servers': [server.to_dict() for server in servers]}

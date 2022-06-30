@@ -20,6 +20,10 @@ import { authenticate } from './store/session';
 //import {getAllServers} from './store/servers'
 import Channels from './components/Channels/Channels'
 import Main from './components/Main/Main';
+import { Redirect } from 'react-router-dom';
+
+
+
 function App() {
   const [loaded, setLoaded] = useState(false);
   const [userloaded, setUserLoaded] = useState(false)
@@ -41,12 +45,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {user &&
-      <div className='browser-container'>
-        <ServerPage />
-        <Main/>
-        </div>
-      }
+      {user ? <ServerPage /> : <Redirect to="/" />}
       <Switch>
         <Route path='/login' exact={true}>
           <Matrix />

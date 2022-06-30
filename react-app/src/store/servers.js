@@ -31,7 +31,7 @@ const getOneServer = (server) => {
 };
 
 export const addSingleServer = (payload) => async dispatch => {
-    const { name, banner_url, server_icon_url, dm_channel, notPrivate, owner_id} = payload
+    const { name, banner_url, server_icon_url, dm_channel, notPrivate, owner_id } = payload
     const res = await fetch('/api/servers', {
         method: "POST",
         headers: {
@@ -103,28 +103,18 @@ const initialState = {}
 
 export default function servers(state = initialState, action) {
     let newState = { ...state }
-    let server;
     switch (action.type) {
         case (ADD_SERVER):
-           
-                 newState = {
-                    ...state,
-                    [action.payload.id]: action.payload,
-                }
+            newState = { ...state, [action.payload.id]: action.payload }
 
-                return newState
+            return newState
         case (GET_SERVERS):
-            newState = {...state};
+            const allServers = { ...state };
             let servers = action.payload.servers
             servers.forEach(server => {
                 newState[server.id] = server
             })
             return newState
-        // newState = { ...state }
-        // let servers = action.payload.servers
-        // servers.forEach(item => {
-        //     newState[item.id] = item
-        // })
         case (EDIT_SERVER):
             newState = { ...state, };
             server = action.payload.server
@@ -141,7 +131,7 @@ export default function servers(state = initialState, action) {
             server[action.server.id] = action.server
             return {
                 ...server
-            } 
+            }
         default:
             return state
     }

@@ -29,7 +29,7 @@ const LoginForm = () => {
   };
 
   if (user) {
-    return <Redirect to='/' />;
+    return <Redirect to='/servers/@me' />;
   }
 
   // Created a Demo login feature - Sona
