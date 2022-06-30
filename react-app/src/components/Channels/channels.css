@@ -2,19 +2,43 @@
     margin-top: 5%;
     margin-left: 15px;
     overflow-y: scroll;
+    /* background-color: grey; */
+}
+
+.channel-name>a {
+    color: white;
+}
+
+#channel-title {
+    color: white;
 }
 
 .channel-each {
-    font-size: 20px;
-    margin-bottom: 10%;
+    display: flex;
+    text-align: left;
+    justify-content: space-between;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    font-weight: 500;
+    font-size: 22px;
+    color: white;
+    margin: 20px;
 }
 
+.edit-delete-channels>a {
+    text-decoration: none;
+    color: white;
+    margin: 2px;
+}
 
 ::-webkit-scrollbar {
     background-color: transparent;
 }
 
-.edit__btn__channel {
+
+/* ANTHONY STYLING  */
+/* .edit__btn__channel {
     font-size: 15px;
     margin-left: 10px;
     color: rgb(117, 173, 88);
@@ -43,4 +67,4 @@
 
 .create-text {
     cursor: default;
-}
+} */
