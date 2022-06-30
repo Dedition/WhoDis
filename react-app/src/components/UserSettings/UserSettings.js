@@ -19,10 +19,10 @@ const UserProfile = () => {
 
   return (
     <div className='main-user-div'>
-      <div className="logout-div">
+      <span className="logout-div">
         <LogoutButton />
-      </div>
-      <div>
+      </span>
+      <span>
         <h1>My Account</h1>
         {/* <div>
           {user?.profile_pic_url}
@@ -41,7 +41,7 @@ const UserProfile = () => {
             Back
           </button>
         </div>
-      </div>
+      </span>
     </div>
   )
 }
