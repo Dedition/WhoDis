@@ -71,10 +71,10 @@ const ServerPage = () => {
                     <div className='user-bar'>
                         <div className='user-bar-div'>
                             <div className='profile-pic'>
-                                {user.username.charAt(0)}
+                                {user?.username.charAt(0)}
                             </div>
                             <div className='username-div'>
-                                {user.username}
+                                {user?.username}
                             </div>
                             <div className='microphone-div'>
                                 <i className="fa-solid fa-microphone"></i>

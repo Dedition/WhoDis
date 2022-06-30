@@ -1,3 +1,20 @@
 .main-user-div{
-    margin-top:-200px;
+    display: flex;  
+}
+
+.logout-div{
+    background-color: grey;
+    height:1000px;
+}
+
+
+.user-info-div{
+    background-color: blanchedalmond;
+    width: 400px;
+    height: 200px;
+    margin-left: 100px;
+}
+
+.user-subinfo{
+    background-color: grey;
 }

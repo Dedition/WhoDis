@@ -6,6 +6,9 @@ import Channels from '../Channels/Channels';
 import LogoutButton from '../auth/LogoutButton';
 import ChannelForm from '../ChannelForm/ChannelForm';
 import { getAllChannels, addSingleChannel } from '../../store/channels';
+
+
+
 const RightSidebar = (showDms) => {
 
     // use the current path to display either 'Direct Messages' or 'Text Channels' as the right sidebar title
@@ -63,7 +66,7 @@ const RightSidebar = (showDms) => {
 
     const serverOwner = currentServer?.owner_id
     const isOwner = () => {
-        if (serverOwner == user.id) {
+        if (serverOwner == user?.id) {
             return true
         }
         return false
@@ -91,8 +94,8 @@ const RightSidebar = (showDms) => {
                 </div>
                 <div className='title-sb'>
                     <p className='text-chnl'>{path == '@me' ? 'Direct Messages' : 'CHANNELS'}</p>
-                    { serverOwner == user.id &&
-                        <button id='channel-create-btn' disabled={serverOwner !== user.id} onClick={() => setForm(true)}>
+                    { serverOwner == user?.id &&
+                        <button id='channel-create-btn' disabled={serverOwner !== user?.id} onClick={() => setForm(true)}>
                             <div className="channel-add" >+</div>
                         </button>
                     }
@@ -128,10 +131,11 @@ const RightSidebar = (showDms) => {
                 {/* CHANNEL FORM */}
 
                 {/* DISPLAY ALL CHANNELS */}
-                <Route path='/servers/:serverId'>
+                {/* <Route path='/servers/:serverId'>
                     <Channels />
-                </Route>
+                </Route> */}
                 {/* DISPLAY ALL CHANNELS */}
+                <Channels />
             </div>
         </div>
     )
