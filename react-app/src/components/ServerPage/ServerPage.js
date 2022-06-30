@@ -34,7 +34,7 @@ const ServerPage = () => {
                     <div>
                         <div className='server-bubble'>
                             <NavLink id='server-nav' className='home-button' to='/servers/@me'>
-                                <i class="fa-brands fa-discord"></i>
+                                <i className="fa-brands fa-discord"></i>
                                 </NavLink>
                         </div>
                         <div className='server-bubble'>
@@ -69,7 +69,7 @@ const ServerPage = () => {
 
                     {/* user bar */}
                     <div className='user-bar'>
-                        <div class='user-bar-div'>
+                        <div className='user-bar-div'>
                             <div className='profile-pic'>
                                 {user.username.charAt(0)}
                             </div>
@@ -77,14 +77,14 @@ const ServerPage = () => {
                                 {user.username}
                             </div>
                             <div className='microphone-div'>
-                                <i class="fa-solid fa-microphone"></i>
+                                <i className="fa-solid fa-microphone"></i>
                             </div>
                             <div className='headphones-div'>
-                                <i class="fa-solid fa-headphones"></i>
+                                <i className="fa-solid fa-headphones"></i>
                             </div>
                             <div className='settings-div'>
                                 <NavLink to='/user-profile'>
-                                    <i class="fa-solid fa-gear"></i>
+                                    <i className="fa-solid fa-gear"></i>
                                 </NavLink>
                             </div>
                         </div>
