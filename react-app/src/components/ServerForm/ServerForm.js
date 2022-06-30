@@ -51,6 +51,11 @@ const ServerForm = () => {
         <div className='modal'>
             <div className='form'>
                 <form onSubmit={submitForm}>
+                    <div className='exit-server-form'>
+
+                    <NavLink to='/servers'><div className='exit'>x</div></NavLink>
+                    </div>
+
                     <div className='create-text'>Create New Server!</div>
                     <div>
                         <label htmlFor='name'>Name</label>
@@ -116,7 +121,7 @@ const ServerForm = () => {
             </div>
 
             {/* animation */}
-            <div class="left">
+            {/* <div class="left">
                 <div class="cat">
                     <div class="ears1"></div>
                     <div class="head1">
@@ -151,7 +156,7 @@ const ServerForm = () => {
                         <div class="ORkeyboard"></div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 

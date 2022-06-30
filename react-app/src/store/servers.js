@@ -2,6 +2,7 @@ const GET_SERVERS = 'servers/GET_SERVERS'
 const EDIT_SERVER = 'servers/EDIT_SERVER'
 const REMOVE_SERVER = 'servers/REMOVE_SERVER'
 const ADD_SERVER = 'servers/ADD_SERVER'
+const GET_ONE_SERVER = 'notebooks/GET_ONE_SERVER'
 
 const addServer = (server) => ({
     type: ADD_SERVER,
@@ -22,6 +23,12 @@ const removeServer = (serverId) => ({
     payload: serverId
 })
 
+const getOneServer = (server) => {
+    return {
+        type: GET_ONE_SERVER,
+        server,
+    };
+};
 
 export const addSingleServer = (payload) => async dispatch => {
     const { name, banner_url, server_icon_url, dm_channel, notPrivate, owner_id} = payload
@@ -81,6 +88,16 @@ export const removeSingleServer = (serverId) => async dispatch => {
     }
 }
 
+export const getServer = (id) => async dispatch => {
+    const response = await fetch(`/api/servers/${id}`)
+
+    if (response.ok) {
+        const server = await response.json();
+        dispatch(getOneServer(server))
+        return response
+    }
+}
+
 
 const initialState = {}
 
@@ -123,6 +140,12 @@ export default function servers(state = initialState, action) {
             };
             delete newState[action.payload.serverId]
             return newState
+        case GET_ONE_SERVER:
+            const server = {};
+            server[action.server.id] = action.server
+            return {
+                ...server
+            } 
         default:
             return state
     }
