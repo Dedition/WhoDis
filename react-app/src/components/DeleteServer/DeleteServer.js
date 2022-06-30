@@ -1,30 +1,33 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory, NavLink } from "react-router-dom";
 import { useEffect } from "react";
-import { removeSingleServer, getServer } from "../../store/servers";
+import { removeSingleServer, getServer, getAllServers } from "../../store/servers";
 import './DeleteServer.css'
 
 const DeleteServer = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { id } = useParams();
-  // const notes = useSelector((state) => state.notes);
-  // const note = notes[id]
-  // const sessionUser = useSelector((state) => state.session.user)
+  const serverIdState = useSelector((state) => state.globalActions)
+  const serverId = serverIdState.serverId
 
-  const handleDeleteClick = (e) => {
-    e.preventDefault();
-    dispatch(removeSingleServer(id))
-    history.push("/servers")
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    dispatch(removeSingleServer(serverId))
+    dispatch(getAllServers())
+    history.push(`/servers/${serverId}`)
   }
 
   useEffect(() => {
-    dispatch(getServer(id))
-  }, [dispatch, id])
+    return () => {
+      dispatch(getAllServers())
+    }
+  }, [dispatch])
+  
 
   return (
     <div className='modal'>
-      <div className='form'>
+      <div className='form' onSubmit={handleSubmit}>
         <form>
           <div className='exit-server-form'>
             <NavLink to='/servers'><div className='exit'>x</div></NavLink>
@@ -34,7 +37,7 @@ const DeleteServer = () => {
             </div>
             <div className="delete-button-div">
             <div className="confirm-delete-button">
-              <button onClick={handleDeleteClick}>CONFIRM DELETE</button>
+              <button>CONFIRM DELETE</button>
             </div>
             </div>
         </form>

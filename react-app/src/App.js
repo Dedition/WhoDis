@@ -45,7 +45,13 @@ function App() {
 
   return (
     <BrowserRouter>
-      {user ? <ServerPage /> : <Redirect to="/" />}
+      {user ?
+        <div className='browser-container'>
+       <ServerPage />
+       <Main/>
+       <div className='main-sidebar'></div>
+        </div>
+        : <Redirect to="/" />}
       <Switch>
         <Route path='/login' exact={true}>
           <Matrix />
@@ -73,20 +79,17 @@ function App() {
         <Route path='/edit-server' exact={true}>
           <EditServerForm />
         </Route>
-        <Route path='/edit-channel' exact={true}>
+        {/* <Route path='/edit-channel' exact={true}>
           <EditChannelForm />
-        </Route>
+        </Route> */}
         <Route path='/delete-server' exact={true}>
           <DeleteServer />
-        </Route>
-        <Route path='/delete-channel' exact={true}>
-          <DeleteChannel />
         </Route>
         <Route path='/user-profile' exact={true}>
           <UserProfile />
         </Route>
-        {/* <Route path='/create-channel' exact={true}>
-          <ChannelForm />
+        {/* <Route path='/:serverId/:channelId/edit'>
+          <DeleteChannel />
         </Route> */}
       </Switch>
     </BrowserRouter>

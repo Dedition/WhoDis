@@ -44,19 +44,17 @@ def all_channels(server_id):
 
 @channel_routes.route('/<int:channel_id>', methods=['PUT'])
 @login_required
-def update_channel(channelId):
-    params = request.get_json()
-    server_id = params['server_id']
-
-    server = Server.query.get(server_id)
-    channel = Channel.query.get(channelId)
+def update_channel(channel_id):
+    # IF CHANNEL.SERVER_ID.OWNER_ID !== CURRENT_USER.ID 
+    # DO NOT ACCEPT
+    channel = Channel.query.get(channel_id)
     if not channel:
-        return {'errors': f"No channel with id number {channelId} exists"}, 404
-    elif (server.owner_id == current_user.id) and (channel):
+        return {'errors': f"No channel with id number {channel_id} exists"}, 404
+    elif (channel_id):
         form = ChannelForm()
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
-            channel = Channel(name=form.data['name'])
+            channel.name = form.data['name']
             db.session.commit()
             return channel.to_dict(), 201
         else:
@@ -68,14 +66,14 @@ def update_channel(channelId):
 # TODO ——————————————————————————————————————————————————————————————————————————————————
 
 @channel_routes.route('/<int:channel_id>', methods=['DELETE'])
-def delete_channel(channelId):
+def delete_channel(channel_id):
 
-    channel = Channel.query.get(channelId)
-    if channel:
+    channel = Channel.query.get(channel_id)
+    if (channel_id):
         server_id = channel.server_id
         server = Server.query.get(server_id)
         if server.owner_id == current_user.id:
             db.session.delete(channel)
             db.session.commit()
             return channel.to_dict()
-    return f"channel {channelId} has been deleted!"
+    return channel.to_dict()
