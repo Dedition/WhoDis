@@ -1,15 +1,15 @@
-const CONFIRM_HOME = 'actions/CONFIRM_HOME'
+const GET_SERVER_ID = 'actions/GET_SERVER_ID'
 
 
-const confirmUrl = (url) => ({
-    type: CONFIRM_HOME,
-    url
+const getServerId = (id) => ({
+    type: GET_SERVER_ID,
+    id
 })
 
 
 
-export const confirmUrlAction = (url) => dispatch => {
-    return dispatch(confirmUrl(url))
+export const getSingleServerId = (id) => dispatch => {
+     dispatch(getServerId(id))
 }
 
 
@@ -17,11 +17,10 @@ export const confirmUrlAction = (url) => dispatch => {
 export default function globalActions(state = {}, action) {
     let newState;
     switch(action.type) {
-        case CONFIRM_HOME:
+        case GET_SERVER_ID:
             newState = {}
-            const url = action.url
-            console.log(url, "REDUCER GLOBAL ACTIONS ")
-            newState['url'] = url
+            const serverId = action.id
+            newState['serverId'] = serverId
             return newState
         default:
             return state

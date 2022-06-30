@@ -4,6 +4,7 @@ const REMOVE_SERVER = 'servers/REMOVE_SERVER'
 const ADD_SERVER = 'servers/ADD_SERVER'
 const GET_ONE_SERVER = 'notebooks/GET_ONE_SERVER'
 
+
 const addServer = (server) => ({
     type: ADD_SERVER,
     payload: server
@@ -58,13 +59,13 @@ export const getAllServers = () => async dispatch => {
 }
 
 
-export const editSingleServer = (serverId) => async dispatch => {
-    const res = await fetch(`/api/servers${serverId}`, {
+export const editSingleServer = (serverId, data) => async dispatch => {
+    const res = await fetch(`/api/servers/${serverId}`, {
         method: 'PUT',
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(serverId)
+        body: JSON.stringify(data)
     });
     if (res.ok) {
         const server = await res.json();
@@ -99,31 +100,27 @@ export const getServer = (id) => async dispatch => {
 }
 
 
+
 const initialState = {}
 
 export default function servers(state = initialState, action) {
     let newState = { ...state }
+    let server;
     switch (action.type) {
         case (ADD_SERVER):
             newState = { ...state, [action.payload.id]: action.payload }
 
             return newState
         case (GET_SERVERS):
-            const allServers = { ...state };
+             newState = { };
             let servers = action.payload.servers
             servers.forEach(server => {
-                allServers[server.id] = server
+                newState[server.id] = server
             })
-            return allServers
-            
-        // newState = { ...state }
-        // let servers = action.payload.servers
-        // servers.forEach(item => {
-        //     newState[item.id] = item
-        // })
+            return newState
         case (EDIT_SERVER):
-            newState = { ...state, };
-            server = action.payload.server
+            newState = {...state};
+            server = action.payload
             newState[server.id] = server;
             return newState
         case (REMOVE_SERVER):
@@ -133,7 +130,7 @@ export default function servers(state = initialState, action) {
             delete newState[action.payload.serverId]
             return newState
         case GET_ONE_SERVER:
-            const server = {};
+             server = {};
             server[action.server.id] = action.server
             return {
                 ...server

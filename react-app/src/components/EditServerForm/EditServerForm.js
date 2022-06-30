@@ -15,9 +15,11 @@ const EditServerForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const currentUserId = useSelector((state) => state.session.user.id)
+  const serverIdState = useSelector((state) => state.globalActions)
+  const serverId = serverIdState.serverId
   const owner_id = currentUserId;
 
-  const { serverId } = useParams();
+  // const { serverId } = useParams();
 
   const reset = () => {
     setName('');
@@ -26,13 +28,9 @@ const EditServerForm = () => {
     setNotPrivate(false);
   }
 
-  useEffect(() => {
-    dispatch(getServer(serverId));
-  }, [dispatch]);
-
   const submitForm = (e) => {
     e.preventDefault();
-    const payload = {
+    const data = {
       name,
       banner_url,
       server_icon_url,
@@ -40,9 +38,9 @@ const EditServerForm = () => {
       dm_channel,
       owner_id,
     };
-    const updatedServer = dispatch(editSingleServer(payload));
+    const updatedServer = dispatch(editSingleServer(serverId, data));
     if (updatedServer) {
-      history.push(`/servers`);
+      history.push(`/servers/${serverId}`);
       reset();
     }
   }

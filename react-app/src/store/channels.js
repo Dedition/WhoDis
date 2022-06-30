@@ -61,7 +61,7 @@ export const getAllChannels = (serverId) => async dispatch => {
 
 
 export const editSingleChannel = (channelId, data) => async dispatch => {
-    const res = await fetch(`/api/channels${channelId}`, {
+    const res = await fetch(`/api/channels/${channelId}`, {
         method: 'PUT',
         headers: {
             "Content-Type": "application/json"
@@ -102,6 +102,7 @@ export const getChannel = (id) => async dispatch => {
 
 export default function channels(state = {}, action) {
     let newState = {}
+    let channel
     switch (action.type) {
         case (ADD_CHANNEL):
             newState = { ...state, [action.payload.id]: action.payload }
@@ -113,15 +114,15 @@ export default function channels(state = {}, action) {
             return newState
         case (EDIT_CHANNEL):
             newState = { ...state };
-            channel = action.payload.channel
+            channel = action.payload
             newState[channel.id] = channel;
             return newState
         case (REMOVE_CHANNEL):
-            newState = { ...state, };
-            delete newState[action.payload.channelId]
+            newState = {...state};
+            delete newState[action.payload]
             return newState
         case GET_ONE_CHANNEL:
-            const channel = {};
+             channel = {};
             channel[action.channel.id] = action.channel
             return {
                 ...channel

@@ -66,11 +66,8 @@
 
 .channel-name {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
-    height: 5%;
-    width: 100%;
-    font-size: 20px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.432);
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.123);
 
@@ -86,6 +83,24 @@
     margin-top: 27px;
 }
 
+/* ANTHONY STYLING  */
+#channel-title {
+    font-size: 22px;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.edit__btn__server {
+    color: rgb(143, 188, 255);
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.delete__btn__server {
+    color: rgb(177, 54, 38);
+    text-shadow: 0px 3px 5px rgba(0, 0, 0, 0.267)
+}
+/* ANTHONY STYLING */
 
 .dm-title {
     display: flex;
