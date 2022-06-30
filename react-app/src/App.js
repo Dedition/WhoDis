@@ -45,13 +45,6 @@ function App() {
 
   return (
     <BrowserRouter>
-      {user ?
-        <div className='browser-container'>
-       <ServerPage />
-       <Main/>
-       <div className='main-sidebar'></div>
-        </div>
-        : <Redirect to="/" />}
       <Switch>
         <Route path='/login' exact={true}>
           <Matrix />
@@ -61,31 +54,39 @@ function App() {
           <Matrix />
           <SignUpForm />
         </Route>
-        <Route path='/servers/@me' exact={true}>
-        </Route>
-        <ProtectedRoute path='/users' exact={true} >
-          <UsersList />
-        </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
-          <User />
-        </ProtectedRoute>
         <Route path='/' exact={true} >
           <Matrix />
           <SplashPage />
         </Route>
-        <Route path='/create-server' exact={true}>
-          <ServerForm />
-        </Route>
+        <Route path='/servers/@me' exact={true}>
+          <ServerPage />
+          </Route>
+        <ProtectedRoute path='/users' exact={true} >
+            <ServerPage />
+            <Main/>
+          <UsersList />
+        </ProtectedRoute>
+        <ProtectedRoute path='/users/:userId' exact={true} >
+            <ServerPage />
+            <Main/>
+          <User />
+        </ProtectedRoute>
+            <ServerPage />
+            <Main/>
+            <ServerForm />
         <Route path='/edit-server' exact={true}>
-          <EditServerForm />
+            <ServerPage />
+            <Main/>
+            <EditServerForm />
         </Route>
         {/* <Route path='/edit-channel' exact={true}>
           <EditChannelForm />
         </Route> */}
         <Route path='/delete-server' exact={true}>
-          <DeleteServer />
+            <ServerPage />
+            <Main/>
+            <DeleteServer />
         </Route>
-
         { user ? <Route path='/user-profile' exact={true}>
           <UserProfile />
         </Route>
