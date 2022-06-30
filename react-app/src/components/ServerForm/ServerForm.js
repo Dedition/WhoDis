@@ -53,7 +53,7 @@ const ServerForm = () => {
                 <form onSubmit={submitForm}>
                     <div className='exit-server-form'>
 
-                    <NavLink to='/servers'><div className='exit'>x</div></NavLink>
+                    <NavLink to='/servers/@me'><div className='exit'>x</div></NavLink>
                     </div>
 
                     <div className='create-text'>Create New Server!</div>
