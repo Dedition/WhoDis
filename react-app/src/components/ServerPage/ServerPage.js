@@ -15,7 +15,7 @@ const ServerPage = () => {
 
     useEffect(() => {
         dispatch(getAllServers());
-    }, []);
+    }, [dispatch]);
 
     const user = useSelector((state) => state.session.user);
     // console.log(user.username, "THIS IS USER ----------------------")

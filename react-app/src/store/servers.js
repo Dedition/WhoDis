@@ -106,24 +106,20 @@ export default function servers(state = initialState, action) {
     let server;
     switch (action.type) {
         case (ADD_SERVER):
-            server = action.payload
-            
-
+           
                  newState = {
                     ...state,
-                    [action.payload.id]: server,
+                    [action.payload.id]: action.payload,
                 }
 
                 return newState
         case (GET_SERVERS):
-            const allServers = {};
+            newState = {...state};
             let servers = action.payload.servers
             servers.forEach(server => {
-                allServers[server.id] = server
+                newState[server.id] = server
             })
-            return {
-                ...allServers
-            }
+            return newState
         // newState = { ...state }
         // let servers = action.payload.servers
         // servers.forEach(item => {
