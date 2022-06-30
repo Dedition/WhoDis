@@ -102,11 +102,9 @@ export const getChannel = (id) => async dispatch => {
 
 export default function channels(state = {}, action) {
     let newState = {}
-    let channel;
     switch (action.type) {
         case (ADD_CHANNEL):
-            channel = action.payload
-            newState = { ...state, [channel?.id]: channel, }
+            newState = { ...state, [action.payload.id]: action.payload }
             return newState
         case (GET_CHANNELS):
             newState = {}
