@@ -21,7 +21,7 @@ const NavBar = () => {
 
   const demoSubmit = (e) => {
     e.preventDefault();
-    history.push("/servers");
+    history.push("/servers/@me");
     return dispatch(demo(email, password));
   };
 

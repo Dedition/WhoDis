@@ -59,34 +59,53 @@ function App() {
           <SplashPage />
         </Route>
         <Route path='/servers/@me' exact={true}>
+          <div className='browser-container'>
           <ServerPage />
-          </Route>
+          <Main/>
+          <div className='main-sidebar'></div>
+        </div>
+        </Route>
         <ProtectedRoute path='/users' exact={true} >
+          <div className='browser-container'>
             <ServerPage />
             <Main/>
+            <div className='main-sidebar'></div>
           <UsersList />
+          </div>
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
+          <div className='browser-container'>
             <ServerPage />
             <Main/>
           <User />
+            <div className='main-sidebar'></div>
+          </div>
         </ProtectedRoute>
+        <Route path='/create-server' exact={true}>
             <ServerPage />
             <Main/>
-            <ServerForm />
+          <ServerForm />
+        </Route>
         <Route path='/edit-server' exact={true}>
+          <div className='browser-container'>
             <ServerPage />
             <Main/>
-            <EditServerForm />
+          <EditServerForm />
+            <div className='main-sidebar'></div>
+          </div>
         </Route>
         {/* <Route path='/edit-channel' exact={true}>
           <EditChannelForm />
         </Route> */}
         <Route path='/delete-server' exact={true}>
-            <ServerPage />
-            <Main/>
+          <div className='browser-container'>
+              <ServerPage />
+              <Main/>
             <DeleteServer />
+            <div className='main-sidebar'></div>
+          </div>
         </Route>
+
         { user ? <Route path='/user-profile' exact={true}>
           <UserProfile />
         </Route>
