@@ -16,10 +16,7 @@ const EditServerForm = () => {
   const dispatch = useDispatch();
   const currentUserId = useSelector((state) => state.session.user.id)
   const serverIdState = useSelector((state) => state.globalActions)
-  
-  console.log(serverIdState)
   const serverId = serverIdState.serverId
-  console.log(serverId)
   const owner_id = currentUserId;
 
   // const { serverId } = useParams();

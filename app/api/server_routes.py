@@ -43,7 +43,6 @@ def create_server():
 
             db.session.add(server)
             db.session.commit()
-            print(server.to_dict(),"*********************************")
             return server.to_dict()
         else:
             return {'errors': error_messages(form.errors)}, 401
@@ -56,7 +55,6 @@ def create_server():
 @server_routes.route('', methods=["GET"])
 def all_servers():
     # * This query returns a non-Pythonic list of all servers
-    print("GOT TO THIS REQUEST =====================================================================")
     # user_id = current_user.id
     # print(user_id, '---------------------------------')
     memberships = Member.query.all()
@@ -74,8 +72,7 @@ def all_servers():
             servers.append(server)
 
     # * This returns a key/val pair of servers in JSON format
-    return {'servers': [server.to_dict() for server in servers]}
-
+    return { 'servers': [server.to_dict() for server in servers] }
 
 # TODO ——————————————————————————————————————————————————————————————————————————————————
 # *                                  UPDATE
@@ -91,7 +88,6 @@ def update_server(server_id):
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
             if (server.owner_id == current_user.id):
-                print("LSKDJFLSDKFJLSKDJFSKLJFLSKJFLKSDJFLSKDJFSKLDFJSKLDJFLSKFJLSKJDFLKSJDFLKJFKLJDFKLSJFLKSJDFKLSJDFKLSJ", server_id, server_id)
                 server.name = form.data['name']
                 server.banner_url = form.data['banner_url']
                 server.server_icon_url = form.data['server_icon_url']
@@ -101,8 +97,6 @@ def update_server(server_id):
                 server.created_at = datetime.utcnow()
                 server.updated_at=datetime.utcnow()
                 db.session.commit()
-
-                print(server.id, 'slkdfjsldkfjslakjf;lasdkfj;askldfja;sdlfkjas;dlfkjas;dlfkjl;dkja;slfkjas;dlfjkas;lfkjas;ldfjkas;ldfjkasl;kfj')
                 return server.to_dict(), 201
     else:
         return {'errors': error_messages(form.errors)}
@@ -113,8 +107,10 @@ def update_server(server_id):
 # TODO ——————————————————————————————————————————————————————————————————————————————————
 
 @server_routes.route('/<int:server_id>', methods=['DELETE'])
-def delete_server(serverId):
-    server = Server.query.get(serverId)
-    db.session.delete(server)
-    db.session.commit()
-    return {"id": {serverId}}
+def delete_server(server_id):
+    
+    server = Server.query.get(server_id)
+    if current_user.id == server.owner_id:
+        db.session.delete(server)
+        db.session.commit()
+    return server.to_dict()

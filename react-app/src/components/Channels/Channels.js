@@ -9,13 +9,16 @@ import './channels.css'
 const Channels = () => {
     const dispatch = useDispatch()
     const { serverId } = useParams();
+    console.log(serverId)
 
     // const { server } = useParams();
 
 
     useEffect(() => {
+        if (serverId !== '@me') {
         dispatch(getAllChannels(serverId))
         dispatch(getSingleServerId(serverId))
+        }
         return () => {
         }
     }, [dispatch, serverId])
