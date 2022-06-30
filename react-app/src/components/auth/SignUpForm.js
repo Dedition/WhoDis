@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect, useHistory, NavLink } from 'react-router-dom';
 import { signUp, demo } from '../../store/session';
-import "./auth.css"                                               // auth.css page created for auth components -Sona
+import "./auth.css"
+import logo from '../SplashPage/NavBar/logo.png'                                               // auth.css page created for auth components -Sona
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -55,6 +56,9 @@ const SignUpForm = () => {
   return (
     <div className='authenticate-class'>
       <div className='auth-form-div'>
+        <NavLink to='/'>
+          <img id="signup-imgLogo" src={logo} />
+        </NavLink>
         <h1>Create Account!</h1>
         <form onSubmit={onSignUp}>
           <div className='auth-errors'>
