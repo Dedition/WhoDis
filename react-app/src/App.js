@@ -47,9 +47,9 @@ function App() {
     <BrowserRouter>
       {user ?
         <div className='browser-container'>
-       <ServerPage />
-       <Main/>
-       <div className='main-sidebar'></div>
+          <ServerPage />
+          <Main />
+          <div className='main-sidebar'></div>
         </div>
         : <Redirect to="/" />}
       <Switch>
@@ -86,10 +86,10 @@ function App() {
           <DeleteServer />
         </Route>
 
-        { user ? <Route path='/user-profile' exact={true}>
+        {user ? <Route path='/user-profile' exact={true}>
           <UserProfile />
         </Route>
-        : <Redirect to="/" />}
+          : <Redirect to="/" />}
         {/* <Route path='/:serverId/:channelId/edit'>
           <DeleteChannel />
         </Route> */}
@@ -97,5 +97,5 @@ function App() {
     </BrowserRouter>
   );
 }
-
+// HELLO WORLD
 export default App;
