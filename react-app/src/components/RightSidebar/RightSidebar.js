@@ -74,20 +74,23 @@ const RightSidebar = (showDms) => {
             <div className='rs-content'>
                 <div className='channel-name'>
                     <p id='channel-title'>{path == '@me' ? 'Direct Messages' : currentServer?.name}</p>
-                    <NavLink to='/edit-server'>
-                        <i
-                            className="fas fa-edit edit__btn__server">
-                        </i>
-                    </NavLink>
-                    <NavLink to='/delete-server'>
-                        <i
-                            className="fas fa-trash-alt delete__btn__server">
+                   {/* Class Name for Edit and Delete Buttons Changed */}
+                    <div className='edit-delete-server-title'>
+                        <NavLink to='/edit-server'>
+                            <i
+                                className="fas fa-edit edit__btn"> 
+                            </i>
+                        </NavLink>
+                        <NavLink to='/delete-server'>
+                            <i
+                                className="fas fa-trash-alt delete__btn">
 
-                        </i>
-                    </NavLink>
+                            </i>
+                        </NavLink>
+                    </div>
                 </div>
                 <div className='title-sb'>
-                    <p className='text-chnl'>{path == '@me' ? 'Direct Messages' : 'Text Channel'}</p>
+                    <p className='text-chnl'>{path == '@me' ? 'Direct Messages' : 'CHANNELS'}</p>
                     { serverOwner == user.id &&
                         <button id='channel-create-btn' disabled={serverOwner !== user.id} onClick={() => setForm(true)}>
                             <div className="channel-add" >+</div>

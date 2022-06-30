@@ -94,6 +94,27 @@ const Channels = () => {
 
     return (
         <>
+            {/* <div className='server-name'>
+                <p id='server-title'>{servers.name}</p>
+            </div> */}
+
+            {/* WEIQI'S CHANGES */}
+            {/* <div className='channels-container'>
+                {channels.map((channel, i) => (
+                    <div className='channel-each' key={i}>
+                        # {channel?.name}
+                        <div className='edit-delete-channels'>
+                            <NavLink to='/edit-channel'>
+                                <i
+                                    className="fas fa-edit edit__btn">
+                                </i>
+                            </NavLink>
+                            <NavLink to='/delete-channel'>
+                                <i
+                                    className="fas fa-trash-alt delete__btn">
+                                </i>
+                            </NavLink>
+                        </div> */}
             <div className='channel-name'>
             </div>
             <div className='channels-container'>
