@@ -31,9 +31,9 @@ const NavBar = () => {
             <nav className="Navigation-bar">
               <div id='splash-logo'>
                 <img id="splash-imgLogo" src={logo} />
-                <NavLink id="splash-homeBtn" to='/' exact={true} activeClassName='active' >
+                <div id="splash-homeBtn">
                   WhoDis?
-                </NavLink>
+                </div>
               </div>
               <div className='splash-github'>
                 <a id="nav-github"
