@@ -32,24 +32,25 @@ const Channels = () => {
 
     return (
         <>
-            <div className='channel-name'>
-                <p id='channel-title'>{servers.name}</p>
-            </div>
+            {/* <div className='server-name'>
+                <p id='server-title'>{servers.name}</p>
+            </div> */}
             <div className='channels-container'>
                 {channels.map((channel, i) => (
                     <div className='channel-each' key={i}>
-                        {channel?.name}
-                        <NavLink to='/edit-channel'>
-                            <i
-                                className="fas fa-edit edit__btn">
-                                {/* EDIT CHANNEL */}
-                            </i>
-                        </NavLink>
-                        <NavLink to='/delete-channel'>
-                        <i
-                            className="fas fa-trash-alt delete__btn">
-                        </i>
-                        </NavLink>
+                        # {channel?.name}
+                        <div className='edit-delete-channels'>
+                            <NavLink to='/edit-channel'>
+                                <i
+                                    className="fas fa-edit edit__btn">
+                                </i>
+                            </NavLink>
+                            <NavLink to='/delete-channel'>
+                                <i
+                                    className="fas fa-trash-alt delete__btn">
+                                </i>
+                            </NavLink>
+                        </div>
                     </div>
                 ))}
             </div>
