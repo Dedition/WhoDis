@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
@@ -16,13 +16,10 @@ import DeleteChannel from './components/DeleteChannel/DeleteChannel';
 import UserProfile from './components/UserSettings/UserSettings';
 import Matrix from './components/Matrix/Matrix';
 import SplashPage from './components/SplashPage/SplashPage';
-import Sidebar from './components/Sidebar/Sidebar';
-import Chat from './components/Chat/Chat';
 import { authenticate } from './store/session';
 //import {getAllServers} from './store/servers'
 import Channels from './components/Channels/Channels'
 import Main from './components/Main/Main';
-
 function App() {
   const [loaded, setLoaded] = useState(false);
   const [userloaded, setUserLoaded] = useState(false)
@@ -44,15 +41,23 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Switch>
-        <Route path="/sidebar">
+      {user ?
+        <div className='browser-container'>
+          <ServerPage />
           <Main />
-        </Route>
+          <div className='main-sidebar'></div>
+        </div>
+        : <Redirect to="/" />}
+      <Switch>
         <Route path='/login' exact={true}>
+          <Matrix />
           <LoginForm />
         </Route>
         <Route path='/sign-up' exact={true}>
+          <Matrix />
           <SignUpForm />
+        </Route>
+        <Route path='/servers/@me' exact={true}>
         </Route>
         <ProtectedRoute path='/users' exact={true} >
           <UsersList />
@@ -60,56 +65,32 @@ function App() {
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
         </ProtectedRoute>
-        <ProtectedRoute path='/' exact={true} >
-          <h1>My Home Page</h1>
-        </ProtectedRoute>
+        <Route path='/' exact={true} >
+          <Matrix />
+          <SplashPage />
+        </Route>
+        <Route path='/create-server' exact={true}>
+          <ServerForm />
+        </Route>
+        <Route path='/edit-server' exact={true}>
+          <EditServerForm />
+        </Route>
+        {/* <Route path='/edit-channel' exact={true}>
+          <EditChannelForm />
+        </Route> */}
+        <Route path='/delete-server' exact={true}>
+          <DeleteServer />
+        </Route>
+        <Route path='/user-profile' exact={true}>
+          <UserProfile />
+        </Route>
+        {/* <Route path='/:serverId/:channelId/edit'>
+          <DeleteChannel />
+        </Route> */}
       </Switch>
     </BrowserRouter>
+
   );
 }
 
 export default App;
-
-      // <Switch>
-      //   <Route path='/login' exact={true}>
-      //     <Matrix />
-      //     <LoginForm />
-      //   </Route>
-      //   <Route path='/sign-up' exact={true}>
-      //     <Matrix />
-      //     <SignUpForm />
-      //   </Route>
-      //   <Route path='/servers/@me' exact={true}>
-      //   </Route>
-      //   <ProtectedRoute path='/users' exact={true} >
-      //     <UsersList />
-      //   </ProtectedRoute>
-      //   <ProtectedRoute path='/users/:userId' exact={true} >
-      //     <User />
-      //   </ProtectedRoute>
-      //   <Route path='/' exact={true} >
-      //     <Matrix />
-      //     <SplashPage />
-      //   </Route>
-      //   <Route path='/create-server' exact={true}>
-      //     <ServerForm />
-      //   </Route>
-      //   <Route path='/edit-server' exact={true}>
-      //     <EditServerForm />
-      //   </Route>
-      //   <Route path='/edit-channel' exact={true}>
-      //     <EditChannelForm />
-      //   </Route>
-      //   <Route path='/delete-server' exact={true}>
-      //     <DeleteServer />
-      //   </Route>
-      //   <Route path='/delete-channel' exact={true}>
-      //     <DeleteChannel />
-      //   </Route>
-      //   <Route path='/user-profile' exact={true}>
-      //     <UserProfile />
-      //   </Route>
-      //   {/* <Route path='/create-channel' exact={true}>
-      //     <ChannelForm />
-      //   </Route> */}
-      // </Switch>
