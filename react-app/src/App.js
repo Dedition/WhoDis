@@ -85,9 +85,11 @@ function App() {
         <Route path='/delete-server' exact={true}>
           <DeleteServer />
         </Route>
-        <Route path='/user-profile' exact={true}>
+
+        { user ? <Route path='/user-profile' exact={true}>
           <UserProfile />
         </Route>
+        : <Redirect to="/" />}
         {/* <Route path='/:serverId/:channelId/edit'>
           <DeleteChannel />
         </Route> */}
