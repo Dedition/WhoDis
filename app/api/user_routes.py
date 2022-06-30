@@ -1,8 +1,17 @@
-from flask import Blueprint, jsonify
-from flask_login import login_required
-from app.models import User
+from flask import Blueprint, jsonify, request
+from flask_login import login_required, current_user
+from app.models import User, db
+from ..forms.user_form import EditUserForm
 
 user_routes = Blueprint('users', __name__)
+
+
+def error_messages(validation_errors):
+    errorMessages = []
+    for field in validation_errors:
+        for err in validation_errors[field]:
+            errorMessages.append(f'{field}: {err}')
+    return errorMessages
 
 
 @user_routes.route('/')
@@ -17,3 +26,38 @@ def users():
 def user(id):
     user = User.query.get(id)
     return user.to_dict()
+
+# TODO ——————————————————————————————————————————————————————————————————————————————————
+# *                                  UPDATE
+# TODO ——————————————————————————————————————————————————————————————————————————————————
+
+# @user_routes.route('/edit/<int:user_id>', methods=["PUT"])
+# def update_user():
+#     if current_user:
+#         form = EditUserForm()
+#         form['csrf_token'].data = request.cookies['csrf_token']
+#         if form.validate_on_submit():
+#             user = User(
+#                 username=form.data['username'],
+#                 email=form.data['email']
+#             )
+#             db.session.commit()
+#             return user.to_dict(), 201
+#     else:
+#         return {'errors': error_messages(form.errors)}
+
+
+@user_routes.route('/edit/<int:user_id>', methods=["PUT"])
+def update_user(user_id):
+    user = User.query.get(user_id)
+    if user:
+        form = EditUserForm()
+        form['csrf_token'].data = request.cookies['csrf_token']
+        if form.validate_on_submit():
+            if(user == current_user):
+                user.username = form.data['username'],
+                user.email = form.data['email']
+            db.session.commit()
+            return user.to_dict(), 201
+    else:
+        return {'errors': error_messages(form.errors)}

@@ -11,6 +11,7 @@ import ServerForm from './components/ServerForm/ServerForm';
 import ChannelForm from './components/ChannelForm/ChannelForm';
 import EditServerForm from './components/EditServerForm/EditServerForm';
 import EditChannelForm from './components/EditChannelForm/EditChannelForm';
+import EditUserForm from './components/EditUserForm/EditUserForm';
 import DeleteServer from './components/DeleteServer/DeleteServer';
 import DeleteChannel from './components/DeleteChannel/DeleteChannel';
 import UserSettings from './components/UserSettings/UserSettings';
@@ -60,37 +61,37 @@ function App() {
         </Route>
         <Route path='/servers/@me' exact={true}>
           <div className='browser-container'>
-          <ServerPage />
-          <Main/>
-          <div className='main-sidebar'></div>
-        </div>
+            <ServerPage />
+            <Main />
+            <div className='main-sidebar'></div>
+          </div>
         </Route>
         <ProtectedRoute path='/users' exact={true} >
           <div className='browser-container'>
             <ServerPage />
-            <Main/>
+            <Main />
             <div className='main-sidebar'></div>
-          <UsersList />
+            <UsersList />
           </div>
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <div className='browser-container'>
             <ServerPage />
-            <Main/>
-          <User />
+            <Main />
+            <User />
             <div className='main-sidebar'></div>
           </div>
         </ProtectedRoute>
         <Route path='/create-server' exact={true}>
-            <ServerPage />
-            <Main/>
+          <ServerPage />
+          <Main />
           <ServerForm />
         </Route>
         <Route path='/edit-server' exact={true}>
           <div className='browser-container'>
             <ServerPage />
-            <Main/>
-          <EditServerForm />
+            <Main />
+            <EditServerForm />
             <div className='main-sidebar'></div>
           </div>
         </Route>
@@ -99,26 +100,29 @@ function App() {
         </Route> */}
         <Route path='/delete-server' exact={true}>
           <div className='browser-container'>
-              <ServerPage />
-              <Main/>
-              <DeleteServer />
+            <ServerPage />
+            <Main />
+            <DeleteServer />
             <div className='main-sidebar'></div>
           </div>
         </Route>
-        { user ? <Route path='/user-profile' exact={true}>
+        {user ? <Route path='/user-profile' exact={true}>
           <UserSettings />
         </Route>
-        : <Redirect to="/" />}
+          : <Redirect to="/" />}
 
         <Route path='/servers/:serverId'>
           <ServerPage />
-          <Main/>
+          <Main />
           <RightSidebar />
           {/* <Channels /> */}
         </Route>
         {/* <Route path='/:serverId/:channelId/edit'>
           <DeleteChannel />
         </Route> */}
+        <Route path='/edit-user'>
+          <EditUserForm />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
