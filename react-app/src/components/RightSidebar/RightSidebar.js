@@ -5,7 +5,6 @@ import { NavLink, useParams, Route } from 'react-router-dom';
 import Channels from '../Channels/Channels';
 import LogoutButton from '../auth/LogoutButton';
 import ChannelForm from '../ChannelForm/ChannelForm';
-import { useParams } from 'react-router-dom';
 
 const RightSidebar = (showDms) => {
 
