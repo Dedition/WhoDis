@@ -12,7 +12,9 @@ const RightSidebar = (showDms) => {
     const url = window.location.href.split("/")
     const path = url[url.length - 1]
     const serverId = path
-    // Display Form (state)
+
+
+
     const [form, setForm] = useState(false);
 
     // either change state or show dm's 
@@ -53,10 +55,19 @@ const RightSidebar = (showDms) => {
     }
 // CHANNEL FORM 
 
+    const user = useSelector((state) => state.session.user)
 
     const allServers = useSelector(state => state.servers);
     const servers = Object.values(allServers)
-    const currentServer = servers.find(server => server.id == path)
+    const currentServer = servers.find(servers => servers.id == serverId)
+
+    const serverOwner = currentServer?.owner_id
+    const isOwner = () => {
+        if (serverOwner == user.id) {
+            return true
+        }
+        return false
+    }
 
     return (
         <div className='right-sidebar'>
@@ -65,21 +76,21 @@ const RightSidebar = (showDms) => {
                     <p id='channel-title'>{path == '@me' ? 'Direct Messages' : currentServer?.name}</p>
                     <NavLink to='/edit-server'>
                         <i
-                            className="fas fa-edit edit__btn">
+                            className="fas fa-edit edit__btn__server">
                         </i>
                     </NavLink>
                     <NavLink to='/delete-server'>
                         <i
-                            className="fas fa-trash-alt delete__btn">
+                            className="fas fa-trash-alt delete__btn__server">
 
                         </i>
                     </NavLink>
                 </div>
-                <div className='title-sb' onClick={() => setForm(true)}>
+                <div className='title-sb'>
                     <p className='text-chnl'>{path == '@me' ? 'Direct Messages' : 'Text Channel'}</p>
-                    {path !== '@me' &&
-                        <button id='channel-create-btn'>
-                            <div className="channel-add">+</div>
+                    { serverOwner == user.id &&
+                        <button id='channel-create-btn' disabled={serverOwner !== user.id} onClick={() => setForm(true)}>
+                            <div className="channel-add" >+</div>
                         </button>
                     }
                 </div>
