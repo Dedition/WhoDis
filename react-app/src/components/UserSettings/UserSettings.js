@@ -12,8 +12,8 @@ const UserProfile = () => {
   // console.log(user, "THIS IS USER ----------------------");
 
   return (
-    <div>
-      <div>
+    <div className='main-user-div'>
+      <div className="logout-div">
         <LogoutButton />
       </div>
       <div>
@@ -21,15 +21,15 @@ const UserProfile = () => {
         {/* <div>
           {user.profile_pic_url}
         </div> */}
-        {/* <div>
+        <div className='user-name'>
           {user.username}
         </div>
-        <div>
+        <div  className='user=name2'>
           {user.username}
         </div>
-        <div>
+        <div className='user-email'>
           {user.email}
-        </div> */}
+        </div>
       </div>
     </div>
   )
