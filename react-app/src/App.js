@@ -13,7 +13,7 @@ import EditServerForm from './components/EditServerForm/EditServerForm';
 import EditChannelForm from './components/EditChannelForm/EditChannelForm';
 import DeleteServer from './components/DeleteServer/DeleteServer';
 import DeleteChannel from './components/DeleteChannel/DeleteChannel';
-import UserProfile from './components/UserSettings/UserSettings';
+import UserSettings from './components/UserSettings/UserSettings';
 import Matrix from './components/Matrix/Matrix';
 import SplashPage from './components/SplashPage/SplashPage';
 import { authenticate } from './store/session';
@@ -21,7 +21,7 @@ import { authenticate } from './store/session';
 import Channels from './components/Channels/Channels'
 import Main from './components/Main/Main';
 import { Redirect } from 'react-router-dom';
-
+import RightSidebar from './components/RightSidebar/RightSidebar';
 
 
 function App() {
@@ -101,15 +101,21 @@ function App() {
           <div className='browser-container'>
               <ServerPage />
               <Main/>
-            <DeleteServer />
+              <DeleteServer />
             <div className='main-sidebar'></div>
           </div>
         </Route>
-
         { user ? <Route path='/user-profile' exact={true}>
-          <UserProfile />
+          <UserSettings />
         </Route>
         : <Redirect to="/" />}
+
+        <Route path='/servers/:serverId'>
+          <ServerPage />
+          <Main/>
+          <RightSidebar />
+          {/* <Channels /> */}
+        </Route>
         {/* <Route path='/:serverId/:channelId/edit'>
           <DeleteChannel />
         </Route> */}

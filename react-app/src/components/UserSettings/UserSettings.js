@@ -9,6 +9,12 @@ const UserProfile = () => {
   const user = useSelector(state => state.session.user);
   const history = useHistory();
 
+
+  const handleCancelClick = (e) => {
+    e.preventDefault();
+    history.push(`/servers/@me`)
+  };
+
   // console.log(user, "THIS IS USER ----------------------");
 
   return (
@@ -19,16 +25,21 @@ const UserProfile = () => {
       <div>
         <h1>My Account</h1>
         {/* <div>
-          {user.profile_pic_url}
+          {user?.profile_pic_url}
         </div> */}
         <div className='user-name'>
-          {user.username}
+          {user?.username}
         </div>
         <div  className='user=name2'>
-          {user.username}
+          {user?.username}
         </div>
         <div className='user-email'>
-          {user.email}
+          {user?.email}
+        </div>
+        <div>
+          <button onClick={handleCancelClick}>
+            Back
+          </button>
         </div>
       </div>
     </div>

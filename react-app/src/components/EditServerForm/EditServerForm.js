@@ -14,7 +14,7 @@ const EditServerForm = () => {
 
   const history = useHistory();
   const dispatch = useDispatch();
-  const currentUserId = useSelector((state) => state.session.user.id)
+  const currentUserId = useSelector((state) => state.session.user?.id)
   const serverIdState = useSelector((state) => state.globalActions)
   const serverId = serverIdState.serverId
   const owner_id = currentUserId;
@@ -51,7 +51,7 @@ const EditServerForm = () => {
         <form onSubmit={submitForm}>
           <div className='exit-server-form'>
 
-            <NavLink to='/servers'><div className='exit'>x</div></NavLink>
+            <NavLink to='/servers/@me'><div className='exit'>x</div></NavLink>
           </div>
 
           <div className='create-text'>Edit Server!</div>
