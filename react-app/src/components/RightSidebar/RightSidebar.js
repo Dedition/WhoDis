@@ -1,20 +1,19 @@
 import './rightsidebar.css';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { NavLink, useParams, Route } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { NavLink, useParams, Route, useHistory } from 'react-router-dom';
 import Channels from '../Channels/Channels';
 import LogoutButton from '../auth/LogoutButton';
 import ChannelForm from '../ChannelForm/ChannelForm';
-
+import { getAllChannels, addSingleChannel } from '../../store/channels';
 const RightSidebar = (showDms) => {
 
     // use the current path to display either 'Direct Messages' or 'Text Channels' as the right sidebar title
     const url = window.location.href.split("/")
     const path = url[url.length - 1]
-
+    const serverId = path
     // Display Form (state)
     const [form, setForm] = useState(false);
-    const showForm = () => setForm(!form);
 
     // either change state or show dm's 
     // the <Channel/> component displays either DM's or Channels 
@@ -32,7 +31,27 @@ const RightSidebar = (showDms) => {
             }
         }
     }, [stateChange])
-
+    // CHANNEL FORM   
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const [name, setName] = useState("");
+    const reset = () => {
+        setName('');
+        setForm(false)
+    }
+    const submitForm = async (e) => {
+        e.preventDefault();
+        const payload = {
+            name
+        };
+        const newChannel = await dispatch(addSingleChannel(payload, serverId));
+        if (newChannel) {
+            setForm(!form)
+            history.push(`/servers/${serverId}`);
+            reset();
+        }
+    }
+// CHANNEL FORM 
 
 
     const allServers = useSelector(state => state.servers);
@@ -56,23 +75,49 @@ const RightSidebar = (showDms) => {
                         </i>
                     </NavLink>
                 </div>
-                <div className='title-sb'>
+                <div className='title-sb' onClick={() => setForm(true)}>
                     <p className='text-chnl'>{path == '@me' ? 'Direct Messages' : 'Text Channel'}</p>
                     {path !== '@me' &&
-                        <button onClick={showForm} id='channel-create-btn'>
+                        <button id='channel-create-btn'>
                             <div className="channel-add">+</div>
                         </button>
                     }
                 </div>
+
+                {/* CHANNEL FORM */}
                 {form &&
-                    <ChannelForm form={setForm} />
+                    <div className='modal'>
+                        <div className='form'>
+                            <form onSubmit={submitForm}>
+                                <div className='exit-server-form'>
+
+                                    <NavLink to={`/servers/${serverId}`}><div className='exit' onClick={() => reset()}>x</div></NavLink>
+                                </div>
+                                <div className='create-text'>Create New Channel!</div>
+                                <label htmlFor='name'>Name</label>
+                                <input
+                                    name="name"
+                                    type="text"
+                                    placeholder="Name"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    required
+                                />
+
+                                <button type="submit">
+                                    Submit
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 }
+                {/* CHANNEL FORM */}
 
+                {/* DISPLAY ALL CHANNELS */}
                 <Route path='/servers/:serverId'>
-
-                    <Channels showDms={dms} />
-
+                    <Channels />
                 </Route>
+                {/* DISPLAY ALL CHANNELS */}
             </div>
         </div>
     )

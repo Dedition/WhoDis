@@ -45,7 +45,13 @@ function App() {
 
   return (
     <BrowserRouter>
-      {user ? <ServerPage /> : <Redirect to="/" />}
+      {user ?
+        <div className='browser-container'>
+       <ServerPage />
+       <Main/>
+       <div className='main-sidebar'></div>
+        </div>
+        : <Redirect to="/" />}
       <Switch>
         <Route path='/login' exact={true}>
           <Matrix />

@@ -39,8 +39,8 @@ const ServerPage = () => {
                         </div>
                         <div className='server-bubble'>
                             {servers.map((server, i) => (
-                                <NavLink key={i} id='server-nav' to={`/servers/${server.id}`}>
-                                    <div key={server.id} className='server-nav-a'>{server.name[0]}</div></NavLink>
+                                <NavLink key={i} id='server-nav' to={`/servers/${server?.id}`}>
+                                    <div key={i} className='server-nav-a'>{server?.name[0]}</div></NavLink>
                             ))}
                         </div>
                         <div className='server-bubble'>

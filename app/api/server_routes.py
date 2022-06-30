@@ -82,25 +82,30 @@ def all_servers():
 # TODO ——————————————————————————————————————————————————————————————————————————————————
 
 
-@server_routes.route('/<int:server_id>', methods=['PUT'])
-@login_required
-def update_server(serverId):
-    server = Server.query.get(serverId)
-    if not server:
-        return {'errors': f"No server with id number {serverId} exists"}, 404
-    else:
+@server_routes.route('/<int:server_id>', methods=["PUT"])
+def update_server(server_id):
+    server = Server.query.get(server_id)
+
+    if server:
         form = ServerForm()
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
-            server = Server(name=form.data['name'],
-                            banner_url=form.data['banner_url'],
-                            server_icon_url=form.data['server_icon_url'],
-                            dm_channel=form.data['dm_channel'],
-                            public=form.data['public'])
-            db.session.commit()
-            return server.to_dict(), 201
-        else:
-            return {'errors': error_messages(form.errors)}, 401
+            if (server.owner_id == current_user.id):
+                print("LSKDJFLSDKFJLSKDJFSKLJFLSKJFLKSDJFLSKDJFSKLDFJSKLDJFLSKFJLSKJDFLKSJDFLKJFKLJDFKLSJFLKSJDFKLSJDFKLSJ", server_id, server_id)
+                server.name = form.data['name']
+                server.banner_url = form.data['banner_url']
+                server.server_icon_url = form.data['server_icon_url']
+                server.dm_channel=form.data['dm_channel']
+                server.public=form.data['public']
+                server.owner_id = form.data['owner_id']
+                server.created_at = datetime.utcnow()
+                server.updated_at=datetime.utcnow()
+                db.session.commit()
+
+                print(server.id, 'slkdfjsldkfjslakjf;lasdkfj;askldfja;sdlfkjas;dlfkjas;dlfkjl;dkja;slfkjas;dlfjkas;lfkjas;ldfjkas;ldfjkasl;kfj')
+                return server.to_dict(), 201
+    else:
+        return {'errors': error_messages(form.errors)}
 
 
 # TODO ——————————————————————————————————————————————————————————————————————————————————
