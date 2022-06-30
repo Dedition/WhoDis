@@ -9,6 +9,11 @@ import User from './components/User';
 import ServerPage from './components/ServerPage/ServerPage'
 import ServerForm from './components/ServerForm/ServerForm';
 import ChannelForm from './components/ChannelForm/ChannelForm';
+import EditServerForm from './components/EditServerForm/EditServerForm';
+import EditChannelForm from './components/EditChannelForm/EditChannelForm';
+import DeleteServer from './components/DeleteServer/DeleteServer';
+import DeleteChannel from './components/DeleteChannel/DeleteChannel';
+import UserProfile from './components/UserSettings/UserSettings';
 import Matrix from './components/Matrix/Matrix';
 import SplashPage from './components/SplashPage/SplashPage';
 import { authenticate } from './store/session';
@@ -66,6 +71,24 @@ function App() {
         <Route path='/create-server' exact={true}>
           <ServerForm />
         </Route>
+        <Route path='/edit-server' exact={true}>
+          <EditServerForm />
+        </Route>
+        <Route path='/edit-channel' exact={true}>
+          <EditChannelForm />
+        </Route>
+        <Route path='/delete-server' exact={true}>
+          <DeleteServer />
+        </Route>
+        <Route path='/delete-channel' exact={true}>
+          <DeleteChannel />
+        </Route>
+        <Route path='/user-profile' exact={true}>
+          <UserProfile />
+        </Route>
+        {/* <Route path='/create-channel' exact={true}>
+          <ChannelForm />
+        </Route> */}
       </Switch>
     </BrowserRouter>
   );
