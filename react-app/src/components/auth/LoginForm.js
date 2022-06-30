@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, useHistory, NavLink } from 'react-router-dom';
 import { login, demo } from '../../store/session';
-import "./auth.css"
+import "./auth.css";
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -29,8 +29,8 @@ const LoginForm = () => {
   };
 
   if (user) {
-    return <Redirect to='/servers/@me' />;
-  }
+    <Redirect to='/servers/@me' />
+  };
 
   // Created a Demo login feature - Sona
   const demoSubmit = (e) => {
@@ -42,7 +42,7 @@ const LoginForm = () => {
   return (
     <div className='authenticate-class'>
       <div className='auth-form-div'>
-        <h1>Welcome Back!</h1>
+        <h1>Welcome To the Dis</h1>
         <form onSubmit={onLogin}>
           <div className='auth-errors'>
             {errors.map((error, ind) => (
