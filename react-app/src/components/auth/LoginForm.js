@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, useHistory, NavLink } from 'react-router-dom';
 import { login, demo } from '../../store/session';
 import "./auth.css"
+import logo from '../SplashPage/NavBar/logo.png'
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -42,6 +43,9 @@ const LoginForm = () => {
   return (
     <div className='authenticate-class'>
       <div className='auth-form-div'>
+        <NavLink to='/'>
+          <img id="login-imgLogo" src={logo} />
+        </NavLink>
         <h1>Welcome Back!</h1>
         <form onSubmit={onLogin}>
           <div className='auth-errors'>
