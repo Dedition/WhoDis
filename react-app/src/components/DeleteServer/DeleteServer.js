@@ -30,7 +30,7 @@ const DeleteServer = () => {
       <div className='form' onSubmit={handleSubmit}>
         <form>
           <div className='exit-server-form'>
-            <NavLink to='/servers'><div className='exit'>x</div></NavLink>
+            <NavLink to='/servers/@me'><div className='exit'>x</div></NavLink>
           </div>
             <div className="confirm-delete-text">
               Are you sure you want to delete this server?

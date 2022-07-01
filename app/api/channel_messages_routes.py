@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from ..models.db import Channel, ChannelMessage, db, User
 from ..forms.channel_messages_form import ChannelMessages
 from .server_routes import error_messages
+from datetime import datetime
 
 
 channel_messages_routes = Blueprint(
@@ -13,26 +14,19 @@ channel_messages_routes = Blueprint(
 # *                                  CREATE
 # TODO ——————————————————————————————————————————————————————————————————————————————————
 
-@channel_messages_routes.route("/", methods=["POST"])
+@channel_messages_routes.route("/<int:channel_id>", methods=["POST"])
 @login_required
-def create_channel_message():
-    params = request.get_json()
-    sender_id = params["senderId"]
-    channel_id = params["channelId"]
-    user = User.query.get(sender_id)
+def create_channel_message(channel_id):
     channel = Channel.query.get(channel_id)
-    if not user and channel:
+    if not channel:
         return {'errors': f"The user or channel does not exist."}, 404
     else:
         form = ChannelMessages()
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
-            #! If there's an error, double check here
-            channel_id = channel.id
-            user_id = user.id
-            #! ^
             channel_message = ChannelMessage(
-                content=form.data['content'], channel_id=channel_id, user_id=user_id)
+                content=form.data['content'], channel_id=channel_id,
+                user_id=current_user.id)
 
             db.session.add(channel_message)
             db.session.commit()
@@ -50,10 +44,10 @@ def create_channel_message():
 #     channel_messages = ChannelMessage.query.all().join(
 #         Channel).filter(Channel.id == channelId)
 def all_channel_messages(channel_id):
-    #! Please work
-    channel_messages = ChannelMessage.query.filter(
-        ChannelMessage.channel_id == channel_id).all()
-    # channel_msgs_in_channel = [for channel_msg in channel_messages if channel_msg.channel_id == channelId]
+    all_channel_messages = ChannelMessage.query.all()
+    channel_messages = [
+        channel_message for channel_message in all_channel_messages if channel_message.channel_id == channel_id]
+
     return {'channel_messages': [channel_message.to_dict() for channel_message in channel_messages]}
 
 
@@ -68,11 +62,11 @@ def update_channel_messages(channel_message_id):
     channel_message = ChannelMessage.query.get(channel_message_id)
     form = ChannelMessages()
     form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit() and current_user.id == channel_message.user_id:
-        channel_message = ChannelMessage(content=form.data['content'])
-        db.session.add(channel_message)
+    if form.validate_on_submit():
+        channel_message.content = form.data['content']
+        channel_message.updated_at = datetime.utcnow()
         db.session.commit()
-        return channel_message.to_dict(), 201
+        return channel_message.to_dict()
     else:
         return {'errors': error_messages(form.errors)}, 401
 
