@@ -3,11 +3,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Redirect, useHistory, NavLink } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
 import { signUp } from '../../store/session';
+import { setHomeClicked } from '../../store/check_home';
 
 import './UserSettings.css'
 
 
 const UserProfile = () => {
+  const dispatch = useDispatch();
   const user = useSelector(state => state.session.user);
   const history = useHistory();
 
@@ -17,6 +19,9 @@ const UserProfile = () => {
   //   history.push('/servers/@me')
   // };
 
+  const showHome = () => {
+    dispatch(setHomeClicked(true));
+  }
   // console.log(user, "THIS IS USER ----------------------");
 
   return (
@@ -40,18 +45,24 @@ const UserProfile = () => {
           </button> */}
           <div className='black-bar'>
             <div className='exit-server-form white-exit'>
-              <NavLink to='/servers/@me'>
-                x
+              <NavLink to='/servers/@me' onClick={() => showHome()}>
+                <i class="fa-solid fa-xmark"></i>
               </NavLink>
             </div>
           </div>
           <div className='user-top-info'>
             <div className='icon-div'>
-              <div className='color-circle'>
+              <div className='color-circle' style={{
+                background: `url(${user?.profile_pic_url})`,
+                backgroundSize: 'cover'
+              }}>
                 {/* <div className='user-name-initial'>
                   {user?.username.charAt(0)}
                 </div> */}
-                <i className='fa-brands fa-discord'></i>
+                <div className='user-name-initial'>
+                  {/* {user?.username.charAt(0)} */}
+                </div>
+                {/* <i className='fa-brands fa-discord'></i> */}
               </div>
             </div>
             <div className='user-name'>

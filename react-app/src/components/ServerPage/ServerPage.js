@@ -8,14 +8,24 @@ import { getAllChannels } from '../../store/channels'
 import RightSidebar from '../RightSidebar/RightSidebar';
 import "./ServerPage.css"
 import { confirmUrlAction } from '../../store/check_home';
+import ChannelMessages from "../ChannelMessages/ChannelMessages"
+import { checkPath, setHomeClicked } from '../../store/check_home';
 
 const ServerPage = () => {
-    
+
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getAllServers());
     }, [dispatch]);
+
+    const showDMs = () => {
+        dispatch(setHomeClicked(true));
+    }
+
+    const setPath = (path) => {
+        dispatch(checkPath(path));
+    }
 
     const user = useSelector((state) => state.session.user);
     // console.log(user.username, "THIS IS USER ----------------------")
@@ -35,11 +45,11 @@ const ServerPage = () => {
                         <div className='server-bubble'>
                             <NavLink id='server-nav' className='home-button' to='/servers/@me'>
                                 <i className="fa-brands fa-discord"></i>
-                                </NavLink>
+                            </NavLink>
                         </div>
                         <div className='server-bubble'>
                             {servers.map((server, i) => (
-                                <NavLink key={i} id='server-nav' to={`/servers/${server?.id}`}>
+                                <NavLink key={i} onClick={ () => showDMs()} id='server-nav' to={`/servers/${server?.id}`}>
                                     <div key={i} className='server-nav-a'>{server?.name[0]}</div></NavLink>
                             ))}
                         </div>
@@ -49,8 +59,9 @@ const ServerPage = () => {
                             </NavLink>
                         </div>
                     </div>
+                    {/* <ChannelMessages /> */}
 
-                        
+
 
                     {/* <ul>
                     {channels.map(channel => {
@@ -71,10 +82,10 @@ const ServerPage = () => {
                     <div className='user-bar'>
                         <div className='user-bar-div'>
                             <div className='profile-pic'>
-                                {user.username.charAt(0)}
+                                {user?.username.charAt(0)}
                             </div>
                             <div className='username-div'>
-                                {user.username}
+                                {user?.username}
                             </div>
                             <div className='microphone-div'>
                                 <i className="fa-solid fa-microphone"></i>
@@ -83,7 +94,7 @@ const ServerPage = () => {
                                 <i className="fa-solid fa-headphones"></i>
                             </div>
                             <div className='settings-div'>
-                                <NavLink to='/user-profile'>
+                                <NavLink to='/user-profile' onClick={() => setPath('user-profile')}>
                                     <i className="fa-solid fa-gear"></i>
                                 </NavLink>
                             </div>

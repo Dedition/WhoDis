@@ -8,7 +8,7 @@ const EditUserForm = () => {
   const [email, setEmail] = useState('');
 
 
-  const userId = useSelector(state => state.session.user.id);
+  const userId = useSelector(state => state.session.user?.id);
   // console.log(user, "THIS IS USER ----------------------");
   const history = useHistory();
   const dispatch = useDispatch();

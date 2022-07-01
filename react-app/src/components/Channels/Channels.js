@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import { getAllChannels, removeSingleChannel, editSingleChannel } from '../../store/channels'
 import { getSingleServerId } from '../../store/check_home'
+import {getChannelMessages} from '../../store/channel_messages'
 import DeleteChannel from '../DeleteChannel/DeleteChannel'
 import './channels.css'
 import { Route } from 'react-router-dom'
@@ -85,7 +86,9 @@ const Channels = () => {
         }
     }
 
-
+    const renderMessages = (channelId) => {
+        dispatch(getChannelMessages(channelId))
+    }
 
     const allChannels = useSelector(state => state.channels)
     const channels = Object.values(allChannels)
@@ -119,7 +122,7 @@ const Channels = () => {
             </div>
             <div className='channels-container'>
                 {channels.map((channel, i) => (
-                    <div className='channel-each' key={i}>
+                    <div className='channel-each' key={i} onClick={() => renderMessages(channel?.id)}>
                         {channel?.name}
 
                     

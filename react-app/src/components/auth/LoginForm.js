@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect, useHistory, NavLink } from 'react-router-dom';
 import { login, demo } from '../../store/session';
+import { checkPath } from '../../store/check_home';
 import "./auth.css"
 import logo from '../SplashPage/NavBar/logo.png'
 
@@ -15,6 +16,7 @@ const LoginForm = () => {
 
   const onLogin = async (e) => {
     e.preventDefault();
+    dispatch(checkPath('demo'));
     const data = await dispatch(login(email, password));
     if (data) {
       setErrors(data);
@@ -36,6 +38,7 @@ const LoginForm = () => {
   // Created a Demo login feature - Sona
   const demoSubmit = (e) => {
     e.preventDefault();
+    dispatch(checkPath('demo'));
     history.push("/servers/@me");
     return dispatch(demo(email, password));
   };

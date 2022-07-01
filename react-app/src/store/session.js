@@ -2,6 +2,8 @@
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
 const EDIT_USER = 'session/EDIT_USER';
+
+
 const setUser = (user) => ({
   type: SET_USER,
   payload: user
@@ -149,6 +151,7 @@ export default function reducer(state = initialState, action) {
     case (EDIT_USER):
       // newState = Object.assign({}, state, { user: action.user });
       // return newState;
+      // newState = {...state};
       newState = {};
       user = action.payload
       newState[user.id] = user;

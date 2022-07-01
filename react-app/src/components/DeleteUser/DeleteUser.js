@@ -10,7 +10,7 @@ const DeleteUser = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(removeSingleUser(user.id))
+    dispatch(removeSingleUser(user?.id))
     history.push(`/`)
   }
 

@@ -63,7 +63,7 @@ const RightSidebar = (showDms) => {
 
     const serverOwner = currentServer?.owner_id
     const isOwner = () => {
-        if (serverOwner == user.id) {
+        if (serverOwner == user?.id) {
             return true
         }
         return false
@@ -91,8 +91,8 @@ const RightSidebar = (showDms) => {
                 </div>
                 <div className='title-sb'>
                     <p className='text-chnl'>{path == '@me' ? 'Direct Messages' : 'CHANNELS'}</p>
-                    { serverOwner == user.id &&
-                        <button id='channel-create-btn' disabled={serverOwner !== user.id} onClick={() => setForm(true)}>
+                    { serverOwner == user?.id &&
+                        <button id='channel-create-btn' disabled={serverOwner !== user?.id} onClick={() => setForm(true)}>
                             <div className="channel-add" >+</div>
                         </button>
                     }
