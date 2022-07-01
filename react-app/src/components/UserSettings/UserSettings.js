@@ -48,9 +48,10 @@ const UserProfile = () => {
           <div className='user-top-info'>
             <div className='icon-div'>
               <div className='color-circle'>
-                <div className='user-name-initial'>
+                {/* <div className='user-name-initial'>
                   {user?.username.charAt(0)}
-                </div>
+                </div> */}
+                <i className='fa-brands fa-discord'></i>
               </div>
             </div>
             <div className='user-name'>

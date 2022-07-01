@@ -149,7 +149,7 @@ export default function reducer(state = initialState, action) {
     case (EDIT_USER):
       // newState = Object.assign({}, state, { user: action.user });
       // return newState;
-      newState = { ...state };
+      newState = {};
       user = action.payload
       newState[user.id] = user;
       return newState
