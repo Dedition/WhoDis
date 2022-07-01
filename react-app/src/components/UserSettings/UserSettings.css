@@ -1,3 +1,182 @@
-.main-user-div{
-    margin-top:-200px;
+.main-user-div {
+    display: flex;
+}
+
+.main-user-div>a {
+    color: white;
+}
+
+.logout-div {
+    background-color: #2f3136;
+    height: 1300px;
+    width: 280px;
+    display: flex;
+}
+
+.logout-btn {
+    margin: 47%;
+    margin-top: 90%;
+    border: 0;
+    font: inherit;
+}
+
+.my-account {
+    position: relative;
+    top: 15%;
+    left: 13%;
+    /* top: 90px;
+    left: 90px; */
+    width: 715px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.my-account>a {
+    color: white;
+}
+
+.black-background {
+    background-color: #14120a;
+}
+
+.darkgrey-background {
+    display: flex;
+    flex-direction: column;
+}
+
+.lightgrey-background {
+    background-color: #2f3136;
+    width: 660px;
+    height: 400px;
+    margin-left: 100px;
+}
+
+.user-subinfo {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #2f3136;
+    border-radius: 5px;
+    height: 115px;
+}
+
+.user-name-initial {
+    color: white;
+    font-size: 300%;
+}
+
+.user-name {
+    padding-top: 5px;
+    padding-left: 10px;
+    display: flex;
+    font-size: 35px;
+    width: 195px;
+}
+
+.username2 {
+    color: white;
+}
+
+.user-email {
+    color: white
+}
+
+.user-profile-content {
+    background-color: #202225;
+    border: 0.75px solid #202225;
+    border-radius: 3px;
+    color: lightgray;
+    width: 660px;
+    height: 400px;
+    /* top: -5%; */
+    left: -1%;
+    position: absolute;
+    transform: translate(30vw, 15vh);
+}
+
+.black-bar {
+    width: 100%;
+    height: 100px;
+    background-color: #14120a
+}
+
+.user-top-info {
+    display: flex;
+    justify-content: left;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.div-username {
+    font-size: 17px;
+    margin-left: 17px;
+}
+
+.div-email {
+    margin-top: 30px;
+    font-size: 17px;
+    margin-left: 17px;
+}
+
+.white-exit>a {
+    color: white;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+.edit-user-button {
+    text-align: center;
+    width: 135px;
+    background-color: #5865F2;
+    border: 0.75px solid #5865F2;
+    border-radius: 3px;
+    color: white;
+    height: 30px;
+    cursor: pointer;
+    font-size: 15px;
+    margin-top: 12%;
+    margin-left: 135%;
+}
+
+.delete-user-button {
+    text-align: center;
+    width: 135px;
+    background-color: red;
+    border: 0.75px solid red;
+    border-radius: 3px;
+    color: white;
+    height: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 4%;
+    margin-left: 2%;
+}
+
+.icon-div {
+    height: 100px;
+    width: 100px;
+    min-width: 100px;
+    min-height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    position: relative;
+    transform: translate(0px, -30px);
+    background-color: #202225;
+}
+
+.color-circle {
+    font-size: 140%;
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: green;
 }
