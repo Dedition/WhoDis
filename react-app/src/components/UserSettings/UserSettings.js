@@ -68,9 +68,12 @@ const UserProfile = () => {
             <div className='user-name'>
               {user?.username}
             </div>
+            {user.id != 1 ?
             <NavLink to='/edit-user'>
               <button className='edit-user-button'>Edit User Profile</button>
-            </NavLink>
+              </NavLink> :
+              <p></p>
+            }
           </div>
           <div className='user-subinfo'>
             <div className='div-username'>
@@ -86,9 +89,12 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-          <NavLink to='/delete-user'>
-            <button className='delete-user-button'>Delete User</button>
-          </NavLink>
+          {user.id != 1 ?
+            <NavLink to='/delete-user'>
+              <button className='delete-user-button'>Delete User</button>
+            </NavLink> :
+            <p>YOU MAY NOT EDIT OR DELETE THE DEMO USER!!</p>
+          }
           {/* <div className='delete-user-button'> */}
           {/* </div> */}
         </div>

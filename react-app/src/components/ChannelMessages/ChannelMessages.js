@@ -8,6 +8,13 @@ const ChannelMessages = () => {
   const allChannelMessages = Object.values(channelMessages)
 
   const user = useSelector(state => state.session.user);
+  const allUsers = useSelector(state => state);
+  console.log(allUsers, "THIS IS ALL USERS----------------------")
+  // const users = Object.values(allUsers);
+
+  // const findUser = (userId) => {
+  //   return users.find(user => user.id === userId)?.profile_pic_url
+  // }
 
 
   return (

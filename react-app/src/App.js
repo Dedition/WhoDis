@@ -19,13 +19,12 @@ import DeleteChannel from './components/DeleteChannel/DeleteChannel';
 import UserSettings from './components/UserSettings/UserSettings';
 import Matrix from './components/Matrix/Matrix';
 import SplashPage from './components/SplashPage/SplashPage';
-import { authenticate } from './store/session';
+import { authenticate, getUsers } from './store/session';
 //import {getAllServers} from './store/servers'
 import Channels from './components/Channels/Channels'
 import Main from './components/Main/Main';
 import { Redirect } from 'react-router-dom';
 import RightSidebar from './components/RightSidebar/RightSidebar';
-
 
 // function App() {
 //   const [loaded, setLoaded] = useState(false);
@@ -141,6 +140,9 @@ function App() {
     (async () => {
       await dispatch(authenticate());
       setLoaded(true);
+      // if (loaded) {
+      // await dispatch(getUsers());
+      // }
     })();
   }, [dispatch]);
 

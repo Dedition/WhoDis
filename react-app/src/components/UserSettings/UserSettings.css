@@ -95,6 +95,7 @@
     left: -15.5%;    
     position: absolute;
     transform: translate(30vw, 15vh);
+    /* border-radius: 10px; */
 }
 
 .black-bar {

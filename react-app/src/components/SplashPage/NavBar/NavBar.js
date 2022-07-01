@@ -2,6 +2,7 @@
 import React, {useState} from 'react';
 import { useSelector, useDispatch} from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom';
+import { checkPath } from '../../../store/check_home'
 
 import { demo } from '../../../store/session';
 import './navBar.css'
@@ -11,8 +12,8 @@ import logo from './logo.png'
 
 const NavBar = () => {
 
-  const [email] = useState('');
-  const [password] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const history = useHistory();
   const user = useSelector(state => state.session.user);
@@ -21,6 +22,7 @@ const NavBar = () => {
 
   const demoSubmit = (e) => {
     e.preventDefault();
+    dispatch(checkPath('/servers/@me'));
     history.push("/servers/@me");
     return dispatch(demo(email, password));
   };

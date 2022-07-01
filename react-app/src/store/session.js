@@ -2,6 +2,7 @@
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
 const EDIT_USER = 'session/EDIT_USER';
+const GET_USERS = 'session/GET_USERS';
 
 
 const setUser = (user) => ({
@@ -14,6 +15,11 @@ const removeUser = () => ({
 const editUser = (user) => ({
   type: EDIT_USER,
   payload: user
+})
+
+const getAllUsers = (users) => ({
+  type: GET_USERS,
+  payload: users
 })
 
 
@@ -120,6 +126,18 @@ export const removeSingleUser = (userId) => async dispatch => {
   }
 }
 
+export const getUsers = () => async dispatch => {
+  const res = await fetch('/api/users/all', {
+    method: 'GET',
+  })
+
+  if (res.ok) {
+    const users = await res.json();
+    dispatch(getAllUsers(users))
+    return users;
+  }
+}
+
 
 
 // Demo Thunk for Demo  Login -- Sona 
@@ -143,6 +161,7 @@ export const demo = (email, password) => async (dispatch) => {
 export default function reducer(state = initialState, action) {
   let newState = { ...state }
   let user;
+  let users;
   switch (action.type) {
     case SET_USER:
       return { user: action.payload }
@@ -161,6 +180,13 @@ export default function reducer(state = initialState, action) {
         ...state,
       };
       delete newState[action.payload.userId]
+      return newState
+    case (GET_USERS):
+      newState = {}
+      users = action.payload.users
+      users.forEach(user => {
+        newState[user.id] = user;
+      })
       return newState
     default:
       return state;
