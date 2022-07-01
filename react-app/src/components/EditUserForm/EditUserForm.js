@@ -8,29 +8,21 @@ const EditUserForm = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
 
-  const user = useSelector(state => state.session.user);
-  console.log(user, "THIS IS USER ----------------------");
+  const userId = useSelector(state => state.session.user.id);
+  // console.log(user, "THIS IS USER ----------------------");
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const onEdit = async (e) => {
+  const onEdit = (e) => {
     e.preventDefault();
     const data = {
       username,
       email
     }
-    const updatedUser = await dispatch(editSingleUser(user.id, data));
+    const updatedUser = dispatch(editSingleUser(userId, data));
     if (updatedUser) {
       history.push('/user-profile');
     }
-  };
-
-  const updateUsername = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const updateEmail = (e) => {
-    setEmail(e.target.value);
   };
 
   return (
@@ -42,7 +34,7 @@ const EditUserForm = () => {
             <input
               type='text'
               name='username'
-              onChange={updateUsername}
+              onChange={(e) => setUsername(e.target.value)}
               value={username}
             ></input>
           </div>
@@ -52,7 +44,7 @@ const EditUserForm = () => {
           <input
             type='text'
             name='email'
-            onChange={updateEmail}
+            onChange={(e) => setEmail(e.target.value)}
             value={email}
           ></input>
         </div>

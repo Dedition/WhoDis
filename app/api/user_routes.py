@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint,request
 from flask_login import login_required, current_user
 from app.models import User, db
 from ..forms.user_form import EditUserForm
@@ -31,21 +31,6 @@ def user(id):
 # *                                  UPDATE
 # TODO ——————————————————————————————————————————————————————————————————————————————————
 
-# @user_routes.route('/edit/<int:user_id>', methods=["PUT"])
-# def update_user():
-#     if current_user:
-#         form = EditUserForm()
-#         form['csrf_token'].data = request.cookies['csrf_token']
-#         if form.validate_on_submit():
-#             user = User(
-#                 username=form.data['username'],
-#                 email=form.data['email']
-#             )
-#             db.session.commit()
-#             return user.to_dict(), 201
-#     else:
-#         return {'errors': error_messages(form.errors)}
-
 
 @user_routes.route('/edit/<int:user_id>', methods=["PUT"])
 def update_user(user_id):
@@ -61,3 +46,17 @@ def update_user(user_id):
             return user.to_dict(), 201
     else:
         return {'errors': error_messages(form.errors)}
+
+
+# TODO ——————————————————————————————————————————————————————————————————————————————————
+# *                                  DELETE
+# TODO ——————————————————————————————————————————————————————————————————————————————————
+
+@user_routes.route('/delete/<int:user_id>', methods=['DELETE'])
+def delete_user(user_id):
+
+    user = User.query.get(user_id)
+    if user == current_user:
+        db.session.delete(user)
+        db.session.commit()
+    return user.to_dict()

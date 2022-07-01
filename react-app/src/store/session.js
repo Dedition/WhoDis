@@ -17,6 +17,7 @@ const editUser = (user) => ({
   payload: user
 })
 
+
 const initialState = { user: null };
 
 export const authenticate = () => async (dispatch) => {
@@ -120,6 +121,21 @@ export const signUp = (username, email, password) => async (dispatch) => {
   }
 }
 
+export const removeSingleUser = (userId) => async dispatch => {
+  const res = await fetch(`/api/users/delete/${userId}`, {
+    method: 'DELETE',
+  })
+
+  if (res.ok) {
+    const confirmation = await res.json();
+    const removedId = confirmation.id
+    dispatch(removeUser(removedId))
+    return removedId;
+  }
+}
+
+
+
 // Demo Thunk for Demo  Login -- Sona 
 export const demo = (email, password) => async (dispatch) => {
   email = "demo@aa.io";
@@ -149,11 +165,15 @@ export default function reducer(state = initialState, action) {
     case REMOVE_USER:
       return { user: null }
     case (EDIT_USER):
-      // newState = Object.assign({}, state, { user: action.user });
-      // return newState;
       newState = { ...state };
       user = action.payload
       newState[user.id] = user;
+      return newState
+    case (REMOVE_USER):
+      newState = {
+        ...state,
+      };
+      delete newState[action.payload.userId]
       return newState
     default:
       return state;

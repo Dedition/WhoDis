@@ -72,6 +72,11 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
+        <div className='delete-user-button'>
+          <NavLink to='/delete-user'>
+            <button>Delete</button>
+          </NavLink>
+        </div>
         </div>
         {/* </div> */}
         <div>

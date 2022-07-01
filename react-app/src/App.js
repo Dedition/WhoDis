@@ -12,6 +12,7 @@ import ChannelForm from './components/ChannelForm/ChannelForm';
 import EditServerForm from './components/EditServerForm/EditServerForm';
 import EditChannelForm from './components/EditChannelForm/EditChannelForm';
 import EditUserForm from './components/EditUserForm/EditUserForm';
+import DeleteUser from './components/DeleteUser/DeleteUser';
 import DeleteServer from './components/DeleteServer/DeleteServer';
 import DeleteChannel from './components/DeleteChannel/DeleteChannel';
 import UserSettings from './components/UserSettings/UserSettings';
@@ -122,6 +123,9 @@ function App() {
         </Route> */}
         <Route path='/edit-user'>
           <EditUserForm />
+        </Route>
+        <Route path='/delete-user'>
+          <DeleteUser />
         </Route>
       </Switch>
     </BrowserRouter>
