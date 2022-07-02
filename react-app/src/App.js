@@ -11,7 +11,7 @@ import { authenticate } from './store/session';
 import LandingPage from './components/LandingPage/LandingPage';
 import MainDiscord from './components/MainDiscord/MainDiscord';
 import LoginPage from './components/LoginPage/LoginPage';
-
+import SignUpPage from './components/SignUpPage/SignUpPage';
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -41,7 +41,7 @@ function App() {
         <Route exact path='/servers/@me'><MainDiscord/></Route>
 
 
-        <Route exact path='/sign-up'><SignUpForm/></Route>
+        <Route exact path='/sign-up'><SignUpPage/></Route>
 
         <ProtectedRoute exact path='/users/profile'><User/></ProtectedRoute>
 

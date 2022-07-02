@@ -1,4 +1,5 @@
 .main-navbar {
+    margin-top: 15px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -23,7 +24,12 @@
     color: white
 }
 
+
+
+
 .logo-main-nav {
+    position: relative;
+    left: 1.5%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,14 +39,20 @@
 }
 
 .center-links-nav {
+    position: relative;
+    left: 2%;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 30%;
-    border: 2px solid white;
+    width: 5%;
+    border: 1px solid white;
+    border-radius: 5px;
+
 }
 
 .login-signup-container {
+    position: relative;
+    right: 1.5%;
     width: 250px;
     display: flex;
     flex-direction: row;
@@ -61,19 +73,6 @@
     background-color: #1859c9;
     cursor: pointer;
     margin-right: 30px;
-
-
-
-
-    /* cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid white;
-    color: white;
-    margin-right: 10px;
-    width: 60px;
-    padding: 4px */
 }
 
 .login-button-nav:hover {
@@ -93,17 +92,22 @@
         font-size: 17px;
         font-weight: 600;
         cursor: pointer;
-
-
-    /* display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    border: 2px solid white;
-    padding: 4px; */
 }
 
 
 .signup-button-nav:hover {
 background-color: #e9ecf0d1;
+}
+
+.center-links-nav {
+    color: white;
+}
+
+.center-links-nav > i > a {
+    text-decoration: none;
+    color: white;
+}
+
+.github-icon {
+    transform: scale(2.5)
 }

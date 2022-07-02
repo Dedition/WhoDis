@@ -1,0 +1,19 @@
+
+.signup-container {
+    width: 100%;
+    height: 100vh;
+    background-image: url('../../images/guyfawkes.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.back-btn-signup {
+    color: whitesmoke;
+}
+
+.back-arrow {
+    margin-top: 20px;
+    margin-left: 40px;
+    font-size: 18px;
+}

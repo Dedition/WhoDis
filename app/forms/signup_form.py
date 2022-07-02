@@ -1,3 +1,4 @@
+from tokenize import String
 from flask_wtf import FlaskForm
 from wtforms import StringField
 from wtforms.validators import DataRequired, Email, ValidationError
@@ -19,10 +20,11 @@ def username_exists(form, field):
     if user:
         raise ValidationError('Username is already in use.')
 
-
 class SignUpForm(FlaskForm):
     username = StringField(
         'username', validators=[DataRequired(), username_exists])
     email = StringField('email', validators=[
                         DataRequired(), user_exists])
     password = StringField('password', validators=[DataRequired()])
+    bio = StringField('bio')
+    profile_pic_url = StringField('profile_pic')
