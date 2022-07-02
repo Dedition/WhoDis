@@ -1,14 +1,14 @@
 .Nav-bar{
-    height: 800px;
+    height: 100%;
 }
 
-.spalsh-nav{
+.splash-nav{
     display: flex;
     flex-direction: column;
     align-items: center;
 
     position: fixed;
-    top: 20px;
+    top: 2%;
     left: 0px;
     width: 100%;
     height: 70px;
@@ -19,8 +19,6 @@
     width: 100%;
     display: flex;
     justify-content: space-around;
-    /* margin-left: 50px; */
-    margin-right: 50px;
 }
 
 /**************************************************************/
@@ -61,7 +59,7 @@
 
 /**************************************************************/
 
-#nav-github{
+#nav-github {
     text-decoration: none;
     color: white;
     min-width: 103px;
@@ -73,14 +71,18 @@
     justify-content: center;
     cursor: pointer;
     top: 37px;
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 600;
     height: 30px;
     background-color: black;
     border-radius: 20px;
 }
 
-#nav-about{
+#nav-github:hover {
+    font-size: 22px;
+}
+
+#nav-about {
     text-decoration: none;
     color: white;
     min-width: 103px;
@@ -92,18 +94,21 @@
     justify-content: center;
     cursor: pointer;
     top: 37px;
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 600;
     height: 30px;
     background-color: black;
     border-radius: 20px;
 }
 
+#nav-about:hover {
+    font-size: 22px;
+}
 
-#nav-login{
+#nav-login {
     text-decoration: none;
     color: black;
-    min-width: 70px;
+    min-width: 75px;
     height: 30px;
     text-align: center;
     position: relative;
@@ -113,9 +118,30 @@
     justify-content: center;
     cursor: pointer;
     top: 37px;
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 600;
     background-color: white;
+    border: 3px solid green;
+    border-radius: 20px;
+}
+
+#nav-login:hover {
+    text-decoration: none;
+    color: black;
+    min-width: 75px;
+    height: 30px;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    top: 37px;
+    font-size: 20px;
+    font-weight: 600;
+    background-color: lightgreen;
+    border: 3px solid white;
     border-radius: 20px;
 }
 
@@ -137,21 +163,20 @@
 }
 
 
-#splash-title{
+#splash-title {
     text-align: center;
     position: relative;
-    font-size: 40px;
+    font-size: 60px;
     margin-bottom: 15px;
     font-weight: 600;
     color: white;
     background-color: black;
     border-radius: 20px;
-    margin-top: 150px;
-    width:36%;
-    margin-left: 32%;
-    margin-right: 32%;
+    margin-top: 13%;
+    width: 38%;
+    margin-left: 31%;
+    margin-right: 31%;
 }
-
 
 #splash-txt{
     font-size: 23px;
@@ -181,39 +206,76 @@
     margin-right: 25%;
 }
 
-.splash-demo>button{
+.splash-demo>button {
     font-size: 24px;
     font-weight: 600;
     border-radius: 20px;
     height: 43px;
     margin-right: 20px;
     width: 150px;
-    background-color: rgba(255,255,255,0.7);
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 3px solid green;
+    padding-top: 2px;
 }
 
-#splash-signup{
+.splash-demo>button:hover {
     font-size: 25px;
     font-weight: 600;
-    color:black;
-    text-decoration:none;
-    background-color: rgba(255,255,255,0.7);
     border-radius: 20px;
-    width: 140px;
-    height: 35px;
-    text-align: center;
-    padding-top: 5px;
-    margin-left: 20px;
-    margin-top:2px;
+    height: 44px;
+    margin-right: 20px;
+    width: 157px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 3px solid red;
+    padding-top: 3px;
+    cursor: pointer;
 }
 
+#splash-signup {
+    font-size: 25px;
+    font-weight: 600;
+    color: black;
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+    width: 140px;
+    height: 33px;
+    text-align: center;
+    padding-top: 3px;
+    margin-left: 20px;
+    margin-top: 2px;
+    border: 3px solid green;
+}
+
+#splash-signup:hover {
+    font-size: 27px;
+    font-weight: 600;
+    color: black;
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+    width: 142px;
+    height: 34px;
+    text-align: center;
+    padding-top: 2px;
+    margin-left: 20px;
+    margin-top: 2px;
+    border: 3px solid red;
+    cursor: pointer;
+}
 /***********************************************************************/
 
-.splash-border{
-    margin-top: 150px;
+.splash-border {
+    margin-top: 14%;
     border-bottom: 1px solid grey;
-    width:80%;
+    width: 80%;
     margin-left: 10%;
     margin-right: 10%;
+}
+
+.main-footer {
+    display: flex;
+    align-items: flex-end;
 }
 
 /***********************************************************************/

@@ -39,7 +39,7 @@ const UserProfile = () => {
           {user?.profile_pic_url}
         </div> */}
         {/* <div className='darkgrey-background'> */}
-        <div className='user-profile-content'>
+        <div className='user-prof-div'>
           {/* <button onClick={handleCancelClick}>
             Back
           </button> */}
@@ -75,7 +75,7 @@ const UserProfile = () => {
               <p></p>
             }
           </div>
-          <div className='user-subinfo'>
+          <div className='user-lower-div'>
             <div className='div-username'>
               <div>USERNAME</div>
               <div className='username2'>
@@ -93,7 +93,7 @@ const UserProfile = () => {
             <NavLink to='/delete-user'>
               <button className='delete-user-button'>Delete User</button>
             </NavLink> :
-            <p>YOU MAY NOT EDIT OR DELETE THE DEMO USER!!</p>
+            <p className='you-may-not-edit'>YOU MAY NOT EDIT OR DELETE THE DEMO USER!!</p>
           }
           {/* <div className='delete-user-button'> */}
           {/* </div> */}

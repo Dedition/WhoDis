@@ -53,7 +53,7 @@ const RightSidebar = (showDms) => {
             reset();
         }
     }
-// CHANNEL FORM 
+    // CHANNEL FORM 
 
     const user = useSelector((state) => state.session.user)
 
@@ -73,25 +73,26 @@ const RightSidebar = (showDms) => {
         <div className='right-sidebar'>
             <div className='rs-content'>
                 <div className='channel-name'>
-                    <p id='channel-title'>{path == '@me' ? 'Direct Messages' : currentServer?.name}</p>
-                   {/* Class Name for Edit and Delete Buttons Changed */}
-                    <div className='edit-delete-server-title'>
-                        <NavLink to='/edit-server'>
-                            <i
-                                className="fas fa-edit edit__btn"> 
-                            </i>
-                        </NavLink>
-                        <NavLink to='/delete-server'>
-                            <i
-                                className="fas fa-trash-alt delete__btn">
+                    <p id='channel-title'>{path == '@me' ? `${user?.username}` : currentServer?.name}</p>
+                    {/* Class Name for Edit and Delete Buttons Changed */}
+                    {path != '@me' && serverOwner == user?.id &&
+                        <div className='edit-delete-server-title'>
+                            <NavLink to='/edit-server'>
+                                <i
+                                    className="fas fa-edit edit__btn">
+                                </i>
+                            </NavLink>
+                            <NavLink to='/delete-server'>
+                                <i
+                                    className="fas fa-trash-alt delete__btn">
 
-                            </i>
-                        </NavLink>
-                    </div>
+                                </i>
+                            </NavLink>
+                        </div>}
                 </div>
                 <div className='title-sb'>
-                    <p className='text-chnl'>{path == '@me' ? 'Direct Messages' : 'CHANNELS'}</p>
-                    { serverOwner == user?.id &&
+                    <p className='text-chnl'>{path == '@me' ? 'Welcome to WhoDis?' : 'CHANNELS'}</p>
+                    {serverOwner == user?.id &&
                         <button id='channel-create-btn' disabled={serverOwner !== user?.id} onClick={() => setForm(true)}>
                             <div className="channel-add" >+</div>
                         </button>
@@ -129,8 +130,10 @@ const RightSidebar = (showDms) => {
 
                 {/* DISPLAY ALL CHANNELS */}
                 <Route path='/servers/:serverId'>
-                    <Channels />
-                </Route>
+                    {/* {path != '@me' && */}
+                        <Channels />
+                    {/* }                 */}
+                    </Route>
                 {/* DISPLAY ALL CHANNELS */}
             </div>
         </div>

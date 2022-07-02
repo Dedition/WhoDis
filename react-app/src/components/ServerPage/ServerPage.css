@@ -71,7 +71,7 @@ body {
 }
 
 .user-bar {
-  background-color: grey;
+  background-color: #282a2e;
   display: flex;
   align-self: flex-end;
   margin-left: -4px;

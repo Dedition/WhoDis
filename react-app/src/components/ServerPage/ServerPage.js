@@ -42,7 +42,7 @@ const ServerPage = () => {
             <div className='sidebar'>
                 <div className='server-nav'>
                     <div>
-                        <div className='server-bubble'>
+                        <div className='server-bubble' onClick={() => setPath('/servers/@me')}>
                             <NavLink id='server-nav' className='home-button' to='/servers/@me'>
                                 <i className="fa-brands fa-discord"></i>
                             </NavLink>
@@ -81,8 +81,11 @@ const ServerPage = () => {
                     {/* user bar */}
                     <div className='user-bar'>
                         <div className='user-bar-div'>
-                            <div className='profile-pic'>
-                                {user?.username.charAt(0)}
+                            <div className='profile-pic' style={{
+                                background: `url(${user?.profile_pic_url})`,
+                                backgroundSize: 'cover'
+                            }}>
+                                {/* {user?.username.charAt(0)} */}
                             </div>
                             <div className='username-div'>
                                 {user?.username}

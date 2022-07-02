@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import { getAllChannels, removeSingleChannel, editSingleChannel } from '../../store/channels'
 import { getSingleServerId } from '../../store/check_home'
-import {getChannelMessages} from '../../store/channel_messages'
+import { getChannelMessages } from '../../store/channel_messages'
 import DeleteChannel from '../DeleteChannel/DeleteChannel'
 import './channels.css'
 import { Route } from 'react-router-dom'
@@ -20,11 +20,15 @@ const Channels = () => {
     const user = useSelector((state) => state.session.user)
     const allServers = useSelector((state) => state.servers)
     const servers = Object.values(allServers);
+    // const path = useSelector((state) => state.globalActions?.url)
+    const url = window.location.href.split("/")
+    const path = url[url.length - 1]
+    // const serverId = path
 
     const currentServer = servers.find(server => server.id == serverId)
 
 
-    
+
 
     // REMOVE FORM FROM VIEW
     const [editForm, setEditForm] = useState(false);
@@ -48,13 +52,13 @@ const Channels = () => {
     // When component renders:
     useEffect(() => {
         if (serverId !== '@me') {
-        dispatch(getAllChannels(serverId))
-        dispatch(getSingleServerId(serverId))
+            dispatch(getAllChannels(serverId))
+            dispatch(getSingleServerId(serverId))
         }
         return () => {
         }
     }, [dispatch, serverId])
-// Above useEffect may or may not need fixing 
+    // Above useEffect may or may not need fixing 
 
     const handleDeleteClick = (e) => {
         e.preventDefault();
@@ -120,76 +124,77 @@ const Channels = () => {
                         </div> */}
             <div className='channel-name'>
             </div>
-            <div className='channels-container'>
-                {channels.map((channel, i) => (
-                    <div className='channel-each' key={i} onClick={() => renderMessages(channel?.id)}>
-                        {channel?.name}
-
-                    
-                {currentServer?.owner_id == user?.id && 
-                <div>
-                    <i onClick={() => formEdit(channel?.id)}
-                        className="fas fa-edit edit__btn__channel">
-                    </i>
-                    <i onClick={() => formDelete(channel?.id)}
-                        className="fas fa-trash-alt delete__btn__channel">
-                    </i>
-                </div>}
-                    </div>
-                ))}
-            </div>
-
-            {/* DELETE CHANNEL FORM */}
-            { deleteForm &&
-            <div className='modal'>
-                <div className='form'>
-                    <form onSubmit={handleDeleteClick}>
-                    <div className='exit-server-form'>
-                    <div className='exit__channel__delete' onClick={() => setDeleteForm(!deleteForm)}>x</div>
-                    </div>
-                    <div className="confirm-delete-text">
-                            Are you sure you want to delete this channel?
-                    </div>
-                    <div className="delete-button-div">
-                    <div className="confirm-delete-button">
-                    <button>CONFIRM DELETE</button>
-                    </div>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        }
-            {/* DELETE CHANNEL FORM */}
+            {path != '@me' &&
+                <div className='channels-container'>
+                    {channels.map((channel, i) => (
+                        <div className='channel-each' key={i} onClick={() => renderMessages(channel?.id)}>
+                            {channel?.name}
 
 
-
-
-
-           { editForm &&
-           <div className='modal'>
-                <div className='form'>
-                    <form onSubmit={submitForm}>
-                        <div className='exit-server-form'>
-
-                            <div className='exit__channel__edit' onClick={() => setEditForm(!editForm)}>x</div>
+                            {currentServer?.owner_id == user?.id &&
+                                <div>
+                                    <i onClick={() => formEdit(channel?.id)}
+                                        className="fas fa-edit edit__btn__channel">
+                                    </i>
+                                    <i onClick={() => formDelete(channel?.id)}
+                                        className="fas fa-trash-alt delete__btn__channel">
+                                    </i>
+                                </div>}
                         </div>
-                        <div className='create-text'>Edit Channel!</div>
-                        <label htmlFor='name'>Name</label>
-                        <input
-                            className='channel__input__name'
-                            name="name"
-                            type="text"
-                            placeholder="Name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            required
-                        />
-                        <button type="submit">
-                            Edit
-                        </button>
-                    </form>
+                    ))}
+                </div>}
+
+            {/* DELETE CHANNEL FORM */}
+            {deleteForm &&
+                <div className='modal'>
+                    <div className='form'>
+                        <form onSubmit={handleDeleteClick}>
+                            <div className='exit-server-form'>
+                                <div className='exit__channel__delete' onClick={() => setDeleteForm(!deleteForm)}>x</div>
+                            </div>
+                            <div className="confirm-delete-text">
+                                Are you sure you want to delete this channel?
+                            </div>
+                            <div className="delete-button-div">
+                                <div className="confirm-delete-button">
+                                    <button>CONFIRM DELETE</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>}
+            }
+            {/* DELETE CHANNEL FORM */}
+
+
+
+
+
+            {editForm &&
+                <div className='modal'>
+                    <div className='form'>
+                        <form onSubmit={submitForm}>
+                            <div className='exit-server-form'>
+
+                                <div className='exit__channel__edit' onClick={() => setEditForm(!editForm)}>x</div>
+                            </div>
+                            <div className='create-text'>Edit Channel!</div>
+                            <label htmlFor='name'>Name</label>
+                            <input
+                                className='channel__input__name'
+                                name="name"
+                                type="text"
+                                placeholder="Name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                required
+                            />
+                            <button type="submit">
+                                Edit
+                            </button>
+                        </form>
+                    </div>
+                </div>}
         </>
     )
 }

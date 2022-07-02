@@ -53,7 +53,7 @@
     margin-left: 100px;
 }
 
-.user-subinfo {
+.user-lower-div {
     margin-left: 10px;
     margin-right: 10px;
     padding-top: 10px;
@@ -84,7 +84,7 @@
     color: white
 }
 
-.user-profile-content {
+.user-prof-div {
     background-color: #202225;
     border: 0.75px solid #202225;
     border-radius: 3px;
@@ -92,7 +92,7 @@
     width: 660px;
     height: 400px;
     /* top: -5%; */
-    left: -15.5%;    
+    left: -15.5%;
     position: absolute;
     transform: translate(30vw, 15vh);
     /* border-radius: 10px; */
@@ -184,4 +184,9 @@
 
 .fa-discord {
     font-size: 180%;
+}
+
+.you-may-not-edit {
+    margin-inline-start: 2%;
+    color: red;
 }
