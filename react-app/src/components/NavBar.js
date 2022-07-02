@@ -18,11 +18,9 @@ const NavBar = () => {
       <div className='center-links-nav'>
         <p>Center Links</p>
       </div>
-
-      <div className='login-button-nav'>
-        <NavLink to='/login'>
-          Login
-        </NavLink>
+      
+      <div className='login-button-nav' onClick={() => history.push('/login')}>
+        <p>Login</p>
       </div>
     </nav>
   );
