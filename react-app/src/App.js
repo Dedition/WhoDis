@@ -10,7 +10,7 @@ import User from './components/User';
 import { authenticate } from './store/session';
 import LandingPage from './components/LandingPage/LandingPage';
 import MainDiscord from './components/MainDiscord/MainDiscord';
-
+import LoginPage from './components/LoginPage/LoginPage';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -32,9 +32,10 @@ function App() {
      
       <Switch>
 
-        <ProtectedRoute exact path='/'><LandingPage/></ProtectedRoute>
+        {/* Should Be Protected Route */}
+        <Route exact path='/'><LandingPage/></Route>
 
-        <Route exact path='/login'><LoginForm/></Route>
+        <Route exact path='/login'><LoginPage/></Route>
 
 
         <Route exact path='/servers/@me'><MainDiscord/></Route>
