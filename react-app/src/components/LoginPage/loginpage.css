@@ -5,3 +5,19 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.back-btn-signup {
+    color: whitesmoke;
+}
+
+.back-arrow {
+    cursor: pointer;
+    margin-top: 20px;
+    margin-left: 40px;
+    font-size: 18px;
+    transition: all 0.2s ease-in-out;
+}
+
+.back-arrow:hover {
+   transform: scale(1.08);
+}

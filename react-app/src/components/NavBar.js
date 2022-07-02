@@ -16,7 +16,11 @@ const NavBar = () => {
       </div>
 
       <div className='center-links-nav'>
-        <p>Center Links</p>
+        <a href='https://github.com/Dedition/WhoDis/wiki'>
+           <i className="fa-brands fa-github github-icon">
+            </i>
+            </a>
+        
       </div>
 
 
@@ -29,30 +33,9 @@ const NavBar = () => {
       <div className='signup-button-nav' onClick={() => history.push('/sign-up')}>
         <p>Register</p>
       </div>
-
-
       </div>
-
     </nav>
   );
 }
 
-{/* <li>
-<NavLink to='/' exact={true} activeClassName='active'>
-  Home
-</NavLink>
-        </li >
-        <li>
-          <NavLink to='/login' exact={true} activeClassName='active'>
-            Login
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/sign-up' exact={true} activeClassName='active'>
-            Sign Up
-          </NavLink>
-        </li>
-        <li>
-          <LogoutButton />
-        </li> */}
 export default NavBar;
