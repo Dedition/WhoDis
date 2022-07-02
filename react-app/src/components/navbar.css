@@ -40,11 +40,70 @@
     border: 2px solid white;
 }
 
+.login-signup-container {
+    width: 250px;
+    display: flex;
+    flex-direction: row;
+
+}
+
 .login-button-nav {
-    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 5%;
+    width: 50%;
+    height: 55px;
+    border: none;
+    border-radius: 5px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #1859c9;
+    cursor: pointer;
+    margin-right: 30px;
+
+
+
+
+    /* cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 2px solid white;
+    color: white;
+    margin-right: 10px;
+    width: 60px;
+    padding: 4px */
+}
+
+.login-button-nav:hover {
+    background-color: #1859c9db;
+}
+
+.signup-button-nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        height: 55px;
+        margin-right: 7px;
+        border: none;
+        border-radius: 5px;
+        background-color: #e9ecf0;
+        font-size: 17px;
+        font-weight: 600;
+        cursor: pointer;
+
+
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border: 2px solid white;
+    padding: 4px; */
+}
+
+
+.signup-button-nav:hover {
+background-color: #e9ecf0d1;
 }

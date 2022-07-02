@@ -18,10 +18,21 @@ const NavBar = () => {
       <div className='center-links-nav'>
         <p>Center Links</p>
       </div>
-      
+
+
+      <div className='login-signup-container'> 
       <div className='login-button-nav' onClick={() => history.push('/login')}>
         <p>Login</p>
       </div>
+
+
+      <div className='signup-button-nav' onClick={() => history.push('/sign-up')}>
+        <p>Register</p>
+      </div>
+
+
+      </div>
+
     </nav>
   );
 }
