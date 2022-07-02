@@ -1,0 +1,70 @@
+.landing-center-container {
+position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 4%;
+    right: 0;
+    top: 40%;
+    background-color: rgba(87, 143, 80, 0.479);
+    width: 40%;
+    height: 40%;
+    border-radius: 15px;
+    box-shadow: inset 0px -3px 7px rgb(0 255 0);
+}
+
+
+.landing-center-container > div > p {
+    font-family: "ginto-nord-black"," Whitney"," Helvetica Neue"," Helvetica"," Arial",sans-serif;
+    text-align: center;
+}
+
+
+.landing-heading {
+    position: relative;
+    font-size: 56px;
+    font-weight: 800;
+    color: whitesmoke;
+    
+}
+
+.landing-subheading {
+    position: relative;
+    color: whitesmoke;
+    font-size: 20px;
+}
+
+.landing-demo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px
+}
+
+.demo-btn {
+    position: relative;
+    height: 60px;
+    width: 400px;
+    font-size: 20px;
+    background-color: rgb(87, 143, 80);
+    box-shadow: inset 0px -3px 7px rgb(0 255 0);
+    border: none;
+    color: whitesmoke;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+
+.demo-btn:hover {
+font-weight: 800px;
+box-shadow: inset 0px -3px 20px rgb(0 255 0);
+}
+
+
+/* 56 px heading */
+
+/* 20 px subheading */
+
+
+/* 20 px demo button */
+
