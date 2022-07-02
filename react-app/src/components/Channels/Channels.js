@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import { getAllChannels, removeSingleChannel, editSingleChannel } from '../../store/channels'
 import { getSingleServerId } from '../../store/check_home'
 import { getChannelMessages } from '../../store/channel_messages'
+import { getChannel } from '../../store/channels'
 import DeleteChannel from '../DeleteChannel/DeleteChannel'
 import './channels.css'
 import { Route } from 'react-router-dom'
@@ -28,8 +29,6 @@ const Channels = () => {
     const currentServer = servers.find(server => server.id == serverId)
 
 
-
-
     // REMOVE FORM FROM VIEW
     const [editForm, setEditForm] = useState(false);
     const [deleteForm, setDeleteForm] = useState(false)
@@ -40,7 +39,12 @@ const Channels = () => {
     const formEdit = (channelId) => {
         setEditForm(!editForm)
         setChannelId(channelId)
+        console.log(channelId)
     }
+    
+    const channel = useSelector((state) => state.channels[channelId])
+    // const channelName = dispatch(getChannel(channelId))
+    const [name, setName] = useState(channel?.name);
 
     const formDelete = (channelId) => {
         setDeleteForm(!deleteForm)
@@ -68,13 +72,14 @@ const Channels = () => {
     }
     // DELETE FORM FUNCTIONALITY (ABOVE)
 
+    // const channelId = channelIdState.channelId
+
 
     // EDIT FORM FUNCTIONALITY (BELOW)
-    const [name, setName] = useState("");
 
-    const reset = () => {
-        setName('');
-    }
+    // const reset = () => {
+    //     setName('');
+    // }
 
     // SUBMIT EDIT FORM 
     const submitForm = (e) => {
@@ -86,7 +91,7 @@ const Channels = () => {
         const newChannel = dispatch(editSingleChannel(channelId, data));
         if (newChannel) {
             history.push(`/servers/${serverId}`);
-            reset();
+            // reset();
         }
     }
 
@@ -129,7 +134,7 @@ const Channels = () => {
                     {channels.map((channel, i) => (
                         <div className='channel-each' key={i} onClick={() => renderMessages(channel?.id)}>
                             {channel?.name}
-
+                            {() => setChannelId(channel?.id)}
 
                             {currentServer?.owner_id == user?.id &&
                                 <div>
@@ -184,7 +189,7 @@ const Channels = () => {
                                 className='channel__input__name'
                                 name="name"
                                 type="text"
-                                placeholder="Name"
+                                // placeholder="Name"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 required

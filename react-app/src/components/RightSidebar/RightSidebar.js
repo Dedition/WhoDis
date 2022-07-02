@@ -73,7 +73,7 @@ const RightSidebar = (showDms) => {
         <div className='right-sidebar'>
             <div className='rs-content'>
                 <div className='channel-name'>
-                    <p id='channel-title'>{path == '@me' ? `${user?.username}` : currentServer?.name}</p>
+                    <p id='channel-title'>{path == '@me' ? `Username: ${user?.username}` : currentServer?.name}</p>
                     {/* Class Name for Edit and Delete Buttons Changed */}
                     {path != '@me' && serverOwner == user?.id &&
                         <div className='edit-delete-server-title'>

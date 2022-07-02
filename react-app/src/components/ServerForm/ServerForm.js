@@ -30,6 +30,12 @@ const ServerForm = () => {
         setNotPrivate(false);
     }
 
+    // useEffect(() => {
+    //     if (server) {
+    //         setName(server?.name)
+    //     }
+    // }, [server])
+
     const submitForm = (e) => {
         e.preventDefault();
         const payload = {

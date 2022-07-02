@@ -1,23 +1,26 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams, NavLink } from 'react-router-dom';
+import { checkPath } from '../../store/check_home';
 import { editSingleServer, getServer } from '../../store/servers';
 
 
 const EditServerForm = () => {
   const [errors, setErrors] = useState([]);
-  const [name, setName] = useState("");
   const [banner_url, setBannerUrl] = useState("");
   const [server_icon_url, setServerIconUrl] = useState("");
   const dm_channel = false;
   const [notPrivate, setNotPrivate] = useState(false);
-
+  
   const history = useHistory();
   const dispatch = useDispatch();
   const currentUserId = useSelector((state) => state.session.user?.id)
   const serverIdState = useSelector((state) => state.globalActions)
   const serverId = serverIdState.serverId
   const owner_id = currentUserId;
+  
+  const server = useSelector((state) => state.servers[serverId])
+  const [name, setName] = useState(server?.name);
 
   // const { serverId } = useParams();
 
@@ -41,6 +44,7 @@ const EditServerForm = () => {
     const updatedServer = dispatch(editSingleServer(serverId, data));
     if (updatedServer) {
       history.push(`/servers/${serverId}`);
+      dispatch(checkPath('/servers/@me'));
       reset();
     }
   }
@@ -60,13 +64,12 @@ const EditServerForm = () => {
             <input
               name="name"
               type="text"
-              placeholder="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
             />
           </div>
-          <div>
+          {/* <div>
             <label htmlFor='banner_url'>Banner Img</label>
             <input
               name="banner_url"
@@ -109,7 +112,7 @@ const EditServerForm = () => {
                 onChange={(e) => setNotPrivate('yes')}
               />
             </label>
-          </div>
+          </div> */}
           <div>
             <button type="submit">
               Edit
