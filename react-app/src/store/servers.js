@@ -114,7 +114,6 @@ export default function servers(state = initialState, action) {
         case (GET_SERVERS):
              newState = {};
             let servers = action.payload.servers
-            console.log(servers);
             servers.forEach(server => {
                 newState[server.id] = server
             })

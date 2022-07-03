@@ -17,7 +17,6 @@ const ServerForm = () => {
     useEffect(() => {
         const err = [];
         if (name.length <= 4) err.push('Server name must be at least 4 characters long.')
-
         setErrors(err)
     }, [name])
 
@@ -29,8 +28,11 @@ const ServerForm = () => {
             banner_url,
             server_icon_url
         }
-
         dispatch(addSingleServer(payload))
+        setToggleForm(!toggleForm);
+        setName('');
+        setBannerUrl('')
+        setServerIconUrl('')
 }
 
     return (
