@@ -1,9 +1,11 @@
 import './maindiscord.css'
-
+import LeftSideBar from '../LeftSideBar/LeftSideBar';
 
 const MainDiscord = () => {
     return (
-        <h1>Hello</h1>
+        <div className='main-discord-container'>
+            <LeftSideBar/>
+        </div>
     )
 }
 
