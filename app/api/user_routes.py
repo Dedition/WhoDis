@@ -55,15 +55,15 @@ def user(id):
 @user_routes.route('/edit/<int:user_id>', methods=["PUT"])
 def update_user(user_id):
     user = User.query.get(user_id)
+    print(user)
     if user:
         form = EditUserForm()
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
-            if(user == current_user):
                 user.username = form.data['username'],
                 user.email = form.data['email']
-            db.session.commit()
-            return user.to_dict(), 201
+                db.session.commit()
+                return user.to_dict(), 201
     else:
         return {'errors': error_messages(form.errors)}
 
