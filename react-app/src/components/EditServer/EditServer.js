@@ -2,9 +2,11 @@ import './editserver.css'
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { editSingleServer, removeSingleServer} from '../../store/servers';
+import {useHistory} from 'react-router-dom';
 
 const EditServer = ({serverInfo}) => {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [toggleForm, setToggleForm] = useState(false)
     const [toggleDelete, setToggleDelete] = useState(false);
@@ -18,7 +20,6 @@ const EditServer = ({serverInfo}) => {
     useEffect(() => {
         const err = [];
         if (name.length <= 4) err.push('Server name must be at least 4 characters long.')
-
         setErrors(err)
     }, [name])
 
@@ -37,6 +38,7 @@ const EditServer = ({serverInfo}) => {
     const submitDelete = (e) => {
         e.preventDefault();
         dispatch(removeSingleServer(serverInfo?.id))
+        history.push('/servers/@me')
     }
 
 
