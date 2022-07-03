@@ -1,13 +1,14 @@
 import './leftsidebar.css'
 import {useSelector, useDispatch} from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import {getAllServers} from '../../store/servers';
 import {getAllChannels} from '../../store/channels';
 import EachServer from '../EachServer/EachServer';
 import { useParams, useHistory } from 'react-router-dom';
 import ServerForm from '../ServerForm/ServerForm';
 import EditServer from '../EditServer/EditServer';
-
+import EachChannel from '../EachChannel/EachChannel';
+import CreateChannel from '../CreateChannel/CreateChannel';
 
 const LeftSideBar = () => {
     const {id} = useParams()
@@ -28,13 +29,16 @@ const LeftSideBar = () => {
     const user = useSelector((state) => state.session.user);
     const allServers = useSelector((state) => state.servers);
     const servers = Object.values(allServers);
-    const server = servers.find(server => server.id == currentServerId)
 
-    const isOwner = server?.owner_id == user.id;
 
+    const server = servers.find(server => server.id === +currentServerId)
+
+    const isOwner = server?.owner_id === user.id;
     const allChannels = useSelector((state) => state.channels)
     const channels = Object.values(allChannels);
 
+
+    console.log(channels)
 
     return (
         <div className='left-sidebar-container'>
@@ -52,7 +56,7 @@ const LeftSideBar = () => {
                 </div>
             <div className='server-list-container'>
                 {   servers.map((server, i) => (
-                    <EachServer server={server}/>
+                    <EachServer key={i} server={server}/>
                 ))}
             </div>
                 <ServerForm/>
@@ -70,8 +74,18 @@ const LeftSideBar = () => {
                     <EditServer serverInfo={server}/>
                     }
                 </div>
-                <div className='channels-container'>
 
+                { isOwner &&
+                <div className='add-channel-container'>
+                    <CreateChannel serverId={currentServerId}/>
+                </div>
+                }
+
+
+                <div className='channels-container'>
+                    { channels.map((channel, i) => (
+                        <EachChannel key={i} channelInfo={channel} isOwner={isOwner} serverId={currentServerId}/>
+                    ))}
                 </div>
             </div>
         </div>

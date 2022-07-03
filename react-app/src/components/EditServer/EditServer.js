@@ -32,13 +32,15 @@ const EditServer = ({serverInfo}) => {
             banner_url,
             server_icon_url
         }
+        
         dispatch(editSingleServer(serverInfo?.id, payload))
     }
 
     const submitDelete = (e) => {
         e.preventDefault();
-        dispatch(removeSingleServer(serverInfo?.id))
-        history.push('/servers/@me')
+
+            dispatch(removeSingleServer(serverInfo?.id))
+            history.push('/servers/@me')
     }
 
 
@@ -47,7 +49,7 @@ const EditServer = ({serverInfo}) => {
         <>
         <div className='edit-server-container'>
                 <i className="fas fa-edit edit-btn" onClick={() => setToggleForm(!toggleForm)}></i>
-                <i class="fas fa-trash delete-server-btn" onClick={() => setToggleDelete(!toggleDelete)}></i>
+                <i className="fas fa-trash delete-server-btn" onClick={() => setToggleDelete(!toggleDelete)}></i>
 
 
             { toggleDelete && 
@@ -103,7 +105,7 @@ const EditServer = ({serverInfo}) => {
                         >
                         </input>
                     </div>
-                    <button type='submit' className='server-btn'>Submit</button>
+                    <button type='submit' className='server-btn' disabled={!!errors.length}>Submit</button>
                 </form>
             }
         </>

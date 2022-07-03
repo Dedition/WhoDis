@@ -32,7 +32,7 @@ const getOneChannel = (channel) => {
     };
 };
 
-export const addSingleChannel = (data, serverId) => async dispatch => {
+export const addSingleChannel = (serverId, data) => async dispatch => {
     const res = await fetch(`/api/channels/${serverId}`, {
         method: "POST",
         headers: {
