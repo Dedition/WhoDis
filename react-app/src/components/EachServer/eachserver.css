@@ -1,0 +1,17 @@
+.server-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+}
+
+.server-bubble {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    height: 60%;
+    background-color: aqua;
+    border-radius: 50%;
+}
