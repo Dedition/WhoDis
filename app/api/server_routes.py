@@ -35,7 +35,7 @@ def create_server():
                             banner_url=form.data['banner_url'],
                             server_icon_url=form.data['server_icon_url'],
                             dm_channel=False,
-                            public=form.data['public'],
+                            public=False,
                             owner_id=current_user.id,
                             created_at=datetime.utcnow(),
                             updated_at=datetime.utcnow()
@@ -54,20 +54,21 @@ def create_server():
 
 @server_routes.route('', methods=["GET"])
 def all_servers():
-    # * This query returns a non-Pythonic list of all servers
-    # user_id = current_user.id
-    # print(user_id, '---------------------------------')
+
+    # checking for server membership (current_user is a member of server)
     memberships = Member.query.all()
     valid_memberships = [membership.server_id for membership in memberships if membership.user_id == current_user.id]
 
     servers = []
     for server_ids in valid_memberships:
-        each_server = Server.query.get(server_ids)
-        servers.append(each_server)
+        if server_ids is not None:
+            each_server = Server.query.get(server_ids)
+            servers.append(each_server)
 
     # need to check ownership of server
     all_servers = Server.query.all()
     for server in all_servers:
+        print(server, 'sdfjalsdfjas;dklfj; server server server')
         if server.owner_id == current_user.id:
             servers.append(server)
 
@@ -93,7 +94,7 @@ def update_server(server_id):
                 server.server_icon_url = form.data['server_icon_url']
                 server.dm_channel=form.data['dm_channel']
                 server.public=form.data['public']
-                server.owner_id = form.data['owner_id']
+                server.owner_id = current_user.id
                 server.created_at = datetime.utcnow()
                 server.updated_at=datetime.utcnow()
                 db.session.commit()
@@ -113,4 +114,4 @@ def delete_server(server_id):
     if current_user.id == server.owner_id:
         db.session.delete(server)
         db.session.commit()
-    return server.to_dict()
+    return  server.to_dict()

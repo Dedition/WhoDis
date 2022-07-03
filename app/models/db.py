@@ -123,10 +123,6 @@ class Server(db.Model):
 
 
 
-
-
-
-
 class Member(db.Model): 
     __tablename__ = 'members'
     id = db.Column(db.Integer, primary_key=True)
@@ -134,7 +130,7 @@ class Member(db.Model):
     server_id = db.Column(db.Integer, db.ForeignKey('servers.id'))
     
     users = db.relationship('User', back_populates='members')
-    servers = db.relationship('Server', back_populates='members_servers')
+    servers = db.relationship('Server', back_populates='members_servers', cascade='all, delete')
 
     def to_dict(self):
         return {

@@ -1,0 +1,69 @@
+.server-form-container {
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+
+}
+
+.server-bubble-form {
+    box-shadow: 0px 10px 5px rgba(0, 0, 0, 0.568);
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    height: 60%;
+    width: 60%;
+    background-color: rgb(37, 37, 37);
+    border-radius: 25%;
+    border: 2px solid green;
+}
+
+
+.add-server-btn {
+    font-size: 42px;
+    color: white;
+    border-radius: 50%;
+}
+
+
+.server-form {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 35%;
+    left: 50%;
+    background-color: blue;
+    height: 400px;
+    width: 400px;
+    border-radius: 15px;
+}
+
+.server-form > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.server-form > div > input {
+    margin-bottom: 20px;
+    width: 80%;
+    height: 27px;
+    border-radius: 5px;
+    outline: none;
+    border:  none;
+    font-size: 15px;
+}
+
+.server-btn {
+    width: 100px;
+    height: 27px;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+}
