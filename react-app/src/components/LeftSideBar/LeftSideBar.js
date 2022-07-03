@@ -10,14 +10,11 @@ import EditServer from '../EditServer/EditServer';
 
 
 const LeftSideBar = () => {
-
     const {id} = useParams()
     const currentServerId = id;
 
     const dispatch = useDispatch();
     const history = useHistory();
-    const prevServers = useSelector(state => state.servers)
-    const prevServerList = Object.values(prevServers)
 
     useEffect(() => {
         dispatch(getAllServers());
@@ -25,7 +22,7 @@ const LeftSideBar = () => {
         if (currentServerId) {
             dispatch(getAllChannels(currentServerId))
         }
-    }, [dispatch, currentServerId, prevServerList.length])
+    }, [dispatch, currentServerId])
 
 
     const user = useSelector((state) => state.session.user);
