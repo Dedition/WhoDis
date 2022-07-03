@@ -31,7 +31,7 @@ const LeftSideBar = () => {
     const servers = Object.values(allServers);
 
 
-    const server = servers.find(server => server.id === +currentServerId)
+    const server = servers.find(server => server?.id === +currentServerId)
 
     const isOwner = server?.owner_id === user.id;
     const allChannels = useSelector((state) => state.channels)
@@ -86,6 +86,17 @@ const LeftSideBar = () => {
                     { channels.map((channel, i) => (
                         <EachChannel key={i} channelInfo={channel} isOwner={isOwner} serverId={currentServerId}/>
                     ))}
+   
+                </div>
+                <div className="sidebar-profile-icons">
+
+                    <i class="fa-solid fa-microphone sidebar-profile-icon"></i>
+
+
+                    <i class="fa-solid fa-headset sidebar-profile-icon"></i>
+
+
+                    <i class="fa-solid fa-cog sidebar-profile-icon" onClick={() => history.push('/user-profile')}></i>
                 </div>
             </div>
         </div>

@@ -8,7 +8,7 @@ import LandingPage from './components/LandingPage/LandingPage';
 import MainDiscord from './components/MainDiscord/MainDiscord';
 import LoginPage from './components/LoginPage/LoginPage';
 import SignUpPage from './components/SignUpPage/SignUpPage';
-
+import UserProfilePage from './components/UserProfilePage/UserProfilePage';
 
 
 function App() {
@@ -34,18 +34,17 @@ function App() {
         {/* Should Be Protected Route */}
         <Route exact path='/'><LandingPage/></Route>
 
+
+        <Route exact path='/sign-up'><SignUpPage /></Route>
+
+
         <Route exact path='/login'><LoginPage/></Route>
 
 
         <Route exact path={['/servers/@me', '/servers/:id']}><MainDiscord/></Route>
 
-        <Route exact path='/sign-up'><SignUpPage/></Route>
 
-        <ProtectedRoute exact path='/users/profile'><User/></ProtectedRoute>
-
-
-        
-
+        <ProtectedRoute exact path='/user-profile'><UserProfilePage/></ProtectedRoute>
 
       </Switch>
     </BrowserRouter>
