@@ -1,20 +1,23 @@
 import './leftsidebar.css'
 import {useSelector, useDispatch} from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {getAllServers} from '../../store/servers';
 import {getAllChannels} from '../../store/channels';
 import EachServer from '../EachServer/EachServer';
 import { useParams, useHistory } from 'react-router-dom';
+import ServerForm from '../ServerForm/ServerForm';
+import EditServer from '../EditServer/EditServer';
+
 
 const LeftSideBar = () => {
 
     const {id} = useParams()
     const currentServerId = id;
 
-
     const dispatch = useDispatch();
     const history = useHistory();
-
+    const prevServers = useSelector(state => state.servers)
+    const prevServerList = Object.values(prevServers)
 
     useEffect(() => {
         dispatch(getAllServers());
@@ -22,8 +25,7 @@ const LeftSideBar = () => {
         if (currentServerId) {
             dispatch(getAllChannels(currentServerId))
         }
-        
-    }, [dispatch, currentServerId])
+    }, [dispatch, currentServerId, prevServerList.length])
 
 
     const user = useSelector((state) => state.session.user);
@@ -31,6 +33,7 @@ const LeftSideBar = () => {
     const servers = Object.values(allServers);
     const server = servers.find(server => server.id == currentServerId)
 
+    const isOwner = server?.owner_id == user.id;
 
     const allChannels = useSelector((state) => state.channels)
     const channels = Object.values(allChannels);
@@ -55,10 +58,20 @@ const LeftSideBar = () => {
                     <EachServer server={server}/>
                 ))}
             </div>
+                <ServerForm/>
             </div>
+            
             <div className='right-half-sb'>
                 <div className='right-half-sb-title top-sb'>
-                    { currentServerId && server?.name}
+                    { currentServerId && 
+                    
+                    <div className='server-name'>
+                    <p id='server-title'>{server?.name}</p>
+                    </div>
+                    }
+                    { isOwner &&
+                    <EditServer serverInfo={server}/>
+                    }
                 </div>
                 <div className='channels-container'>
 

@@ -112,8 +112,9 @@ export default function servers(state = initialState, action) {
 
             return newState
         case (GET_SERVERS):
-             newState = { };
+             newState = {};
             let servers = action.payload.servers
+            console.log(servers);
             servers.forEach(server => {
                 newState[server.id] = server
             })
@@ -124,10 +125,9 @@ export default function servers(state = initialState, action) {
             newState[server.id] = server;
             return newState
         case (REMOVE_SERVER):
-            newState = {
-                ...state,
-            };
-            delete newState[action.payload.serverId]
+            newState = {...state};
+            const serverId = action.payload
+            delete newState[serverId]
             return newState
         case GET_ONE_SERVER:
              server = {};
