@@ -111,3 +111,24 @@ background-color: #e9ecf0d1;
 .github-icon {
     transform: scale(2.5)
 }
+
+.moved-github {
+}
+
+.front-arrow {
+    position: relative;
+    bottom: 5%;
+    right: 8%;
+    color: whitesmoke;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.front-arrow-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.front-arrow:hover {
+    transform: scale(1.08);
+}

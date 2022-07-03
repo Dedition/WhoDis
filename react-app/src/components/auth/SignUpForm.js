@@ -1,24 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 import './signupform.css'
+
+
+
+
 const SignUpForm = () => {
+
+
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
-  const [bio, setBio] = useState('') 
+  const [bio, setBio] = useState('')
   const [profilePic, setProfilePic] = useState('') 
 
 
-
-  const user = useSelector(state => state.session.user);
-  const dispatch = useDispatch();
-  const onSignUp = async (e) => {
+  useEffect(() => {
     const err = [];
-    e.preventDefault();
 
     if (username.length <= 3) err.push('Username: Username must be at least 4 characters');
 
@@ -28,7 +30,30 @@ const SignUpForm = () => {
 
     if (password != repeatPassword) err.push('Password: Passwords do not match')
 
-     const data = await dispatch(signUp(username, email, password, bio, profilePic));
+
+    setErrors(err)
+  }, [username, email, password, repeatPassword])
+
+
+
+
+  const user = useSelector(state => state.session.user);
+  const dispatch = useDispatch();
+
+
+
+  const onSignUp = async (e) => {
+    const err = [];
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('bio', bio);
+    formData.append('profile_pic_url', profilePic);
+
+    const data = await dispatch(signUp(formData));
+
       //! if data leak persists, check here
       if (data && data.includes('username: Username is already in use.')) {
         err.push('Username: Username is already in use.')
@@ -39,9 +64,10 @@ const SignUpForm = () => {
     }
       setErrors(err)
   };
+  // USE EFFECT ERROR VALIDATION (ABOVE)
 
   if (user) {
-    return <Redirect to='/' />;
+    return <Redirect to='/servers/@me'/>;
   }
 
   return (
@@ -89,11 +115,11 @@ const SignUpForm = () => {
       <div className='signup-profile-pic'>
           <label htmlFor='profile_pic_url'></label>
         <input
-          name='profile_pic_url'
-          type='url'
-          placeholder='Profile Picture *Optional'
-          onChange={(e) => setProfilePic(e.target.value)}
-          value={profilePic}
+            draggable="false"
+            type="file"
+            accept="image/png, image/jpeg, image/png, image/gif"
+            name="profile_pic_url"
+            onChange={(e) => setProfilePic(e.target.files[0])}
         />
       </div>
 
@@ -118,7 +144,7 @@ const SignUpForm = () => {
         ></input>
       </div>
       <div className='signup-btn-box'>
-      <button className='signup-btn' type='submit'>Sign Up</button>
+      <button className='signup-btn' type='submit' disabled={!!errors.length}>Sign Up</button>
       </div>
     </form>
     </div>
