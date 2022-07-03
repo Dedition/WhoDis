@@ -1,8 +1,9 @@
 from tokenize import String
 from flask_wtf import FlaskForm
-from wtforms import StringField
+from wtforms import StringField, FileField
 from wtforms.validators import DataRequired, Email, ValidationError
 from app.models import User
+from flask_wtf.file import FileAllowed
 
 
 def user_exists(form, field):
@@ -27,4 +28,5 @@ class SignUpForm(FlaskForm):
                         DataRequired(), user_exists])
     password = StringField('password', validators=[DataRequired()])
     bio = StringField('bio')
-    profile_pic_url = StringField('profile_pic')
+    profile_pic_url = FileField('profile_pic_url', validators=[
+                                FileAllowed(['jpg', 'png', 'jpeg', 'gif', 'img', 'tiff'])])
