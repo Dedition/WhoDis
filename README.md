@@ -1,12 +1,80 @@
-# Flask React Project
+<p align="center">
+  <a href="https://github.com/Dedition/WhoDis">
+    <img src="./react-app/src/images/WhoDisLogo.png" alt="Logo" width="80" height="80" style="background-color:white">
+  </a>
 
-This is the starter for the Flask React project.
+  <h3 align="center">WhoDis?</h3>
+
+  <p align="center">
+   WhoDis?, a Discord clone, is a messaging app that allows users to make servers, channels inside servers and message their friends through channels.
+    <br />
+    <a href="https://github.com/Dedition/WhoDis"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/Dedition/WhoDis">View Site</a>
+    ·
+    <a href="https://github.com/Dedition/WhoDis/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/Dedition/WhoDis/issues">Request Feature</a>
+  </p>
+</p>
+
+
+<details open="open">
+  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="technologies">Technologies</a></li>
+      </ul>
+    </li>
+    <li><a href="#getting-started">Getting Started</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#future-goals">Future Goals</a></li>
+  </ol>
+</details>
+
+
+## About The Project
+
+
+[Click here to view WhoDis? live!](https://whodis-app.herokuapp.com/)
+<br>
+Screenshot (132).png
+</br>
+
+
+## Overall Structure
+
+### Back End
+
+The app was built using Flask/Python and SQLAlchemy on the back end with a PostgreSQL database.
+Model associations are used to minimize database queries to the backend, assuring speed and reliability.
+
+### Front End
+
+The front end is built with React and Javascript while utilizing Redux architecture, producing a lightning-fast user interface and calling upon dynamically rendered components.
+
+
+### Technologies
+
+- [Python](https://www.python.org/)
+- [React](https://reactjs.org/)
+- [Redux](https://redux.js.org/)
+- [Flask](https://flask.palletsprojects.com/en/2.1.x/)
+- [HTML](https://html.com/)
+- [CSS](http://www.css3.info/)
+
+
 
 ## Getting started
 1. Clone this repository (only this branch)
 
    ```bash
-   git clone https://github.com/appacademy-starters/python-project-starter.git
+   git clone https://github.com/Dedition/WhoDis.git
    ```
 
 2. Install dependencies
@@ -39,91 +107,33 @@ This is the starter for the Flask React project.
 
 6. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
 
-***
 
 
-*IMPORTANT!*
-   psycopg2-binary MUST remain a dev dependency because you can't install it on alpine-linux.
-   There is a layer in the Dockerfile that will install psycopg2 (not binary) for us.
-***
+## Roadmap
+See the [open issues](https://github.com/Dedition/WhoDis/issues) for a list of proposed features (and known issues).
 
-### Dev Containers (OPTIONAL for M1 Users)
-The following instructions detail an *optional* development setup for M1 Mac users having issues with the `psycopg` package.
 
-1. Make sure you have the [Microsoft Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension installed. 
-2. Make sure you have [Docker](https://www.docker.com/products/docker-desktop/) installed on your computer. 
-3. Clone the repository (only this branch)
-   ```bash
-   git clone https://github.com/appacademy-starters/python-project-starter.git
-   ```
-4. Open the repo in VS Code. 
-5. Click "Open in Container" when VS Code prompts to open container in the bottom right hand corner. 
-6. **Be Patient!** The initial install will take a LONG time, it's building a container that has postgres preconfigured and even installing all your project dependencies. (For both flask and react!)
+## Contributing
 
-   **Note:** This will take much less time on future starts because everything will be cached.
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+1. Fork the Project
+2. Create your Feature Branch
+3. Commit your Changes 
+4. Push to the Branch 
+5. Open a Pull Request
 
-7. Once everything is up, be sure to make a `.env` file based on `.env.example` in both the root directory and the *react-app* directory before running your app. You do not need a `DATABASE_URL` in the `.env` file if you are using this Docker setup for development - the URL is already set in the image (see `.devcontainer/Dockerfile` for the URL).
 
-8. Get into your pipenv, migrate your database, seed your database, and run your flask app
+## Contact & Acknowledgements
 
-   ```bash
-   pipenv shell
-   ```
+- Leo Lad - [GitHub](https://github.com/Dedition)
+- Weiqi Mei - [GitHub](https://github.com/weiqimei)
+- Sona Jasani - [GitHub](https://github.com/sonajasani)
+- Anthony Rodriguez - [GitHub](https://github.com/AnthonyRo1)
+- Project Link: [https://github.com/Dedition/WhoDis](https://github.com/Dedition/WhoDis)
 
-   ```bash
-   flask db upgrade
-   ```
 
-   ```bash
-   flask seed all
-   ```
 
-   ```bash
-   flask run
-   ```
-
-9. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
-
-<br>
-
-## Deploy to Heroku
-This repo comes configured with Github Actions. When you push to your main branch, Github will automatically pull your code, package and push it to Heroku, and then release the new image and run db migrations. 
-
-1. Write your Dockerfile. In order for the Github action to work effectively, it must have a configured Dockerfile. Follow the comments found in this [Dockerfile](./Dockerfile) to write your own!
-
-2. Create a new project on Heroku.
-
-3. Under Resources click "Find more add-ons" and add the add on called "Heroku Postgres".
-
-4. Configure production environment variables. In your Heroku app settings -> config variables you should have two environment variables set:
-
-   |    Key          |    Value    |
-   | -------------   | ----------- |
-   | `DATABASE_URL`  | Autogenerated when adding postgres to Heroku app |
-   | `SECRET_KEY`    | Random string full of entropy |
-
-5. Generate a Heroku OAuth token for your Github Action. To do so, log in to Heroku via your command line with `heroku login`. Once you are logged in, run `heroku authorizations:create`. Copy the GUID value for the Token key.
-
-6. In your Github Actions Secrets you should have two environment variables set. You can set these variables via your Github repository settings -> secrets -> actions. Click "New respository secret" to create
-each of the following variables:
-
-   |    Key            |    Value    |
-   | -------------     | ----------- |
-   | `HEROKU_API_KEY`  | Heroku Oauth Token (from step 6)|
-   | `HEROKU_APP_NAME` | Heroku app name    |
-
-7. Push to your `main` branch! This will trigger the Github Action to build your Docker image and deploy your application to the Heroku container registry. Please note that the Github Action will automatically upgrade your production database with `flask db upgrade`. However, it will *not* automatically seed your database. You must manually seed your production database if/when you so choose (see step 8).
-
-8. *Attention!* Please run this command *only if you wish to seed your production database*: `heroku run -a HEROKU_APP_NAME flask seed all`
-
-## Helpful commands
-|    Command            |    Purpose    |
-| -------------         | ------------- |
-| `pipenv shell`        | Open your terminal in the virtual environment and be able to run flask commands without a prefix |
-| `pipenv run`          | Run a command from the context of the virtual environment without actually entering into it. You can use this as a prefix for flask commands  |
-| `flask db upgrade`    | Check in with the database and run any needed migrations  |
-| `flask db downgrade`  | Check in with the database and revert any needed migrations  |
-| `flask seed all`      | Just a helpful syntax to run queries against the db to seed data. See the **app/seeds** folder for reference and more details |
-| `heroku login -i`      | Authenticate your heroku-cli using the command line. Drop the -i to authenticate via the browser |
-| `heroku authorizations:create` | Once authenticated, use this to generate an Oauth token |
-| `heroku run -a <app name>` | Run a command from within the deployed container on Heroku |
+## Future Goals
+- Search Bar
+- Direct Messaging
+- Friend Requests
