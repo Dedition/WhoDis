@@ -14,6 +14,7 @@ const ChatField = ({channelId}) => {
     const currentChannelId = useSelector((state) => state.globalActions.channel);
 
     useEffect(() => {
+
         socket = io();
 
         socket.on("chat", (chat) => {

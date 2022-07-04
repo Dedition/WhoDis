@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import EditChatForm from '../EditChatForm/EditChatForm';
 import { Modal } from '../../context/Modal';
 import DeleteChat from '../DeleteChat/DeleteChat';
-
+import { NavLink } from 'react-router-dom';
 
 const EachChat = ({msg, channelId}) => {
 

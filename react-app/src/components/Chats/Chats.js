@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import EachChat from '../EachChat/EachChat';
 import { getAllUsers } from '../../store/allusers';
+import { Route } from 'react-router-dom';
 
 const Chats = ({channelId}) => {
     const dispatch = useDispatch();
@@ -18,7 +19,9 @@ const Chats = ({channelId}) => {
         <div className='chats-container'>
             {
                 messages.map((msg, i) => (
+                    <Route to='/servers/:id/:channelId'>
                 <EachChat key={i} msg={msg} channelId={channelId}/>
+                    </Route>
                 ))
             }
         </div>
