@@ -26,14 +26,12 @@ const deleteMyMessage = (messageId) => ({ type: REMOVE, messageId });
 // TODO ——————————————————————————————————————————————————————————————————————————————————
 
 export const createChannelMessage = (channelId, data) => async (dispatch) => {
-    console.log(data);
     const res = await fetch(`/api/channel_messages/${channelId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
     })
     if (res.ok) {
-        console.log(data, 2)
         const channelMessage = await res.json();
         dispatch(addMessage(channelMessage));
         return channelMessage;
@@ -100,8 +98,9 @@ export default function channelMessages(state = initialState, action) {
     let newState;
     switch (action.type) {
         case ADD:
+            newState = {...state}
             const newMessage = action.message;
-            newState = { ...state, [newMessage.id]: newMessage }
+            newState[newMessage.id] = newMessage;
             return newState;
         case LOAD:
             const allMessages = {}

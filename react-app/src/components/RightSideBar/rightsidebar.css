@@ -3,17 +3,16 @@
     flex-direction: column;
     height: 100vh;
     width: 22%;
-    background-color: aqua;
 }
 
 .right-sidebar-header {
     height: 100px;
     width: 100%;
-    background-color: red;
+    background-color: rgb(24, 48, 35)
 }
 
 .right-sidebar-list {
     height: 100%;
     width: 100%;
-    background-color: red;
+    background-color: rgb(24, 48, 35)
 }

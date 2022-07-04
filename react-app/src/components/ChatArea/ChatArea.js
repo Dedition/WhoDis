@@ -11,7 +11,7 @@ const ChatArea = () => {
     const servers = Object.values(allServers);
     const currentServer = servers.find(server => server?.id == id);
     const bannerUrl = currentServer?.banner_url;
-
+    console.log(id);
 
     return (
         // if id exists, display all chats

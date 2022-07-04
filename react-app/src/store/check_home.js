@@ -16,9 +16,9 @@ const userPage = (url) => ({
     url
 }) 
 
-const getAChannel = (channel) => ({
+const getAChannel = (id) => ({
     type: GET_CHANNEL,
-    channel
+    id
 })
 
 export const getSingleServerId = (id) => dispatch => {
@@ -34,14 +34,8 @@ export const checkPath = (url) => dispatch => {
 
 }
 
-export const getSingleChannel = (id) => async dispatch => {
-    const response = await fetch(`/api/channels/${id}`)
-
-    if (response.ok) {
-        const channel = await response.json();
-        dispatch(getAChannel(channel))
-        return response
-    }
+export const getSingleChannel = (id) => dispatch => {
+        dispatch(getAChannel(id))
 }
 
 export default function globalActions(state = {}, action) {
@@ -64,8 +58,8 @@ export default function globalActions(state = {}, action) {
             return newState
         case GET_CHANNEL:
             newState = {}
-            const channel = action.channel
-            newState['channel'] = channel
+            const id = action.id
+            newState['channel'] = id
             return newState
         default:
             return state

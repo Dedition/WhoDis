@@ -11,6 +11,7 @@ const ChatField = ({channelId}) => {
     const dispatch = useDispatch();
     const [content, setContent] = useState('');
     const user = useSelector((state) => state.session.user);
+    const currentChannelId = useSelector((state) => state.globalActions.channel);
 
     useEffect(() => {
         socket = io();
@@ -21,13 +22,13 @@ const ChatField = ({channelId}) => {
             const payload = {
                 content
             }
-            dispatch(createChannelMessage(channelId, payload))
+            dispatch(createChannelMessage(currentChannelId, payload))
         })
         
         return (() => {
             socket.disconnect();
         })
-    }, [channelId, dispatch])
+    }, [dispatch, currentChannelId])
 
     // const deleteMessage = async(e, msg) => {
     //     e.preventDefault();
