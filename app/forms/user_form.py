@@ -1,7 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField
+from wtforms import StringField, FileField
 from wtforms.validators import DataRequired, Email, ValidationError
 from app.models import User
+from flask_wtf.file import FileAllowed
+
 
 
 def user_exists(form, field):
@@ -25,4 +27,6 @@ class EditUserForm(FlaskForm):
         'username', validators=[DataRequired(), username_exists])
     email = StringField('email', validators=[
                         DataRequired(), user_exists])
+    bio = StringField('bio')
+    profile_pic_url = FileField('profile_pic_url', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif', 'img', 'tiff'])])
     # password = StringField('password', validators=[DataRequired()])

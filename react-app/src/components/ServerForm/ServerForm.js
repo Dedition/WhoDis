@@ -16,7 +16,7 @@ const ServerForm = () => {
 
     useEffect(() => {
         const err = [];
-        if (name.length <= 4) err.push('Server name must be at least 4 characters long.')
+        if (name.length <= 4) err.push('Server name must be at least 5 characters long.')
         setErrors(err)
     }, [name])
 

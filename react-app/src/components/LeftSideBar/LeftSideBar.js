@@ -33,7 +33,7 @@ const LeftSideBar = () => {
 
     const server = servers.find(server => server?.id === +currentServerId)
 
-    const isOwner = server?.owner_id === user.id;
+    const isOwner = server?.owner_id === user?.id;
     const allChannels = useSelector((state) => state.channels)
     const channels = Object.values(allChannels);
 

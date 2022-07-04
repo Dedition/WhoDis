@@ -66,10 +66,7 @@ export const login = (email, password) => async (dispatch) => {
 export const editSingleUser = (userId, data) => async dispatch => {
   const res = await fetch(`/api/users/edit/${userId}`, {
     method: 'PUT',
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
+    body: data
   });
   if (res.ok) {
     const user = await res.json();
