@@ -12,6 +12,7 @@ const DeleteChat = ({messageId, toggleDelete}) => {
         dispatch(deleteMessage(messageId))
         toggleDelete(false);
     }
+    
     return (
         <div>
             <form onSubmit={submitDelete}>

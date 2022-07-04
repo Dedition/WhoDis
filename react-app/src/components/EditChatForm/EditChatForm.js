@@ -9,7 +9,6 @@ const EditChatForm = ({messageId, toggleForm}) => {
     const [content, setContent] = useState('');
     const [errors, setErrors] = useState([]);
 
-
     useEffect(() => {
         const err = [];
         if (content.length <= 0) err.push('Message cannot be empty')
@@ -22,12 +21,12 @@ const EditChatForm = ({messageId, toggleForm}) => {
             content
         }
         dispatch(updateMessage(messageId, payload))
-        toggleForm(false);
+        toggleForm(false)
     }
 
 
     return (
-
+        <>
         <div className='edit-chat-container'>
             <ul className='chat-error'>
             { errors.length > 0 && errors.map((err, i) => (
@@ -48,6 +47,7 @@ const EditChatForm = ({messageId, toggleForm}) => {
                 <button id='edit-chat-btn' type='submit' disabled={!!errors.length}>Edit Chat</button>
             </form>
         </div>
+        </>
     )
 }
 

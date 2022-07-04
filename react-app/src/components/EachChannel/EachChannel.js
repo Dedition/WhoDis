@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import {useDispatch} from 'react-redux';
 import { removeSingleChannel, editSingleChannel } from '../../store/channels';
 import { getChannelMessages } from '../../store/channel_messages';
-
+import { Modal } from '../../context/Modal';
 
 const EachChannel = ({channelInfo, isOwner, serverId}) => {
 
@@ -26,13 +26,13 @@ const EachChannel = ({channelInfo, isOwner, serverId}) => {
             name
         }
         dispatch(editSingleChannel(channelInfo?.id, payload))
-        setToggleForm(!toggleForm);
+        setToggleForm(false);
     }
 
     const submitDelete = (e) => {
         e.preventDefault()
         dispatch(removeSingleChannel(channelInfo?.id))
-        setToggleDelete(!toggleDelete);
+        setToggleDelete(false);
     }
 
     const displayChannel = () => {
@@ -47,10 +47,11 @@ const EachChannel = ({channelInfo, isOwner, serverId}) => {
                 <p id='channel-name'>{channelInfo?.name}</p>
 
                 { isOwner &&
-                <i className="fas fa-edit edit-btn-channel" onClick={() => setToggleForm(!toggleForm)}></i>
+                <i className="fas fa-edit edit-btn-channel" onClick={() => setToggleForm(true)}></i>
                 }
 
                 { toggleForm && 
+                <Modal onClose={() => setToggleForm(false)}>
                 <div className='edit-channel-container'>
                     <h2>Edit Channel Name</h2>
 
@@ -77,20 +78,23 @@ const EachChannel = ({channelInfo, isOwner, serverId}) => {
                         </div>
                     </form>
                 </div>
+                </Modal>
                 }
 
                 { isOwner &&
                 <i className="fas fa-trash 
-                delete-channel-icon" onClick={() => setToggleDelete(!toggleDelete)}></i>}
+                delete-channel-icon" onClick={() => setToggleDelete(true)}></i>}
 
 
                 { toggleDelete && 
+                    <Modal onClose={() => setToggleDelete(false)}>
                         <div className='delete-channel-container'>
                     <form className='delete-channel-form' onSubmit={submitDelete}>
                         <p id='delete-channel-text'>Are you sure you want to delete this channel?</p>
                         <button type='submit' className='delete-btn-channel'>Delete</button>
                     </form>
                 </div>
+                    </Modal>
                 }
 
 
