@@ -17,7 +17,7 @@ const ChatField = ({ channelId }) => {
         const err = [];
         // TODO Adding validation for the input field so that the
         // TODO text can't be sent empty nor longer than necessary
-        if (content.length > 100) err.push('Message is too long. Must be less than 100 characters');
+        if (content.length >= 100) err.push('Message is too long. Must be less than 100 characters');
         setErrors(err);
         socket = io();
 
