@@ -9,6 +9,18 @@ const CreateChannel = ({serverId}) => {
     const history = useHistory();
     const [name, setName] = useState('');
     const [toggleForm, setToggleForm] = useState(false);
+    const [errors, setErrors] = useState([])
+
+
+
+    useEffect(() => {
+        const err = []
+        if (name.length <= 0 ) err.push('Channel name must not be empty') 
+        if (name.length >= 15) err.push('Channel name must be less than 15 characters')
+
+        setErrors(err);
+    }, [name])
+
 
     const submitForm = (e) => {
         e.preventDefault();
@@ -27,7 +39,13 @@ const CreateChannel = ({serverId}) => {
             { toggleForm &&
             <Modal onClose={() => setToggleForm(false)}>
             <div>
+
             <form className='create-channel-form' onSubmit={submitForm}>
+                            <ul>
+                                {errors.length > 0 && errors.map((err, i) => (
+                                    <li key={i}>{err}</li>
+                                ))}
+                            </ul>
                 <p id='create-channel-title'>Create A Channel</p>
                 <label htmlFor='name'></label>
                 <input 
@@ -35,9 +53,9 @@ const CreateChannel = ({serverId}) => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 ></input>
-                <button type='submit' id='create-channel-btn'>Create Channel</button>
+                <button type='submit' id='create-channel-btn' disabled={!!errors.length}>Create Channel</button>
             </form>
-            </div>
+             </div>
             </Modal>
             }
         </div>

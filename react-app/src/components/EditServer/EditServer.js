@@ -19,7 +19,11 @@ const EditServer = ({serverInfo}) => {
 
     useEffect(() => {
         const err = [];
-        if (name.length <= 4) err.push('Server name must be at least 5 characters long.')
+        if (name.length <= 4) err.push('Server name must be at least 5 characters long.');
+
+        if (name.length > 15) err.push('Server name may not be longer than 15');
+
+
         setErrors(err)
     }, [name])
 
@@ -66,8 +70,6 @@ const EditServer = ({serverInfo}) => {
             </Modal>
             }
         </div>
-
-
             {toggleForm &&
             <Modal onClose={() => setToggleForm(false)}>
                 <form onSubmit={submitForm} className='edit-server-form'>

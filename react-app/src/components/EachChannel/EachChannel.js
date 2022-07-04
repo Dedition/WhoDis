@@ -17,7 +17,8 @@ const EachChannel = ({channelInfo, isOwner, serverId}) => {
 
     useEffect(() => {
         const err = [];
-        if (name.length <= 4) err.push('Channel name must be at least 5 character.')
+        if (name.length <= 4) err.push('Channel name must be at least 5 character')
+        if (name.length > 15) err.push('Channel name may not be longer than 15 characters')
         setErrors(err);
     }, [name])
 

@@ -26,8 +26,11 @@ const EditUserCard = () => {
 
         if (email.length <= 0 || !email.includes('@')) err.push('You must enter a valid email');
 
+
+        if (bio.length > 100) err.push('Bio must not be longer than 100 characters')
+
         setErrors(err);
-    }, [name, email])
+    }, [name, email, bio])
 
 
 

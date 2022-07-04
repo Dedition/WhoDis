@@ -26,13 +26,15 @@ const SignUpForm = () => {
 
     if (email.length <= 0 || !email.includes('@')) err.push('Email: You must enter a valid email')
 
-    if (password.length <= 7) err.push('Password: Password must be at least 8 characters.')
+    if (password.length <= 7) err.push('Password: Password must be at least 8 characters')
 
     if (password != repeatPassword) err.push('Password: Passwords do not match')
 
+    if (bio.length > 100) err.push('Bio must not be longer than 100 characters')
+
 
     setErrors(err)
-  }, [username, email, password, repeatPassword])
+  }, [username, email, password, repeatPassword, bio])
 
 
 
