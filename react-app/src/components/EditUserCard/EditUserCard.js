@@ -16,38 +16,36 @@ const EditUserCard = () => {
     const [name, setName] = useState(user?.username);
     const [email, setEmail] = useState(user?.email);
     const [bio, setBio] = useState(user?.bio);
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
     const [profile_pic_url, setProfilePicUrl] = useState(user?.profile_pic_url);
     const [errors, setErrors] = useState([]);
 
 
     useEffect(() => {
         const err = []
-        if (name.length <= 3) err.push('Username must be at least 4 characters')
+        if (name.length <= 3) err.push('Username must be at least 4 characters');
 
-        if (email.length <= 0 || !email.includes('@')) err.push('You must enter a valid email')
-
-        if (password.length <= 7) err.push('Password must be at least 8 characters');
-
-        if (password !== confirmPassword) err.push('Passwords must match');
+        if (email.length <= 0 || !email.includes('@')) err.push('You must enter a valid email');
 
         setErrors(err);
-    }, [name, email, password, confirmPassword])
+    }, [name, email])
 
 
 
     const submitForm = (e) => {
         e.preventDefault();
-        const username = name;
-        const payload = {
-            username,
-            email,
-            bio,
-            profile_pic_url,
-            password
-            }
-        dispatch(editSingleUser(userId, payload));
+        const err = [];
+        const formData = new FormData();
+        formData.append('username', name);
+        formData.append('email', email);
+        formData.append('bio', bio);
+        formData.append('profile_pic_url', profile_pic_url);
+        dispatch(editSingleUser(userId, formData));
+        setTimeout(() => {
+            err.push('Username or email is already in use. Please try a different one.')
+            setErrors(err)
+        }, 700)
+
+
     }
 
 
@@ -59,6 +57,7 @@ const EditUserCard = () => {
 
     return (
         <div className='edit-user-container'>
+            <h2 className='warning-edit-message'>WARNING: Submitting changes to your user information will require you to validate your user info at the login page</h2>
             <div className='edit-user-banner' style={{
                 background: `url(https://images4.alphacoders.com/575/575154.jpg)`,
                 backgroundSize: 'cover',
@@ -113,26 +112,12 @@ const EditUserCard = () => {
                     </input>
                     <label htmlFor='profile_pic_url'>Profile Pic</label>
                     <input
-                        name='profile_pic_url'
-                        type='text'
-                        value={profile_pic_url}
-                        onChange={(e) => setProfilePicUrl(e.target.value)}
-                    >
-                    </input>
-                    <label htmlFor='password'>Password</label>
-                    <input
-                        name='password'
-                        type='password'
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    >
-                    </input>
-                    <label htmlFor='confirm_password'>Confirm Password</label>
-                    <input
-                        name='confirm_password'
-                        type='password'
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
+                    placeholder='Banner Url *Optional'
+                    draggable="false"
+                    type="file"
+                    accept="image/png, image/jpeg, image/png, image/gif"
+                    name='banner_url'
+                    onChange={(e) => setProfilePicUrl(e.target.files[0])}
                     >
                     </input>
                     {user?.username !== 'Demo' ?
