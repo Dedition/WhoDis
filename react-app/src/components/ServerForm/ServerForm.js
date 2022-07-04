@@ -17,7 +17,9 @@ const ServerForm = () => {
 
     useEffect(() => {
         const err = [];
-        if (name.length <= 4) err.push('Server name must be at least 5 characters long.')
+        if (name.length <= 4) err.push('Server name must be at least 5 characters long')
+
+        if (name.length > 15) err.push('Server name may not be longer than 15 characters')
         if (!banner_url.length) err.push('A server must have a banner')
 
         if (!server_icon_url.length) err.push('A server must have a server icon')
@@ -60,7 +62,7 @@ const ServerForm = () => {
                     ))}
                     </ul>
                     <div className='server-name-input'>
-                        <label htmlFor='name'></label>
+                        <label htmlFor='name'>Server Name</label>
                         <input
                             placeholder='Server Name'
                             name='name'
@@ -71,7 +73,7 @@ const ServerForm = () => {
                     </div>
 
                     <div className='server-banner-input'>
-                        <label htmlFor='banner_url'></label>
+                        <label htmlFor='banner_url'>Banner</label>
                         <input
                             draggable="false"
                             type="file"
@@ -84,7 +86,7 @@ const ServerForm = () => {
                     </div>
 
                     <div className='server-icon-input'>
-                        <label htmlFor='server_icon_url'></label>
+                        <label htmlFor='server_icon_url'>Server Icon</label>
                         <input
                             draggable="false"
                             type="file"
