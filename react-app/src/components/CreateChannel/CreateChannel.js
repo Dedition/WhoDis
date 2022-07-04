@@ -4,11 +4,11 @@ import {useState, useEffect} from 'react'
 import { addSingleChannel } from '../../store/channels'
 import { useHistory } from 'react-router-dom'
 import { Modal } from '../../context/Modal'
-const CreateChannel = ({serverId, setToggleForm, toggleForm}) => {
+const CreateChannel = ({serverId}) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const [name, setName] = useState('')
-
+    const [name, setName] = useState('');
+    const [toggleForm, setToggleForm] = useState(false);
 
     const submitForm = (e) => {
         e.preventDefault();

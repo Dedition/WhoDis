@@ -17,7 +17,6 @@ const LeftSideBar = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const [toggleCreateForm, setToggleCreateForm] = useState(true);
 
     useEffect(() => {
         dispatch(getAllServers());
@@ -82,7 +81,7 @@ const LeftSideBar = () => {
 
                 { isOwner &&
                 <div className='add-channel-container'>
-                    <CreateChannel serverId={currentServerId} setToggleForm={setToggleCreateForm} toggleForm={toggleCreateForm} />
+                    <CreateChannel serverId={currentServerId} />
                 </div>
                 }
 
