@@ -179,8 +179,8 @@ class ChannelMessage(db.Model):
     created_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     updated_at = db.Column(db.TIMESTAMP(timezone=False), nullable=False)
     # * Database relationship
-    channels = db.relationship('Channel', back_populates='channel_messages')
-    users = db.relationship('User', back_populates='channel_messages')
+    channels = db.relationship('Channel', back_populates='channel_messages', foreign_keys='ChannelMessage.channel_id')
+    users = db.relationship('User', back_populates='channel_messages', foreign_keys='ChannelMessage.user_id')
 
     def to_dict(self):
         return {

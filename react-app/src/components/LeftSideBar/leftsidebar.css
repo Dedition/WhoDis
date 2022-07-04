@@ -1,7 +1,7 @@
 .left-sidebar-container {
     display: grid;
     grid-template-columns: 1fr 3fr;
-    width: 22.5%;
+    width: 35%;
     height: 100%;
     background-color: rgb(24, 48, 35);
 }
@@ -99,11 +99,23 @@
     align-items: center;
     width: 100%;
     height: 50px;
-    bottom: 0;
+    bottom: 0%;
     background-color: white;;
+    border-top-left-radius: 5px;
 }
 
 
 .fa-cog {
     cursor: pointer;
+}
+
+.right-half-username {
+    font-size: 20px;
+    font-weight: 600;
+    color: whitesmoke;
+}
+
+.icons-bottom {
+    position: relative;
+    top: 84%;
 }

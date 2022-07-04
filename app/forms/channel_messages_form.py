@@ -4,4 +4,4 @@ from wtforms.validators import DataRequired
 
 
 class ChannelMessages(FlaskForm):
-    content = StringField('Content', validators=[DataRequired()])
+    content = StringField('content', validators=[DataRequired()])

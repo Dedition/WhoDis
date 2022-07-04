@@ -37,9 +37,6 @@ const LeftSideBar = () => {
     const allChannels = useSelector((state) => state.channels)
     const channels = Object.values(allChannels);
 
-
-    console.log(channels)
-
     return (
         <div className='left-sidebar-container'>
             <div className='left-half-sb'>
@@ -64,10 +61,12 @@ const LeftSideBar = () => {
             
             <div className='right-half-sb'>
                 <div className='right-half-sb-title top-sb'>
-                    { currentServerId && 
-                    
+                    { currentServerId ?
                     <div className='server-name'>
                     <p id='server-title'>{server?.name}</p>
+                    </div> :
+                    <div className='right-half-username'>
+                        {user?.username}
                     </div>
                     }
                     { isOwner &&
@@ -81,14 +80,15 @@ const LeftSideBar = () => {
                 </div>
                 }
 
-
+                { currentServerId &&
                 <div className='channels-container'>
                     { channels.map((channel, i) => (
                         <EachChannel key={i} channelInfo={channel} isOwner={isOwner} serverId={currentServerId}/>
                     ))}
    
                 </div>
-                <div className="sidebar-profile-icons">
+                }
+                <div className={currentServerId ? "sidebar-profile-icons" : 'sidebar-profile-icons icons-bottom'}>
 
                     <i class="fa-solid fa-microphone sidebar-profile-icon"></i>
 

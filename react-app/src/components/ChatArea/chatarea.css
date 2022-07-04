@@ -1,0 +1,35 @@
+.chat-area-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: red;
+
+}
+
+.chat-area-header {
+    height: 100px;
+    width: 100%;
+    background-color: red;
+}
+
+.chat-area-main {
+    height: 100%;
+    width: 100%;
+    background-color: grey;
+    border-top-right-radius: 10px;
+    overflow-y: auto;
+}
+
+.chat-area-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+    background-color: cadetblue;
+}
+

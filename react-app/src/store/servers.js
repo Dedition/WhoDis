@@ -31,16 +31,11 @@ const getOneServer = (server) => {
     };
 };
 
-export const addSingleServer = (payload) => async dispatch => {
-    const { name, banner_url, server_icon_url, dm_channel, notPrivate, owner_id } = payload
+export const addSingleServer = (data) => async dispatch => {
+    
     const res = await fetch('/api/servers', {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            name, banner_url, server_icon_url, dm_channel, notPrivate, owner_id
-        })
+        body: data
     });
 
     const server = await res.json()

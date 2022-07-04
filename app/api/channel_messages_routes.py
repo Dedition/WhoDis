@@ -24,13 +24,16 @@ def create_channel_message(channel_id):
         form = ChannelMessages()
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
+            print(form.data, 'sdljf;aklsdjfa;sldfjkas;dlfkjsa;lfkjasd;lfkjas;dlfjas;fljasd;fljkskl;j;ljkfa;dfjkafjl;kj')
             channel_message = ChannelMessage(
                 content=form.data['content'], channel_id=channel_id,
-                user_id=current_user.id)
+                user_id=current_user.id,
+                created_at=datetime.utcnow(),
+                updated_at=datetime.utcnow())
 
             db.session.add(channel_message)
             db.session.commit()
-            return channel_message.to_dict(), 201
+            return channel_message.to_dict()
         else:
             return {'errors': error_messages(form.errors)}, 401
 
@@ -83,4 +86,4 @@ def delete_channel_message(channel_message_id):
     if current_user.id == channel_message.user_id:
         db.session.delete(channel_message)
         db.session.commit()
-        return f"Channel Message {channel_message_id} has been deleted!"
+        return channel_message.to_dict()
