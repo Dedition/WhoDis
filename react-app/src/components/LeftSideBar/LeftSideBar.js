@@ -9,6 +9,7 @@ import ServerForm from '../ServerForm/ServerForm';
 import EditServer from '../EditServer/EditServer';
 import EachChannel from '../EachChannel/EachChannel';
 import CreateChannel from '../CreateChannel/CreateChannel';
+import { Redirect } from 'react-router-dom';
 
 const LeftSideBar = () => {
     const {id} = useParams()
