@@ -24,9 +24,9 @@ def create_channel_message(channel_id):
         form = ChannelMessages()
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
-            print(form.data, 'sdljf;aklsdjfa;sldfjkas;dlfkjsa;lfkjasd;lfkjas;dlfjas;fljasd;fljkskl;j;ljkfa;dfjkafjl;kj')
             channel_message = ChannelMessage(
-                content=form.data['content'], channel_id=channel_id,
+                content=form.data['content'], 
+                channel_id=channel_id,
                 user_id=current_user.id,
                 created_at=datetime.utcnow(),
                 updated_at=datetime.utcnow())

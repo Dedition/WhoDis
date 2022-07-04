@@ -6,10 +6,9 @@ import { getAllUsers } from '../../store/allusers';
 
 const Chats = ({channelId}) => {
     const dispatch = useDispatch();
-    const currentState = useSelector((state) => state.channelMessages);
     useEffect(() => {
         dispatch(getAllUsers())
-    }, [channelId, currentState]);
+    }, [channelId]);
 
     const allMessages = useSelector((state) => state.channelMessages);
     const messages = Object.values(allMessages);

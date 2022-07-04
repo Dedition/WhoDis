@@ -5,14 +5,14 @@
     width: 100%;
     padding: 0;
     margin: 0;
-    background-color: red;
+    background-color: rgb(24, 48, 35)
 
 }
 
 .chat-area-header {
     height: 100px;
     width: 100%;
-    background-color: red;
+    background-color: rgb(24, 48, 35)
 }
 
 .chat-area-main {

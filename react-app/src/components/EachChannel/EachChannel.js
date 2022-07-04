@@ -4,11 +4,11 @@ import {useDispatch} from 'react-redux';
 import { removeSingleChannel, editSingleChannel } from '../../store/channels';
 import { getChannelMessages } from '../../store/channel_messages';
 import { Modal } from '../../context/Modal';
-
+import { getSingleChannel } from '../../store/check_home';
 const EachChannel = ({channelInfo, isOwner, serverId}) => {
 
     const dispatch = useDispatch();
-    
+
     const [name, setName] = useState('');
     const [toggleForm, setToggleForm] = useState(false);
     const [toggleDelete, setToggleDelete] = useState(false);
@@ -20,6 +20,10 @@ const EachChannel = ({channelInfo, isOwner, serverId}) => {
         setErrors(err);
     }, [name])
 
+
+
+
+
     const submitEdit = (e) => {
         e.preventDefault()
         const payload = {
@@ -28,17 +32,28 @@ const EachChannel = ({channelInfo, isOwner, serverId}) => {
         dispatch(editSingleChannel(channelInfo?.id, payload))
         setToggleForm(false);
     }
-
     const submitDelete = (e) => {
         e.preventDefault()
         dispatch(removeSingleChannel(channelInfo?.id))
         setToggleDelete(false);
     }
 
+
+
+
     const displayChannel = () => {
+        dispatch(getSingleChannel(channelInfo?.id))
         dispatch(getChannelMessages(channelInfo?.id))
     }
-
+    const triggerEditActions = () => {
+        dispatch(getSingleChannel(channelInfo?.id))
+        setToggleForm(true);
+    }
+    const triggerDeleteActions = () => {
+        console.log(channelInfo?.id)
+        dispatch(getSingleChannel(channelInfo?.id))
+        setToggleDelete(true);
+    }
 
     return (
     <>
@@ -47,7 +62,7 @@ const EachChannel = ({channelInfo, isOwner, serverId}) => {
                 <p id='channel-name'>{channelInfo?.name}</p>
 
                 { isOwner &&
-                <i className="fas fa-edit edit-btn-channel" onClick={() => setToggleForm(true)}></i>
+                        <i className="fas fa-edit edit-btn-channel" onClick={() => triggerEditActions()}></i>
                 }
 
                 { toggleForm && 
@@ -83,7 +98,7 @@ const EachChannel = ({channelInfo, isOwner, serverId}) => {
 
                 { isOwner &&
                 <i className="fas fa-trash 
-                delete-channel-icon" onClick={() => setToggleDelete(true)}></i>}
+                delete-channel-icon" onClick={() => triggerDeleteActions()}></i>}
 
 
                 { toggleDelete && 
