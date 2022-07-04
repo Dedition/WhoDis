@@ -1,6 +1,6 @@
 import './leftsidebar.css'
 import {useSelector, useDispatch} from 'react-redux';
-import { useEffect} from 'react';
+import { useEffect, useState} from 'react';
 import {getAllServers} from '../../store/servers';
 import {getAllChannels} from '../../store/channels';
 import EachServer from '../EachServer/EachServer';
@@ -16,6 +16,8 @@ const LeftSideBar = () => {
 
     const dispatch = useDispatch();
     const history = useHistory();
+
+    const [toggleCreateForm, setToggleCreateForm] = useState(true);
 
     useEffect(() => {
         dispatch(getAllServers());
@@ -60,7 +62,11 @@ const LeftSideBar = () => {
             </div>
             
             <div className='right-half-sb'>
-                <div className='right-half-sb-title top-sb'>
+                <div className='right-half-sb-title top-sb' style={{
+                    background: `url(${server?.banner_url})`,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat'
+                }}>
                     { currentServerId ?
                     <div className='server-name'>
                     <p id='server-title'>{server?.name}</p>
@@ -76,7 +82,7 @@ const LeftSideBar = () => {
 
                 { isOwner &&
                 <div className='add-channel-container'>
-                    <CreateChannel serverId={currentServerId}/>
+                    <CreateChannel serverId={currentServerId} setToggleForm={setToggleCreateForm} toggleForm={toggleCreateForm} />
                 </div>
                 }
 

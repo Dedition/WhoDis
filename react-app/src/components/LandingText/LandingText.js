@@ -38,9 +38,6 @@ const LandingText = () => {
             <div className='landing-demo'>
                 <button className='demo-btn' onClick={loginDemo}>Experience The Anonymity</button>
             </div>
-
-        <LogoutButton/>
-
         </div>
     )
 }

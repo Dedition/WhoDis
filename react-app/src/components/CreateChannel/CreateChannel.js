@@ -3,12 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import {useState, useEffect} from 'react'
 import { addSingleChannel } from '../../store/channels'
 import { useHistory } from 'react-router-dom'
-
-const CreateChannel = ({serverId}) => {
+import { Modal } from '../../context/Modal'
+const CreateChannel = ({serverId, setToggleForm, toggleForm}) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const [name, setName] = useState('')
-    const [toggleForm, setToggleForm] = useState(false);
 
 
     const submitForm = (e) => {
@@ -19,13 +18,14 @@ const CreateChannel = ({serverId}) => {
         dispatch(addSingleChannel(serverId, payload))
         history.push(`/servers/${serverId}`)
         setName('')
-        setToggleForm(!toggleForm)
+        setToggleForm(false)
     }
 
     return (
         <div className='create-channel-container'>
-            <i className="fas fa-wave-square wave-btn" onClick={() => setToggleForm(!toggleForm)}></i>
+            <i class="fas fa-plus add-channel-btn" onClick={() => setToggleForm(true)}>Add Channel</i>
             { toggleForm &&
+            <Modal onClose={() => setToggleForm(false)}>
             <div>
             <form className='create-channel-form' onSubmit={submitForm}>
                 <p id='create-channel-title'>Create A Channel</p>
@@ -38,8 +38,10 @@ const CreateChannel = ({serverId}) => {
                 <button type='submit' id='create-channel-btn'>Create Channel</button>
             </form>
             </div>
+            </Modal>
             }
         </div>
+        
     )
 }
 

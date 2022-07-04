@@ -9,7 +9,7 @@ import MainDiscord from './components/MainDiscord/MainDiscord';
 import LoginPage from './components/LoginPage/LoginPage';
 import SignUpPage from './components/SignUpPage/SignUpPage';
 import UserProfilePage from './components/UserProfilePage/UserProfilePage';
-
+import MockChats from './components/MockChats/MockChats';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -45,6 +45,11 @@ function App() {
 
 
         <ProtectedRoute exact path='/user-profile'><UserProfilePage/></ProtectedRoute>
+
+
+        <ProtectedRoute exact path='/mock'>
+          <MockChats/>
+        </ProtectedRoute>
 
       </Switch>
     </BrowserRouter>

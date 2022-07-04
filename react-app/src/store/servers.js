@@ -57,10 +57,7 @@ export const getAllServers = () => async dispatch => {
 export const editSingleServer = (serverId, data) => async dispatch => {
     const res = await fetch(`/api/servers/${serverId}`, {
         method: 'PUT',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
+        body: data
     });
     if (res.ok) {
         const server = await res.json();

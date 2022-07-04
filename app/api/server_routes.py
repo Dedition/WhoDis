@@ -114,19 +114,47 @@ def update_server(server_id):
         form = ServerForm()
         form['csrf_token'].data = request.cookies['csrf_token']
         if form.validate_on_submit():
+           # TODO AWS S3 Bucket Upload Start - banner_url
+            banner_url = None
+            if request.files:
+                image = request.files['banner_url']
+                if not allowed_file(image.filename):
+                    return {'errors': ['File type not allowed']}, 400
+                image.filename = get_unique_filename(image.filename)
+                upload = upload_file_to_s3(image)
+                if "url" not in upload:
+                    return upload, 400
+                banner_url = upload['url']
+            # TODO AWS S3 Bucket Upload End - banner url
+
+            # TODO AWS S3 Bucket Upload Start - server_icon_url
+            server_icon_url = None
+            if request.files:
+                image = request.files['server_icon_url']
+                if not allowed_file(image.filename):
+                    return {'errors': ['File type not allowed']}, 400
+                image.filename = get_unique_filename(image.filename)
+                upload = upload_file_to_s3(image)
+                if "url" not in upload:
+                    return upload, 400
+                server_icon_url = upload['url']
+
+            # TODO AWS S3 Bucket Upload End - server_icon_url
             if (server.owner_id == current_user.id):
                 server.name = form.data['name']
-                server.banner_url = form.data['banner_url']
-                server.server_icon_url = form.data['server_icon_url']
-                server.dm_channel=form.data['dm_channel']
-                server.public=form.data['public']
+                if banner_url:
+                    server.banner_url = banner_url
+                if server_icon_url:
+                    server.server_icon_url = server_icon_url
+                server.dm_channel = False
+                server.public = False
                 server.owner_id = current_user.id
                 server.created_at = datetime.utcnow()
-                server.updated_at=datetime.utcnow()
+                server.updated_at = datetime.utcnow()
                 db.session.commit()
                 return server.to_dict(), 201
     else:
-        return {'errors': error_messages(form.errors)}
+        return {'errors': error_messages(form.errors)}, 401
 
 
 # TODO ——————————————————————————————————————————————————————————————————————————————————

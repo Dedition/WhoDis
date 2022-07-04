@@ -5,8 +5,8 @@ from datetime import datetime
 def seed_servers():
     demo = Server(
         name='DemoServer',
-        banner_url='https://i.imgur.com/XqQXQ.png',
-        server_icon_url='https://i.imgur.com/XqQXQ.png',
+        banner_url='https://besthqwallpapers.com/Uploads/18-4-2019/87779/thumb2-blue-grunge-background-dark-blue-grunge-texture-paint-texture-creative-blue-background.jpg',
+        server_icon_url='https://images.hdqwalls.com/download/mask-neon-guy-8d-2932x2932.jpg',
         dm_channel=True,
         owner_id=2,
         public=True,
@@ -15,8 +15,8 @@ def seed_servers():
 
     test_server = Server(
         name='TestServer',
-        banner_url='https://i.imgur.com/XqQXQ.png',
-        server_icon_url='https://i.imgur.com/XqQXQ.png',
+        banner_url='https://besthqwallpapers.com/Uploads/18-4-2019/87779/thumb2-blue-grunge-background-dark-blue-grunge-texture-paint-texture-creative-blue-background.jpg',
+        server_icon_url='https://images.hdqwalls.com/download/mask-neon-guy-8d-2932x2932.jpg',
         dm_channel=False,
         owner_id=1,
         public=False,
