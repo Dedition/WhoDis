@@ -2,10 +2,11 @@ import './serverform.css'
 import { useEffect, useState } from 'react'
 import { addSingleServer } from '../../store/servers'
 import {useDispatch} from 'react-redux';
-
+import {Modal} from '../../context/Modal';
 const ServerForm = () => {
 
     const dispatch = useDispatch();
+
 
     const [name, setName] = useState('')
     const [banner_url, setBannerUrl] = useState('')
@@ -17,18 +18,21 @@ const ServerForm = () => {
     useEffect(() => {
         const err = [];
         if (name.length <= 4) err.push('Server name must be at least 5 characters long.')
+        if (!banner_url.length) err.push('A server must have a banner')
+
+        if (!server_icon_url.length) err.push('A server must have a server icon')
         setErrors(err)
     }, [name])
 
 
     const submitForm = (e) => {
         e.preventDefault()
-        const payload = {
-            name,
-            banner_url,
-            server_icon_url
-        }
-        dispatch(addSingleServer(payload))
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('banner_url', banner_url);
+        formData.append('server_icon_url', server_icon_url);
+
+        dispatch(addSingleServer(formData))
         setToggleForm(!toggleForm);
         setName('');
         setBannerUrl('')
@@ -38,7 +42,7 @@ const ServerForm = () => {
     return (
         <>
         <div className='server-form-container'>
-            <div className='server-bubble-form' onClick={() => setToggleForm(!toggleForm)}>
+            <div className='server-bubble-form' onClick={() => setToggleForm(true)}>
 
                 <i className="fas fa-plus-circle add-server-btn"></i>
             </div>
@@ -47,6 +51,7 @@ const ServerForm = () => {
 
 
             {toggleForm &&
+                <Modal onClose={() => setToggleForm(false)}>
                 <form onSubmit={submitForm} className='server-form'>
                     <h1>Create New Server</h1>
                     <ul>
@@ -68,11 +73,12 @@ const ServerForm = () => {
                     <div className='server-banner-input'>
                         <label htmlFor='banner_url'></label>
                         <input
-                            placeholder='Banner Url *Optional'
+                            draggable="false"
+                            type="file"
+                            accept="image/png, image/jpeg, image/png, image/gif"
                             name='banner_url'
-                            type='text'
-                            value={banner_url}
-                            onChange={(e) => setBannerUrl(e.target.value)}
+                            onChange={(e) => setBannerUrl(e.target.files[0])}
+                            required
                         >
                         </input>
                     </div>
@@ -80,17 +86,19 @@ const ServerForm = () => {
                     <div className='server-icon-input'>
                         <label htmlFor='server_icon_url'></label>
                         <input
-                            placeholder='Server Icon Url *Optional'
+                            draggable="false"
+                            type="file"
+                            accept="image/png, image/jpeg, image/png, image/gif"
                             name='server_icon_url'
-                            type='text'
-                            value={server_icon_url}
-                            onChange={(e) => setServerIconUrl(e.target.value)}
+                            onChange={(e) => setServerIconUrl(e.target.files[0])}
+                            required
                         >
                         </input>
                     </div>
                     <button type='submit' className='server-btn'>Submit</button>
                 </form>
-}
+                </Modal>
+}   
         </>
     )
 }

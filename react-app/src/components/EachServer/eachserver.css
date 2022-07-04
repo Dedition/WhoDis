@@ -12,6 +12,22 @@
     align-items: center;
     width: 60%;
     height: 60%;
-    background-color: aqua;
     border-radius: 50%;
+    border: 2px solid black;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.24);
+}
+
+.server-bubble:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.562);
+}
+
+
+#server-link {
+    padding: 18px;
+    text-decoration: none;
+    color: white;
+    font-size: 24px;
 }

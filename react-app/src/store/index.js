@@ -5,12 +5,14 @@ import servers from './servers';
 import channels from './channels';
 import globalActions from './check_home';
 import channelMessages from './channel_messages';
+import users from './allusers';
 const rootReducer = combineReducers({
   session,
   servers,
   channels,
   globalActions,
-  channelMessages
+  channelMessages,
+  users
 });
 
 

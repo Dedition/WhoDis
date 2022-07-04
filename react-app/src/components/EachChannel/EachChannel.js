@@ -2,12 +2,13 @@ import './eachchannel.css'
 import { useState, useEffect } from 'react';
 import {useDispatch} from 'react-redux';
 import { removeSingleChannel, editSingleChannel } from '../../store/channels';
+import { getChannelMessages } from '../../store/channel_messages';
 
 
 const EachChannel = ({channelInfo, isOwner, serverId}) => {
 
     const dispatch = useDispatch();
-
+    
     const [name, setName] = useState('');
     const [toggleForm, setToggleForm] = useState(false);
     const [toggleDelete, setToggleDelete] = useState(false);
@@ -34,10 +35,14 @@ const EachChannel = ({channelInfo, isOwner, serverId}) => {
         setToggleDelete(!toggleDelete);
     }
 
+    const displayChannel = () => {
+        dispatch(getChannelMessages(channelInfo?.id))
+    }
+
 
     return (
     <>
-        <div className='channel-container'>
+        <div className='channel-container' onClick={() => displayChannel()}>
             <div className='channel-each'>
                 <p id='channel-name'>{channelInfo?.name}</p>
 

@@ -1,5 +1,5 @@
 import './landingtext.css'
-import {useHistory} from 'react-router-dom'
+import {useHistory, Redirect} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux';
 import { login } from '../../store/session';
 import LogoutButton from '../auth/LogoutButton';
@@ -18,7 +18,9 @@ const LandingText = () => {
             history.push('/servers/@me')
         } else {
             dispatch(login('demo@aa.io', 'password'));
-            history.push('/servers/@me')
+            setTimeout(() => {
+                history.push('/servers/@me')
+            }, 500)
         }
     };
 
