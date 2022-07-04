@@ -41,7 +41,7 @@ function App() {
         <Route exact path='/login'><LoginPage/></Route>
 
 
-        <Route exact path={['/servers/@me', '/servers/:id']}><MainDiscord/></Route>
+        <Route exact path={['/servers/@me', '/servers/:id', '/servers/:id/:channelId']}><MainDiscord/></Route>
 
 
         <ProtectedRoute exact path='/user-profile'><UserProfilePage/></ProtectedRoute>

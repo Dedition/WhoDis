@@ -5,6 +5,7 @@ import { removeSingleChannel, editSingleChannel } from '../../store/channels';
 import { getChannelMessages } from '../../store/channel_messages';
 import { Modal } from '../../context/Modal';
 import { getSingleChannel } from '../../store/check_home';
+import { NavLink } from 'react-router-dom';
 const EachChannel = ({channelInfo, isOwner, serverId}) => {
 
     const dispatch = useDispatch();
@@ -59,8 +60,9 @@ const EachChannel = ({channelInfo, isOwner, serverId}) => {
     <>
         <div className='channel-container' onClick={() => displayChannel()}>
             <div className='channel-each'>
+                <NavLink to={`/servers/${serverId}/${channelInfo?.id}`}>
                 <p id='channel-name'>{channelInfo?.name}</p>
-
+                </NavLink>
                 { isOwner &&
                         <i className="fas fa-edit edit-btn-channel" onClick={() => triggerEditActions()}></i>
                 }
