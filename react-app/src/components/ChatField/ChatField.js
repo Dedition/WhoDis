@@ -27,7 +27,7 @@ const ChatField = ({channelId}) => {
         return (() => {
             socket.disconnect();
         })
-    }, [])
+    }, [channelId, dispatch])
 
     // const deleteMessage = async(e, msg) => {
     //     e.preventDefault();
