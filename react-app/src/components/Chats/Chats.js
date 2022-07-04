@@ -18,11 +18,12 @@ const Chats = ({channelId}) => {
     return (
         <div className='chats-container'>
             {
-                messages.map((msg, i) => (
+               messages.length ?   messages.map((msg, i) => (
                     <Route to='/servers/:id/:channelId'>
                 <EachChat key={i} msg={msg} channelId={channelId}/>
                     </Route>
-                ))
+                )) :
+                <div>No channel messages to display.</div>
             }
         </div>
     )
