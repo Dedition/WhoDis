@@ -28,27 +28,27 @@ function App() {
 
   return (
     <BrowserRouter>
-     
+
       <Switch>
 
         {/* Should Be Protected Route */}
-        <Route exact path='/'><LandingPage/></Route>
+        <Route exact path='/'><LandingPage /></Route>
 
 
         <Route exact path='/sign-up'><SignUpPage /></Route>
 
 
-        <Route exact path='/login'><LoginPage/></Route>
+        <Route exact path='/login'><LoginPage /></Route>
 
 
-        <Route exact path={['/servers/@me', '/servers/:id', '/servers/:id/:channelId']}><MainDiscord/></Route>
+        <Route exact path={['/servers/@me', '/servers/:id', '/servers/:id/:channelId']}><MainDiscord /></Route>
 
 
-        <ProtectedRoute exact path='/user-profile'><UserProfilePage/></ProtectedRoute>
+        <ProtectedRoute exact path='/user-profile'><UserProfilePage /></ProtectedRoute>
 
 
         <ProtectedRoute exact path='/mock'>
-          <MockChats/>
+          <MockChats />
         </ProtectedRoute>
 
       </Switch>
@@ -57,3 +57,5 @@ function App() {
 }
 
 export default App;
+
+// Nothing to see here.
