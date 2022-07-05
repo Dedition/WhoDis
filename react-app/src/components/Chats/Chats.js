@@ -11,6 +11,7 @@ const Chats = ({ channelId }) => {
         dispatch(getAllUsers())
     }, [channelId]);
     // random comment
+    // random
     const allMessages = useSelector((state) => state.channelMessages);
     const messages = Object.values(allMessages);
 
