@@ -5,12 +5,12 @@ import EachChat from '../EachChat/EachChat';
 import { getAllUsers } from '../../store/allusers';
 import { Route } from 'react-router-dom';
 
-const Chats = ({channelId}) => {
+const Chats = ({ channelId }) => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getAllUsers())
     }, [channelId]);
-
+    // random comment
     const allMessages = useSelector((state) => state.channelMessages);
     const messages = Object.values(allMessages);
 
@@ -18,12 +18,12 @@ const Chats = ({channelId}) => {
     return (
         <div className='chats-container'>
             {
-               messages.length ?   messages.map((msg, i) => (
+                messages.length ? messages.map((msg, i) => (
                     <Route to='/servers/:id/:channelId'>
-                <EachChat key={i} msg={msg} channelId={channelId}/>
+                        <EachChat key={i} msg={msg} channelId={channelId} />
                     </Route>
                 )) :
-                <div>No channel messages to display.</div>
+                    <div>No channel messages to display.</div>
             }
         </div>
     )
